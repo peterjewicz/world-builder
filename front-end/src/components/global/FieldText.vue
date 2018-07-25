@@ -1,0 +1,32 @@
+<template>
+  <div class="row">
+    <div class="field-details">
+      <h4>{{this.title}}</h4>
+      <p>{{this.description}}</p>
+    </div>
+    <div class="field-content">
+      <input type="text" />
+    </div>
+  </div>
+</template>
+
+<script>
+
+export default {
+  name: 'FieldText',
+  props: ['title', 'description'],
+  data () {
+    return {
+
+    }
+  },
+  methods: {
+
+  }
+}
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+
+</style>
