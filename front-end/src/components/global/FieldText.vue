@@ -5,7 +5,7 @@
       <p>{{this.description}}</p>
     </div>
     <div class="field-content">
-      <input type="text" />
+      <input type="text" v-model="fieldValue" v-on:change="handleValueChange"/>
     </div>
   </div>
 </template>
@@ -14,14 +14,17 @@
 
 export default {
   name: 'FieldText',
-  props: ['title', 'description'],
+  props: ['title', 'description', 'value'],
   data () {
     return {
-
+      fieldValue: this.value
     }
   },
   methods: {
-
+    handleValueChange: function () {
+      console.log(this.fieldValue)
+      this.$emit('value', this.fieldValue)
+    }
   }
 }
 </script>

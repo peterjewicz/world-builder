@@ -1,11 +1,11 @@
 <template>
   <div v-if="isactive" class="Overview">
     <h2>Overview</h2>
-    <FormText title="Name" description="What's The Name Of Your Character?"/>
-    <FormText title="Role" description="What's This Characters Role?"/>
-    <FormText title="Nickname(s)" description="Does the character go by any nicknames?"/>
-    <FormText title="Gender" description="What gender is this character?"/>
-    <FormText title="Age" description="How Old Is This Character"/>
+    <FormText title="Name" description="What's The Name Of Your Character?" v-bind:value="nameValue" />
+    <FormText title="Role" description="What's This Characters Role?" v-bind:value="roleValue" />
+    <FormText title="Nickname(s)" description="Does the character go by any nicknames?" v-bind:value="nicknameValue" />
+    <FormText title="Gender" description="What gender is this character?" v-bind:value="genderValue" />
+    <FormText title="Age" description="How Old Is This Character" v-bind:value="ageValue" />
   </div>
 </template>
 
@@ -17,10 +17,15 @@ export default {
   components: {
     FormText
   },
-  props: ['active'],
+  props: ['active', 'values'],
   data () {
+    console.log(this.values)
     return {
-
+      nameValue: '',
+      roleValue: '',
+      nicknameValue: '',
+      genderValue: '',
+      ageValue: ''
     }
   },
   computed: {

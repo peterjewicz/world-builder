@@ -19,7 +19,7 @@
         <h4>History</h4>
       </div>
     </div>
-    <Overview v-bind:active="overviewActive"/>
+    <Overview v-bind:values="this.overviewValues" v-bind:active="overviewActive"/>
     <Background v-bind:active="backgroundActive"/>
     <Personality v-bind:active="personalityActive" />
     <Social v-bind:active="socialActive" />
@@ -48,7 +48,9 @@ export default {
       overviewActive: true,
       backgroundActive: false,
       personalityActive: false,
-      socialActive: false
+      socialActive: false,
+
+      overviewValues: []
 
     }
   },
