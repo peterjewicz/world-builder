@@ -2,6 +2,7 @@
   (:require [ring.util.http-response :refer :all]
             [compojure.api.sweet :refer :all]
             [schema.core :as s]
+            [cheshire.core :refer :all]
             [worldbuilder.db.core :as db]
             [compojure.api.meta :refer [restructure-param]]
             [buddy.auth.accessrules :refer [restrict]]
@@ -98,8 +99,12 @@
     ; TODO attach Middleware route here to check auth
     (POST "/entity" []
       :body-params [type :- String, values :- String]
-      :header-params [authToken :- String]
-      (ok (db/create-entity type s)))
+      ; :header-params [authToken :- String]
+      (ok {:body values}))
+      ; (ok (db/create-entity type values)))
+
+    ; (def jsonitem "{\"overview\":[\"test\",\"test\",\"\",\"\",\"\"],\"background\":[],\"personality\":[\"test\",\"test\",\"\",\"\",\"\",\"\"],\"social\":[]}")
+    ; (def jsonitem (parse-string "{\"overview\":[\"test\",\"test\",\"\",\"\",\"\"],\"background\":[],\"personality\":[\"test\",\"test\",\"\",\"\",\"\",\"\"],\"social\":[]}"))
 
     (POST "/divide" []
       :return      Double

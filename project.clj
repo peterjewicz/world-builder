@@ -4,6 +4,7 @@
   :url "http://example.com/FIXME"
 
   :dependencies [[buddy "2.0.0"]
+                 [cheshire "5.8.0"]
                  [clj-time "0.14.4"]
                  [com.google.guava/guava "20.0"]
                  [com.novemberain/monger "3.1.0" :exclusions [com.google.guava/guava]]

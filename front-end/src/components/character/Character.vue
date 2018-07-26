@@ -19,19 +19,21 @@
         <h4>History</h4>
       </div>
     </div>
-    <Overview v-bind:values="this.overviewValues" v-bind:active="overviewActive"/>
-    <Background v-bind:active="backgroundActive"/>
-    <Personality v-bind:active="personalityActive" />
+    <Overview @valueChanged="valuesChanged" v-bind:values="this.overviewValues" v-bind:active="overviewActive"/>
+    <Background  v-bind:active="backgroundActive"/>
+    <Personality @valueChanged="valuesChanged" v-bind:active="personalityActive" />
     <Social v-bind:active="socialActive" />
+    <button v-on:click="addCharacter">Add!</button>
   </div>
 </template>
 
 <script>
-
 import Overview from './overview/Overview'
 import Background from './background/Background'
 import Personality from './personality/Personality'
 import Social from './social/Social'
+const axios = require('axios');
+const api = process.env.API;
 
 export default {
 
@@ -50,7 +52,14 @@ export default {
       personalityActive: false,
       socialActive: false,
 
-      overviewValues: []
+      overviewValues: [],
+
+      completeValues: {
+        overview: [],
+        background: [],
+        personality: [],
+        social: []
+      }
 
     }
   },
@@ -60,6 +69,30 @@ export default {
       this.backgroundActive = false;
       this.physicalActive = false;
       this[val] = true;
+    },
+    valuesChanged(e) {
+      this.completeValues[e.title] = e.values;
+      console.log(this.completeValues)
+    },
+    addCharacter() {
+      const encodedVal = JSON.stringify(this.completeValues);
+      console.log(encodedVal);
+      return;
+      axios.post(api + '/entity', {
+        type: 'character',
+        values: encodedVal
+      })
+        .then((response) => {
+          // Holds the token for future logins
+          console.log(response)
+        })
+        .catch((response) => {
+          console.log(response);
+          this.loginError = true;
+        })
+        .then(function () {
+          // always executed
+        });
     }
   }
 }
@@ -67,32 +100,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
-
-  .Character {
-    .row {
-      display: flex;
-      max-width: 620px;
-      margin: 0 auto;
-      justify-content: center;
-
-      .field-details {
-        text-align: left;
-        h4 {margin-bottom: 0px;}
-        p {margin-top: 0px;}
-        width: 50%;
-      }
-      .field-content {
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-        width: 50%;
-
-        input {
-          height: 15px;
-        }
-      }
-    }
-  }
   .statsWrapper {
     display: flex;
     text-align: center;

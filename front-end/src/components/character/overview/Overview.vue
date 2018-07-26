@@ -1,11 +1,11 @@
 <template>
   <div v-if="isactive" class="Overview">
     <h2>Overview</h2>
-    <FormText title="Name" description="What's The Name Of Your Character?" v-bind:value="nameValue" />
-    <FormText title="Role" description="What's This Characters Role?" v-bind:value="roleValue" />
-    <FormText title="Nickname(s)" description="Does the character go by any nicknames?" v-bind:value="nicknameValue" />
-    <FormText title="Gender" description="What gender is this character?" v-bind:value="genderValue" />
-    <FormText title="Age" description="How Old Is This Character" v-bind:value="ageValue" />
+    <FormText @valueChanged="formValueChanged" title="Name" description="What's The Name Of Your Character?" v-bind:value="nameValue" />
+    <FormText @valueChanged="formValueChanged" title="Role" description="What's This Characters Role?" v-bind:value="roleValue" />
+    <FormText @valueChanged="formValueChanged" title="Nickname" description="Does the character go by any nicknames?" v-bind:value="nicknameValue" />
+    <FormText @valueChanged="formValueChanged" title="Gender" description="What gender is this character?" v-bind:value="genderValue" />
+    <FormText @valueChanged="formValueChanged" title="Age" description="How Old Is This Character" v-bind:value="ageValue" />
   </div>
 </template>
 
@@ -19,7 +19,6 @@ export default {
   },
   props: ['active', 'values'],
   data () {
-    console.log(this.values)
     return {
       nameValue: '',
       roleValue: '',
@@ -35,7 +34,26 @@ export default {
     }
   },
   methods: {
+    formValueChanged(e) {
+      const title = e.field.toLowerCase();
+      this[title + 'Value'] = e.value
 
+      this._emitValues()
+    },
+    _emitValues() {
+      const valuesArray = {
+        name: this.nameValue,
+        role: this.roleValue,
+        nickname: this.nicknameValue,
+        gender: this.genderValue,
+        age: this.ageValue
+      };
+      const data = {
+        title: 'overview',
+        values: valuesArray
+      }
+      this.$emit('valueChanged', data)
+    }
   }
 }
 </script>

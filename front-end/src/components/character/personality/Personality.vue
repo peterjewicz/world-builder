@@ -1,71 +1,31 @@
 <template>
   <div v-if="isactive" class="Personality">
     <h2>Personality</h2>
-    <div class="row">
-      <div class="field-details">
-        <h4>Personality</h4>
-        <p>Write a General Description About How This Character Acts</p>
-      </div>
-      <div class="field-content">
-        <input type="text" />
-      </div>
-    </div>
-    <div class="row">
-      <div class="field-details">
-        <h4>Motivations/Goals</h4>
-        <p>What Drives This Character To Action</p>
-      </div>
-      <div class="field-content">
-        <input type="text" />
-      </div>
-    </div>
-    <div class="row">
-      <div class="field-details">
-        <h4>Flaws</h4>
-        <p>What Flaws Does This Character Have?</p>
-      </div>
-      <div class="field-content">
-        <input type="text" />
-      </div>
-    </div>
-    <div class="row">
-      <div class="field-details">
-        <h4>Quirks</h4>
-        <p>Does This Character Have any Odd Quirks or Habits?</p>
-      </div>
-      <div class="field-content">
-        <input type="text" />
-      </div>
-    </div>
-    <div class="row">
-      <div class="field-details">
-        <h4>Talents</h4>
-        <p>Is This Character Unusally Talented In any Way?</p>
-      </div>
-      <div class="field-content">
-        <input type="text" />
-      </div>
-    </div>
-    <div class="row">
-      <div class="field-details">
-        <h4>Hobbies</h4>
-        <p>What Hobbies Or Downtime Activities Does This Character Enjoy</p>
-      </div>
-      <div class="field-content">
-        <input type="text" />
-      </div>
-    </div>
+    <FormText @valueChanged="formValueChanged" title="Personality" description="Write a General Description About How This Character Acts" v-bind:value="personalityValue" />
+    <FormText @valueChanged="formValueChanged" title="Motivation" description="What Drives This Character To Action" v-bind:value="motivationValue" />
+    <FormText @valueChanged="formValueChanged" title="Flaws" description="What Flaws Does This Character Have?" v-bind:value="flawsValue" />
+    <FormText @valueChanged="formValueChanged" title="Quirks" description="Does This Character Have any Odd Quirks or Habits?" v-bind:value="quirksValue" />
+    <FormText @valueChanged="formValueChanged" title="Talents" description="Is This Character Unusally Talented In any Way?" v-bind:value="talentsValue" />
+    <FormText @valueChanged="formValueChanged" title="hobbies" description="What Hobbies Or Downtime Activities Does This Character Enjoy" v-bind:value="hobbiesValue" />
   </div>
 </template>
 
 <script>
-
+import FormText from '../../global/FieldText';
 export default {
   name: 'Personality',
+  components: {
+    FormText
+  },
   props: ['active'],
   data () {
     return {
-
+      personalityValue: '',
+      motivationValue: '',
+      flawsValue: '',
+      quirksValue: '',
+      talentsValue: '',
+      hobbiesValue: ''
     }
   },
   computed: {
@@ -75,12 +35,31 @@ export default {
     }
   },
   methods: {
+    formValueChanged(e) {
+      const title = e.field.toLowerCase();
+      this[title + 'Value'] = e.value
+      this._emitValues()
+    },
+    _emitValues() {
+      const valuesArray = {
+        personality: this.personalityValue,
+        motivation: this.motivationValue,
+        flaws: this.flawsValue,
+        quirks: this.quirksValue,
+        talents: this.talentsValue,
+        hobbies: this.hobbiesValue
+      };
 
+      const data = {
+        title: 'personality',
+        values: valuesArray
+      }
+      this.$emit('valueChanged', data)
+    }
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-
+<style lang="scss" scoped>
 </style>

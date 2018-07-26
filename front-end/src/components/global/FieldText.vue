@@ -22,14 +22,39 @@ export default {
   },
   methods: {
     handleValueChange: function () {
-      console.log(this.fieldValue)
-      this.$emit('value', this.fieldValue)
+      const data = {
+        field: this.title,
+        value: this.fieldValue
+      }
+      this.$emit('valueChanged', data)
     }
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style lang="scss" scoped>
+  .row {
+    display: flex;
+    max-width: 620px;
+    margin: 0 auto;
+    justify-content: center;
 
+    .field-details {
+      text-align: left;
+      h4 {margin-bottom: 0px;}
+      p {margin-top: 0px;}
+      width: 50%;
+    }
+    .field-content {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      width: 50%;
+
+      input {
+        height: 15px;
+      }
+    }
+  }
 </style>
