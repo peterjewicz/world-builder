@@ -6,8 +6,8 @@
       <div class="overview stat-item" v-on:click="changeActiveScreen('overviewActive')">
         <h4>Overview</h4>
       </div>
-      <div class="background stat-item" v-on:click="changeActiveScreen('backgroundActive')">
-        <h4>Background</h4>
+      <div class="Physical stat-item" v-on:click="changeActiveScreen('physicalActive')">
+        <h4>Physical</h4>
       </div>
       <div class="personaility stat-item" v-on:click="changeActiveScreen('personalityActive')">
         <h4>Personaility</h4>
@@ -20,7 +20,7 @@
       </div>
     </div>
     <Overview @valueChanged="valuesChanged" v-bind:values="this.overviewValues" v-bind:active="overviewActive"/>
-    <Background  v-bind:active="backgroundActive"/>
+    <Physical @valueChanged="valuesChanged" v-bind:active="physicalActive"/>
     <Personality @valueChanged="valuesChanged" v-bind:active="personalityActive" />
     <Social v-bind:active="socialActive" />
     <button v-on:click="addCharacter">Add!</button>
@@ -29,7 +29,7 @@
 
 <script>
 import Overview from './overview/Overview'
-import Background from './background/Background'
+import Physical from './physical/Physical'
 import Personality from './personality/Personality'
 import Social from './social/Social'
 const axios = require('axios');
@@ -40,7 +40,7 @@ export default {
   name: 'Character',
   components: {
     Overview,
-    Background,
+    Physical,
     Personality,
     Social
 
@@ -48,7 +48,7 @@ export default {
   data () {
     return {
       overviewActive: true,
-      backgroundActive: false,
+      physicalActive: false,
       personalityActive: false,
       socialActive: false,
 
@@ -56,9 +56,9 @@ export default {
 
       completeValues: {
         overview: [],
-        background: [],
-        personality: [],
-        social: []
+        physical: [],
+        personality: []
+        // social: []
       }
 
     }
@@ -66,18 +66,17 @@ export default {
   methods: {
     changeActiveScreen(val) {
       this.overviewActive = false;
-      this.backgroundActive = false;
       this.physicalActive = false;
+      this.personalityActive = false;
+      this.socialActive = false;
       this[val] = true;
     },
     valuesChanged(e) {
       this.completeValues[e.title] = e.values;
-      console.log(this.completeValues)
     },
     addCharacter() {
       const encodedVal = JSON.stringify(this.completeValues);
-      console.log(encodedVal);
-      return;
+
       axios.post(api + '/entity', {
         type: 'character',
         values: encodedVal

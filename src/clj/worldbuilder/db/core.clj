@@ -2,6 +2,7 @@
     (:require [monger.core :as mg]
               [monger.collection :as mc]
               [monger.operators :refer :all]
+              [cheshire.core :refer :all]
               [mount.core :refer [defstate]]
               [buddy.hashers :as hashers]
               [worldbuilder.config :refer [env]])
@@ -45,8 +46,12 @@
 
 
 ;TODO we have to coerce vlaue into its own map
+;TODO pass userID
 (defn create-entity [type, value]
-  (mc/insert db type {:user_id "00000000" :value value}))
+  (let
+    [item (parse-string value true)]
+    (mc/insert db type {:user_id "00000000" :value item}))
+    "Entity Inserted")
 
 (defn find-entity-by-id []
     (def characters (mc/find-maps db "characters" {:user_id "5b4403d3c1025107593fa0b4" }))

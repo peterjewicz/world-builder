@@ -1,17 +1,37 @@
 <template>
   <div v-if="isactive" class="Social">
     <h2>Social</h2>
+    <FormText @valueChanged="formValueChanged" title="Family" description="Who's Related To This Character?" v-bind:value="familyValue" />
+    <FormText @valueChanged="formValueChanged" title="Friends" description="Who's Friends With This Character?" v-bind:value="friendsValue" />
+    <FormText @valueChanged="formValueChanged" title="Enemies" description="Who's Enemies With This Character?" v-bind:value="enemiesValue" />
+    <FormText @valueChanged="formValueChanged" title="Religion" description="Does This Character Follow Any Religions?" v-bind:value="religionValue" />
+    <FormText @valueChanged="formValueChanged" title="Politics" description="Is This Character Involved or Following any Politics?" v-bind:value="politicsValue" />
+    <FormText @valueChanged="formValueChanged" title="Occupation" description="What's This Characters Job?" v-bind:value="occupationValue" />
+    <FormText @valueChanged="formValueChanged" title="Likes" description="What Does This Character Like?" v-bind:value="likesValue" />
+    <FormText @valueChanged="formValueChanged" title="Dislikes" description="What Does This Character Dislike?" v-bind:value="dislikesValue" />
+
   </div>
 </template>
 
 <script>
+import FormText from '../../global/FieldText';
 
 export default {
   name: 'Social',
+  components: {
+    FormText
+  },
   props: ['active'],
   data () {
     return {
-
+      familyValue: '',
+      friendsValue: '',
+      enemiesValue: '',
+      religionValue: '',
+      politicsValue: '',
+      occupationValue: '',
+      likesValue: '',
+      dislikesValue: ''
     }
   },
   computed: {
@@ -21,7 +41,29 @@ export default {
     }
   },
   methods: {
+    formValueChanged(e) {
+      const title = e.field.toLowerCase();
+      this[title + 'Value'] = e.value
+      this._emitValues()
+    },
+    _emitValues() {
+      const valuesArray = {
+        family: this.familyValue,
+        friends: this.friendsValue,
+        enemies: this.enemiesValue,
+        religion: this.religionValue,
+        politics: this.politicsValue,
+        occupation: this.occupationValue,
+        likes: this.likesValue,
+        dislikes: this.dislikesValue
+      };
 
+      const data = {
+        title: 'social',
+        values: valuesArray
+      }
+      this.$emit('valueChanged', data)
+    }
   }
 }
 </script>

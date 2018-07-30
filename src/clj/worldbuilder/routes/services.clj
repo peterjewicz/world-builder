@@ -100,11 +100,8 @@
     (POST "/entity" []
       :body-params [type :- String, values :- String]
       ; :header-params [authToken :- String]
-      (ok {:body values}))
-      ; (ok (db/create-entity type values)))
-
-    ; (def jsonitem "{\"overview\":[\"test\",\"test\",\"\",\"\",\"\"],\"background\":[],\"personality\":[\"test\",\"test\",\"\",\"\",\"\",\"\"],\"social\":[]}")
-    ; (def jsonitem (parse-string "{\"overview\":[\"test\",\"test\",\"\",\"\",\"\"],\"background\":[],\"personality\":[\"test\",\"test\",\"\",\"\",\"\",\"\"],\"social\":[]}"))
+      ; (ok {:body values}))
+      (ok (db/create-entity type values)))
 
     (POST "/divide" []
       :return      Double
