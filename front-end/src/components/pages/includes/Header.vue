@@ -30,11 +30,13 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style lang="scss" >
+  @import '../../../styles/main';
 
   .header {
     display: flex;
-    justify-content: space-between
+    justify-content: space-between;
+    background: $lightBlue;
   }
 
 </style>

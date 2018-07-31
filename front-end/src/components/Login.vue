@@ -41,9 +41,6 @@ export default {
         .catch(() => {
           this.loginError = true;
         })
-        .then(function () {
-          // always executed
-        });
     }
   }
 }
@@ -51,17 +48,17 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
+@import '../styles/main';
 
   .login {
     height: 100%;
     display: flex;
     justify-content: center;
     flex-direction: column;
-    background: #eff3f6;
+    background: $lightGray;
     align-items: center;
 
-    h2 {margin: 0;}
-
+    h2 {margin: 0; margin-bottom: 20px}
     .login-inner {
       max-width: 420px;
     }
