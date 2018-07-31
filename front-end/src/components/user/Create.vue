@@ -1,6 +1,6 @@
 <template>
-  <div class="login">
-    <div class="formWrapper">
+  <div class="create">
+    <div class="create-inner">
       <h2>Sign Up For a New Account</h2>
       <ul id="errors">
         <li v-for="error in errors">
@@ -11,7 +11,7 @@
       <input v-model="email" type="text" name="email" class="email" placeholder="Email"/>
       <input v-model="password" type="text" name="password" class="password" placeholder="Password"/>
       <input v-model="passwordConfirm" type="text" name="password-confirm" class="password-confirm" placeholder="Confirm Password"/>
-      <button v-on:click="handleSignup" type="submit">Sign Up!</button>
+      <button class="primary large" v-on:click="handleSignup" type="submit">Sign Up!</button>
       <p><a href="#">Already Have an Account?</a></p>
     </div>
   </div>
@@ -93,5 +93,16 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
+  .create {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    background: #eff3f6;
+    align-items: center;
 
+    .create-inner {
+      max-width: 420px;
+    }
+  }
 </style>

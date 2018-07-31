@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 import Login from '@/components/Login'
 import Create from '@/components/user/Create'
+import Dashboard from '@/components/pages/Dashboard'
 
 // Import all of your create components here
 import Character from '@/components/character/Character'
@@ -30,6 +31,11 @@ export default new Router({
       path: '/create-character',
       name: 'Create-Character',
       component: Character
+    },
+    {
+      path: '/dashboard',
+      name: 'Dashboard',
+      component: Dashboard
     }
   ]
 })

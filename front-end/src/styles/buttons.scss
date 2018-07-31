@@ -1,0 +1,22 @@
+button.primary {
+  width: 85px;
+  height: 40px;
+  border: 1px solid #e9edf2;
+  background: #69c8e9;
+  transition: all .5s;
+  color: white;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 8px;
+
+  &:hover {
+    background: #4f5f6f;
+  }
+}
+
+
+
+
+button.large {
+  width: 120px;
+}

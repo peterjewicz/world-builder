@@ -1,10 +1,12 @@
 <template>
   <div class="login">
-    <h2>Login</h2>
-    <h4 v-if="loginError">Your Username Or Password Is Incorrect</h4>
-    <input v-model="username" type="text" name="username" class="username" placeholder="Username"/>
-    <input v-model="password" type="text" name="password" class="password" placeholder="Password"/>
-    <button v-on:click="handleLogin" type="submit">Login</button>
+    <div class="login-inner">
+      <h2>LOGIN</h2>
+      <h4 v-if="loginError">Your Username Or Password Is Incorrect</h4>
+      <input v-model="username" type="text" name="username" class="username" placeholder="Username"/>
+      <input v-model="password" type="text" name="password" class="password" placeholder="Password"/>
+      <button class="primary large" v-on:click="handleLogin" type="submit">Login</button>
+    </div>
   </div>
 </template>
 
@@ -48,6 +50,21 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style lang="scss" scoped>
+
+  .login {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    background: #eff3f6;
+    align-items: center;
+
+    h2 {margin: 0;}
+
+    .login-inner {
+      max-width: 420px;
+    }
+  }
 
 </style>
