@@ -1,7 +1,6 @@
 (ns worldbuilder.handler
   (:require
             [worldbuilder.layout :refer [error-page]]
-            [worldbuilder.routes.home :refer [home-routes]]
             [worldbuilder.routes.services :refer [service-routes]]
             [compojure.core :refer [routes wrap-routes]]
             [ring.util.http-response :as response]
@@ -33,11 +32,8 @@
   :start
   (middleware/wrap-base
     (routes
-      (-> #'home-routes
-          (wrap-routes middleware/wrap-csrf)
-          (wrap-routes middleware/wrap-formats))
-          (all-cors service-routes)
-          (route/not-found
-             (:body
-               (error-page {:status 404
-                            :title "page not found"}))))))
+      (all-cors service-routes)
+      (route/not-found
+        (:body
+        (error-page {:status 404
+          :title "page not found"}))))))

@@ -10,25 +10,6 @@
             [buddy.auth :refer [authenticated?]])
             (:import org.bson.types.ObjectId))
 
-          ; (def Activity {
-          ;     :_id s/Str
-          ;     :first_name String })
-          ;
-          ;   (def Activities [Activity])
-          (def cors-headers
-            { "Access-Control-Allow-Origin" "*"
-              "Access-Control-Allow-Headers" "Content-Type"
-              "Access-Control-Allow-Credentials" "true"
-              "Access-Control-Allow-Methods" "GET,POST,OPTIONS" })
-
-          (defn all-cors
-            "Allow requests from all origins"
-            [handler]
-            (fn [request]
-              (let [response (handler request)]
-                (update-in response [:headers]
-                  merge cors-headers ))))
-
 
 (defn access-error [_ _]
   (unauthorized {:error "unauthorized"}))
@@ -37,6 +18,7 @@
   (restrict handler {:handler  rule
                      :on-error access-error}))
 
+; TODO actually make it check stuff
 (defn wrap-api-auth [handler]
   (fn [request]
     (if (= 2 4)

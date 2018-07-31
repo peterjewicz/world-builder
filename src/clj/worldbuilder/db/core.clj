@@ -5,6 +5,7 @@
               [cheshire.core :refer :all]
               [mount.core :refer [defstate]]
               [buddy.hashers :as hashers]
+              [worldbuilder.db.user :as db-user]
               [worldbuilder.config :refer [env]])
               (:import org.bson.types.ObjectId))
 
