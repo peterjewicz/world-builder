@@ -1,5 +1,6 @@
 <template>
   <div class="create">
+    <Header />
     <div class="create-inner">
       <h2>Sign Up For a New Account</h2>
       <ul id="errors">
@@ -18,12 +19,15 @@
 </template>
 
 <script>
-
+import Header from '../global/HeaderFrontend.vue';
 const axios = require('axios');
 const api = process.env.API;
 
 export default {
   name: 'Create',
+  components: {
+    Header
+  },
   data () {
     return {
       username: '',

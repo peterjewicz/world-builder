@@ -1,5 +1,6 @@
 <template>
   <div class="login">
+    <Header />
     <div class="login-inner">
       <h2>LOGIN</h2>
       <h4 v-if="loginError">Your Username Or Password Is Incorrect</h4>
@@ -12,11 +13,15 @@
 
 <script>
 
+import Header from './global/HeaderFrontend.vue';
 const axios = require('axios');
 const api = process.env.API;
 
 export default {
   name: 'HelloWorld',
+  components: {
+    Header
+  },
   data () {
     return {
       username: '',
