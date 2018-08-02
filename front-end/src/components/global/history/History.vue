@@ -20,7 +20,7 @@ export default {
   props: ['active'],
   data () {
     return {
-      data: [],
+      data: []
     }
   },
   computed: {
@@ -35,21 +35,29 @@ export default {
   methods: {
     generateHistoryItems() {
       // TODO Pull this from somewhere else
-      const historyPoints = [{
-        title: 'test',
-        time: 100,
-        desc: 'test text here for stuff'
-      },
-      {
-        title: 'test2',
-        time: 150,
-        desc: 'test text here for stuffssss'
-      }];
+      const historyPoints = [
+        {
+          title: 'another',
+          time: 300,
+          desc: 'suff'
+        },
+        {
+          title: 'test',
+          time: 100,
+          desc: 'test text here for stuff'
+        },
+        {
+          title: 'test2',
+          time: 50,
+          desc: 'test text here for stuffssss'
+        }];
+
+      const sortedData = historyPoints.sort((a,b) => {
+        return a.time > b.time ? true : false;
+      });
 
       // TODO we need to first sort the historyPoints array based on time
-
-
-      this.data = historyPoints;
+      this.data = sortedData;
     }
   }
 }
