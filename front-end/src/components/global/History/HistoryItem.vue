@@ -31,6 +31,19 @@ export default {
     text-align: center;
     background: #dad95f;
     margin: 100px 0;
+    position: relative;
+
+    &:not(:last-of-type) {
+      &:before {
+        content: '';
+        background: black;
+        position: absolute;
+        bottom: -100px;
+        left: calc(50% - 2px);
+        width: 4px;
+        height: 100px;
+      }
+    }
   }
 
 </style>

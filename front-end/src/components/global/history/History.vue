@@ -2,9 +2,8 @@
   <div v-if="isactive">
     <h2>History</h2>
     <div class="history-wrapper">
-      <div v-for="item in data">
-        <HistoryItem v-bind:title="item.title" v-bind:time="item.time" v-bind:desc="item.desc"/>
-      </div>
+      <!-- eslint-disable-next-line -->
+      <HistoryItem v-for="item in data" v-bind:key="index" v-bind:title="item.title" v-bind:time="item.time" v-bind:desc="item.desc"/>
     </div>
   </div>
 </template>
@@ -52,11 +51,13 @@ export default {
           desc: 'test text here for stuffssss'
         }];
 
-      const sortedData = historyPoints.sort((a,b) => {
-        return a.time > b.time ? true : false;
+      // We created a new local var as we still need to add the arrows and stuff
+      let sortedData = historyPoints.sort((a, b) => {
+        return a.time > b.time;
       });
 
-      // TODO we need to first sort the historyPoints array based on time
+        // TODO we need to add the checks to put the arrows here on the sortedData array
+
       this.data = sortedData;
     }
   }
