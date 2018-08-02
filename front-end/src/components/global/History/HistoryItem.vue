@@ -1,6 +1,8 @@
 <template>
-  <div class="row">
-    <h2>HistoryItem</h2>
+  <div class="historyItem">
+    <h2>{{title}}</h2>
+    <p>{{time}}</p>
+    <p>{{desc}}</p>
   </div>
 </template>
 
@@ -8,7 +10,7 @@
 
 export default {
   name: 'HistoryItem',
-  props: [],
+  props: ['title', 'time', 'desc', 'arrowUp', 'arrowDown'],
   data () {
     return {
 
@@ -22,5 +24,13 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
+
+  .historyItem {
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    background: #dad95f;
+    margin: 100px 0;
+  }
 
 </style>

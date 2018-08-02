@@ -4,9 +4,9 @@
     <h2>What Would You Like To Do</h2>
     <div class="dashboard-body">
       <EntityCard title="Characters" newurl="/new/character" allurl="/all/character"/>
-      <EntityCard title="Places"/>
-      <EntityCard title="Regions"/>
-      <EntityCard title="Cities"/>
+      <EntityCard title="Places" newurl="/new/character" allurl="/all/character"/>
+      <EntityCard title="Regions" newurl="/new/character" allurl="/all/character"/>
+      <EntityCard title="Cities" newurl="/new/character" allurl="/all/character"/>
     </div>
   </div>
 </template>
@@ -33,5 +33,12 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
+
+  .dashboard-body {
+    .entity {
+      float: left;
+      margin: 20px;
+    }
+  }
 
 </style>

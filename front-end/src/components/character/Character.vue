@@ -15,7 +15,7 @@
       <div class="social stat-item" v-on:click="changeActiveScreen('socialActive')">
         <h4>Social</h4>
       </div>
-      <div class="history stat-item">
+      <div class="history stat-item" v-on:click="changeActiveScreen('historyActive')">
         <h4>History</h4>
       </div>
     </div>
@@ -23,7 +23,8 @@
     <Physical @valueChanged="valuesChanged" v-bind:active="physicalActive"/>
     <Personality @valueChanged="valuesChanged" v-bind:active="personalityActive" />
     <Social v-bind:active="socialActive" />
-    <button v-on:click="addCharacter">Add!</button>
+    <History v-bind:active="historyActive" />
+    <button class="primary large" v-on:click="addCharacter">Save Character!</button>
   </div>
 </template>
 
@@ -32,6 +33,7 @@ import Overview from './overview/Overview'
 import Physical from './physical/Physical'
 import Personality from './personality/Personality'
 import Social from './social/Social'
+import History from '../global/history/History'
 const axios = require('axios');
 const api = process.env.API;
 
@@ -42,15 +44,19 @@ export default {
     Overview,
     Physical,
     Personality,
-    Social
+    Social,
+    History
 
   },
   data () {
     return {
-      overviewActive: true,
+
+      // TODO Change this back once you're done with the History Studd
+      overviewActive: false,
       physicalActive: false,
       personalityActive: false,
       socialActive: false,
+      historyActive: true,
 
       overviewValues: [],
 
@@ -69,7 +75,9 @@ export default {
       this.physicalActive = false;
       this.personalityActive = false;
       this.socialActive = false;
+      this.historyActive = false;
       this[val] = true;
+      console.log(this.historyActive);
     },
     valuesChanged(e) {
       this.completeValues[e.title] = e.values;

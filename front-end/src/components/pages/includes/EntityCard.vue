@@ -27,12 +27,13 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
+  @import '../../../styles/main';
 
   .entity {
     width: 300px;
     min-width: 300px;
     height: 150px;
-    background: red;
+    border: 2px solid $darkBlue;
     display: flex;
     flex-direction: column;
 
