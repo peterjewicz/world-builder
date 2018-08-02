@@ -30,20 +30,61 @@ export default {
     padding: 10px;
     text-align: center;
     background: #dad95f;
-    margin: 100px 0;
+    margin: 200px 0;
     position: relative;
+    right: 320px;
+    &:before {
+      content: '';
+      background: black;
+      position: absolute;
+      top: -100px;
+      right: calc(-2px - 140px);
+      width: 4px;
+      height: 400px;
+    }
+    &:after {
+      content: '';
+      background: black;
+      position: absolute;
+      top: 50%;
+      right: calc(0px - 140px);
+      width: 140px;
+      height: 4px;
+    }
 
-    &:not(:last-of-type) {
+    &:nth-child(even) {
+      left: 320px;
       &:before {
         content: '';
         background: black;
         position: absolute;
-        bottom: -100px;
-        left: calc(50% - 2px);
+        top: -100px;
+        left: calc(-2px - 160px);
         width: 4px;
-        height: 100px;
+        height: 400px;
+      }
+      &:after {
+        content: '';
+        background: black;
+        position: absolute;
+        top: 50%;
+        left: calc(0px - 160px);
+        width: 160px;
+        height: 4px;
       }
     }
+
+    // &:not(:last-of-type) {
+    //   &:before {
+    //     content: '';
+    //     background: black;
+    //     position: absolute;
+    //     to: -100px;
+    //     left: calc(50% - 2px);
+    //     width: 4px;
+    //     height: 100px;
+    //   }
+    // }
   }
 
 </style>

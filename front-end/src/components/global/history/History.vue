@@ -69,7 +69,7 @@ export default {
 
   .history-wrapper {
     display: block;
-    max-width: 420px;
+    max-width: 320px;
     margin: 0 auto;
   }
 
