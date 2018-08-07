@@ -72,6 +72,12 @@
       :summary     "Gets all the worlds related to a specific 'id'"
       (ok {:body (db/get-worlds-by-id id)}))
 
+    (POST "/worlds" []
+      :body-params [name :- String]
+      :header-params [token :- String]
+      ; :middleware [wrap-api-auth]
+      :summary "Creates a new world with 'name'"
+      (ok (db/create-new-world name "5b4403d3c1025107593fa0b4")))
 
     (GET "/entity/:type/" []
       :path-params [type :- String]

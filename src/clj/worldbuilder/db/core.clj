@@ -66,8 +66,10 @@
 ;gets a specific entity of type && id
 (defn get-entity-by-id [type id])
 
+;TODO remove the println and replace with something a bit better, that's probably not the right way to do it
 (defn create-new-world [name id]
-  (mc/insert db "worlds" {:user_id "5b4403d3c1025107593fa0b4" :name "world3"}))
+  (mc/insert db "worlds" {:user_id "5b4403d3c1025107593fa0b4" :name name})
+  (println "World Created"))
 ;
 (defn get-worlds-by-id [id]
   (let [worlds (mc/find-maps db "worlds" {:user_id "5b4403d3c1025107593fa0b4" })]
