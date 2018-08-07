@@ -1,12 +1,13 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
-import Login from '@/components/Login'
-import Create from '@/components/user/Create'
-import Dashboard from '@/components/pages/Dashboard'
+import Vue from 'vue';
+import Router from 'vue-router';
+import HelloWorld from '@/components/HelloWorld';
+import Login from '@/components/Login';
+import Create from '@/components/user/Create';
+import Dashboard from '@/components/pages/Dashboard';
+import NewWorld from '@/components/NewWorld';
 
-// Import all of your create components here
-import Character from '@/components/character/Character'
+// Import all of your entity components here
+import Character from '@/components/character/Character';
 
 // Bring in all the required liraries and extras
 const axios = require('axios');
@@ -25,6 +26,18 @@ export default new Router({
       path: '/login',
       name: 'Login',
       component: Login
+    },
+    {
+      path: '/new-world',
+      name: 'NewWorld',
+      component: NewWorld,
+      beforeEnter: (to, from, next) => {
+        if (localStorage.getItem('token')) {
+          next();
+        } else {
+          next({ path: 'login' })
+        }
+      }
     },
     {
       path: '/create',
