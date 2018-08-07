@@ -66,6 +66,17 @@
 ;gets a specific entity of type && id
 (defn get-entity-by-id [type id])
 
+(defn create-new-world [name id]
+  (mc/insert db "worlds" {:user_id "5b4403d3c1025107593fa0b4" :name "world3"}))
+;
+(defn get-worlds-by-id [id]
+  (let [worlds (mc/find-maps db "worlds" {:user_id "5b4403d3c1025107593fa0b4" })]
+        (if (not-empty worlds)
+          (map ; Turn characters into a modified list
+            #(update % :_id str) ; By updating each map :id by casting to a string
+            worlds)
+          (println "No Worlds"))))
+
 ;********USER SPECIFIC DB OPERATIONS*********
 
 (defn get-user-by-id [id]

@@ -67,6 +67,12 @@
       (ok (* x y)))
 
 
+    (GET "/:id/worlds/" []
+      :path-params [id :- String]
+      :summary     "Gets all the worlds related to a specific 'id'"
+      (ok {:body (db/get-worlds-by-id id)}))
+
+
     (GET "/entity/:type/" []
       :path-params [type :- String]
       :summary     "Gets all entities of type by user `id`"
