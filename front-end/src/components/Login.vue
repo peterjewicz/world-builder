@@ -18,7 +18,7 @@ const axios = require('axios');
 const api = process.env.API;
 
 export default {
-  name: 'HelloWorld',
+  name: 'Login',
   components: {
     Header
   },

@@ -43,7 +43,7 @@ export default {
         {
           title: 'test',
           time: 100,
-          desc: 'test text here for stuff'
+          desc: 'test text here for stuff test text here for stuff test text here for stuff test text here for stuff test text here for stuff test text here for stuff test text here for stuff test text here for stuff'
         },
         {
           title: 'test2',

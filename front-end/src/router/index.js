@@ -8,6 +8,10 @@ import Dashboard from '@/components/pages/Dashboard'
 // Import all of your create components here
 import Character from '@/components/character/Character'
 
+// Bring in all the required liraries and extras
+const axios = require('axios');
+const api = process.env.API;
+
 Vue.use(Router)
 
 export default new Router({
@@ -35,7 +39,22 @@ export default new Router({
     {
       path: '/dashboard',
       name: 'Dashboard',
-      component: Dashboard
+      component: Dashboard,
+      beforeEnter: (to, from, next) => {
+        const id = '10';
+        axios.get(api + '/' + id + '/worlds/')
+          .then((response) => {
+            if (response.data === '') {
+              next({ path: 'login' })
+            } else {
+              next();
+            }
+          })
+          .catch((error) => {
+            // redirect to login
+            console.log(error)
+          })
+      }
     }
   ]
 })

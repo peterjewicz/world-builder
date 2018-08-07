@@ -1,7 +1,7 @@
 <template>
   <div class="historyItem">
-    <h2>{{title}}</h2>
-    <p>{{time}}</p>
+    <p class="date">{{time}}</p>
+    <h4>{{title}}</h4>
     <p>{{desc}}</p>
   </div>
 </template>
@@ -10,7 +10,7 @@
 
 export default {
   name: 'HistoryItem',
-  props: ['title', 'time', 'desc', 'arrowUp', 'arrowDown'],
+  props: ['title', 'time', 'desc'],
   data () {
     return {
 
@@ -33,6 +33,18 @@ export default {
     margin: 200px 0;
     position: relative;
     right: 320px;
+
+    .date {
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      margin: 0;
+    }
+
+    h4 {
+      margin: 0;
+    }
+
     &:before {
       content: '';
       background: black;
@@ -73,18 +85,39 @@ export default {
         height: 4px;
       }
     }
+  }
 
-    // &:not(:last-of-type) {
-    //   &:before {
-    //     content: '';
-    //     background: black;
-    //     position: absolute;
-    //     to: -100px;
-    //     left: calc(50% - 2px);
-    //     width: 4px;
-    //     height: 100px;
-    //   }
-    // }
+  @media(max-width: 1024px) {
+    .historyItem {
+      right: 160px;
+
+      &:nth-child(even) {
+        left: 160px;
+      }
+    }
+  }
+
+  @media(max-width: 768px) {
+    .historyItem {
+      width: 100%;
+      right: 0px;
+      left: 0px !important;
+      &:before {
+        top: 100%;
+        right: 50%;
+        height: 200px;
+      }
+      &:after {
+        display: none;
+      }
+      &:nth-child(even) {
+        &:before {
+          top: 100%;
+          left: 50%;
+          height: 200px;
+        }
+      }
+    }
   }
 
 </style>
