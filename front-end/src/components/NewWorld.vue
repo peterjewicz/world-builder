@@ -29,13 +29,15 @@ export default {
   },
   methods: {
     createWorld() {
-      axios.post(api + '/worlds', {
-        name: this.worldName,
-        headers: {'token': 'foobar'}
-        // send header here with localstorage.getItem('token');
+      axios({
+        url: api + '/worlds',
+        method: 'post',
+        data: {name: this.worldName},
+        headers: {'token': localStorage.getItem('token')}
       })
         .then((response) => {
           alert('World Successfully Created!');
+          this.$router.push('dashboard');
         })
         .catch((error) => {
           console.log(error)
@@ -50,4 +52,13 @@ export default {
 <style lang="scss" scoped>
   @import '../styles/main';
 
+  .NewWorld {
+    padding-top: $globalPadding / 2;
+    max-width: 320px;
+    margin: 0 auto;
+
+    h2{
+      margin: 0;
+    }
+  }
 </style>

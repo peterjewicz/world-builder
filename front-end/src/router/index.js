@@ -1,4 +1,6 @@
 import Vue from 'vue';
+import store from '../store/store.js';
+
 import Router from 'vue-router';
 import HelloWorld from '@/components/HelloWorld';
 import Login from '@/components/Login';
@@ -54,12 +56,17 @@ export default new Router({
       name: 'Dashboard',
       component: Dashboard,
       beforeEnter: (to, from, next) => {
-        const id = '10';
-        axios.get(api + '/' + id + '/worlds/')
+        const id = localStorage.getItem('token');
+        axios({
+          url: api + '/' + id + '/worlds/',
+          method: 'get',
+          headers: {'token': localStorage.getItem('token')}
+        })
           .then((response) => {
-            if (response.data === '') {
-              next({ path: 'login' })
+            if (response.data.body === null) {
+              next({ path: 'new-world' })
             } else {
+              store.commit('saveWorlds', response.data.body)
               next();
             }
           })

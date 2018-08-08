@@ -2,6 +2,7 @@
   <div class="dashboard">
     <Header />
     <h2>What Would You Like To Do</h2>
+    <p>Here you can add details to your world. To switch worlds check the drop down in the upper-right.</p>
     <div class="dashboard-body">
       <EntityCard title="Characters" newurl="/new/character" allurl="/all/character"/>
       <EntityCard title="Places" newurl="/new/character" allurl="/all/character"/>
@@ -27,6 +28,9 @@ export default {
   },
   methods: {
 
+  },
+  mounted() {
+    // console.log(this.$store.getters.getWorlds)
   }
 }
 </script>
