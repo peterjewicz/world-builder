@@ -37,7 +37,7 @@ export default {
       })
         .then((response) => {
           alert('World Successfully Created!');
-          this.$router.push('dashboard');
+          this.$router.push('dashboard?world=' + this.worldName);
         })
         .catch((error) => {
           console.log(error)

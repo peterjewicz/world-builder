@@ -10,6 +10,9 @@ import NewWorld from '@/components/NewWorld';
 
 // Import all of your entity components here
 import Character from '@/components/character/Character';
+import Location from '@/components/location/Location';
+import Region from '@/components/region/Region';
+import City from '@/components/city/City';
 
 // Bring in all the required liraries and extras
 const axios = require('axios');
@@ -47,9 +50,24 @@ export default new Router({
       component: Create
     },
     {
-      path: '/create-character',
+      path: '/new/character',
       name: 'Create-Character',
       component: Character
+    },
+    {
+      path: '/new/location',
+      name: 'Create-Location',
+      component: Location
+    },
+    {
+      path: '/new/region',
+      name: 'Create-Region',
+      component: Region
+    },
+    {
+      path: '/new/city',
+      name: 'Create-City',
+      component: City
     },
     {
       path: '/dashboard',

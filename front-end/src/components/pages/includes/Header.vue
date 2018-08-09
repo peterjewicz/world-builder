@@ -7,7 +7,9 @@
       Title
     </div>
     <div>
-      World Switcher
+      <select>
+        <option v-for="world in worlds">{{ world.name }}</option>
+      </select>
     </div>
     <div>
       Profile
@@ -21,6 +23,7 @@ export default {
   name: 'Header',
   data () {
     return {
+      worlds: this.$store.getters.getWorlds
     }
   },
   methods: {
