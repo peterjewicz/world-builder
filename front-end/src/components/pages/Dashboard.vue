@@ -6,24 +6,23 @@
     <div class="dashboard-body">
       <h3>Characters & Races </h3>
       <EntityCard title="Characters" newurl="/new/character" allurl="/all/character"/>
-      <EntityCard title="Races" newurl="/new/character" allurl="/all/character"/>
-      <EntityCard title="Creatures" newurl="/new/character" allurl="/all/character"/>
+      <EntityCard title="Creatures" newurl="/new/creature" allurl="/all/character"/>
     </div>
     <div class="dashboard-body">
       <h3>Locations</h3>
-      <EntityCard title="Regions/Countries" newurl="/new/character" allurl="/all/character"/>
-      <EntityCard title="Cities" newurl="/new/character" allurl="/all/character"/>
-      <EntityCard title="Point Of Interest" newurl="/new/character" allurl="/all/character"/>
+      <EntityCard title="Regions/Countries" newurl="/new/region" allurl="/all/character"/>
+      <EntityCard title="Cities" newurl="/new/city" allurl="/all/character"/>
+      <EntityCard title="Point Of Interest" newurl="/new/pointOfInterest" allurl="/all/character"/>
     </div>
     <div class="dashboard-body">
       <h3>Social</h3>
-      <EntityCard title="Religions" newurl="/new/character" allurl="/all/character"/>
-      <EntityCard title="Languages" newurl="/new/character" allurl="/all/character"/>
+      <EntityCard title="Religions" newurl="/new/religion" allurl="/all/character"/>
+      <EntityCard title="Languages" newurl="/new/language" allurl="/all/character"/>
     </div>
     <div class="dashboard-body">
       <h3>Fantasy</h3>
-      <EntityCard title="Spells" newurl="/new/character" allurl="/all/character"/>
-      <EntityCard title="Items" newurl="/new/character" allurl="/all/character"/>
+      <EntityCard title="Spells" newurl="/new/spell" allurl="/all/character"/>
+      <EntityCard title="Items" newurl="/new/item" allurl="/all/character"/>
     </div>
   </div>
 </template>
@@ -47,7 +46,7 @@ export default {
 
   },
   mounted() {
-    // console.log(this.$route.query.world)
+    console.log(this.$route.query.world)
   }
 }
 </script>

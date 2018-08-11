@@ -4,8 +4,8 @@
       <h3>{{title}}</h3>
     </div>
     <div class="entity-inner">
-      <h4><a v-bind:href="newurl">New</a></h4>
-      <h4><a v-bind:href="allurl">View All</a></h4>
+      <h4><router-link v-bind:to="newurl">New</router-link></h4>
+      <h4><router-link v-bind:to="allurl">View All</router-link></h4>
     </div>
   </div>
 </template>

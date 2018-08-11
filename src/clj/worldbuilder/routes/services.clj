@@ -21,9 +21,12 @@
 ; TODO actually make it check stuff
 (defn wrap-api-auth [handler]
   (fn [request]
-    (if (= 2 4)
-      (handler request)     ; pass to wrapped handler
-      (unauthorized {:error "unauthorized"}))))
+    (let
+      [token (get (:headers request) "token")
+       user (db/get-user-by-token token)]
+      (if user
+        (handler (assoc request :user user))     ; pass to wrapped handler
+        (unauthorized {:error "unauthorized"})))))
 
 (defmethod restructure-param :auth-rules
   [_ rule acc]
@@ -67,17 +70,18 @@
       (ok (* x y)))
 
 
-    (GET "/:id/worlds/" []
+    (GET "/:id/worlds/" request
       :path-params [id :- String]
       :summary     "Gets all the worlds related to a specific 'id'"
-      (ok {:body (db/get-worlds-by-id id)}))
+      :middleware [wrap-api-auth]
+      (ok {:body (db/get-worlds-by-id (:_id (:user request)))}))
 
-    (POST "/worlds" []
+    (POST "/worlds" request
       :body-params [name :- String]
       :header-params [token :- String]
-      ; :middleware [wrap-api-auth]
+      :middleware [wrap-api-auth]
       :summary "Creates a new world with 'name'"
-      (ok (db/create-new-world name "5b4403d3c1025107593fa0b4")))
+      (ok (db/create-new-world name (:_id (:user request)))))
 
     (GET "/entity/:type/" []
       :path-params [type :- String]

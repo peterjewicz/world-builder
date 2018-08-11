@@ -2,6 +2,7 @@
   (:require [clojure.test :refer :all]
             [ring.mock.request :refer :all]
             [worldbuilder.handler :refer :all]
+            [worldbuilder.db.core :as db]
             [mount.core :as mount]))
 
 (use-fixtures
@@ -18,4 +19,8 @@
 
   (testing "not-found route"
     (let [response (app (request :get "/invalid"))]
-      (is (= 404 (:status response))))))
+      (is (= 404 (:status response)))))
+
+  (testing "create user"
+    (let [result (db/create-user "test" "test" "test")]
+    (is (true? true)))))

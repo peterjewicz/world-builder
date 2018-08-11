@@ -1,21 +1,27 @@
 <template>
   <div class="Character">
+    <Header />
+    <div class="subHeader">
+      <div class="maxWidthWrap">
+        <router-link to="/dashboard"><i class="fas fa-arrow-left"></i>Back To World</router-link>
+      </div>
+    </div>
     <h2>Character</h2>
     <p>Create a new character here. Fill in as much or as little data a you want!</p>
     <div class="statsWrapper">
-      <div class="overview stat-item" v-on:click="changeActiveScreen('overviewActive')">
+      <div class="overview stat-item" v-bind:class="{ active: overviewActive }" v-on:click="changeActiveScreen('overviewActive')">
         <h4>Overview</h4>
       </div>
-      <div class="Physical stat-item" v-on:click="changeActiveScreen('physicalActive')">
+      <div class="Physical stat-item" v-bind:class="{ active: physicalActive }"  v-on:click="changeActiveScreen('physicalActive')">
         <h4>Physical</h4>
       </div>
-      <div class="personaility stat-item" v-on:click="changeActiveScreen('personalityActive')">
+      <div class="personaility stat-item" v-bind:class="{ active: personalityActive }" v-on:click="changeActiveScreen('personalityActive')">
         <h4>Personaility</h4>
       </div>
-      <div class="social stat-item" v-on:click="changeActiveScreen('socialActive')">
+      <div class="social stat-item" v-bind:class="{ active: socialActive }" v-on:click="changeActiveScreen('socialActive')">
         <h4>Social</h4>
       </div>
-      <div class="history stat-item" v-on:click="changeActiveScreen('historyActive')">
+      <div class="history stat-item" v-bind:class="{ active: historyActive }" v-on:click="changeActiveScreen('historyActive')">
         <h4>History</h4>
       </div>
     </div>
@@ -34,6 +40,8 @@ import Physical from './physical/Physical'
 import Personality from './personality/Personality'
 import Social from './social/Social'
 import History from '../global/history/History'
+
+import Header from '../pages/includes/Header';
 const axios = require('axios');
 const api = process.env.API;
 
@@ -45,18 +53,18 @@ export default {
     Physical,
     Personality,
     Social,
-    History
+    History,
+    Header
 
   },
   data () {
     return {
 
-      // TODO Change this back once you're done with the History Studd
-      overviewActive: false,
+      overviewActive: true,
       physicalActive: false,
       personalityActive: false,
       socialActive: false,
-      historyActive: true,
+      historyActive: false,
 
       overviewValues: [],
 
@@ -64,7 +72,6 @@ export default {
         overview: [],
         physical: [],
         personality: []
-        // social: []
       }
 
     }
@@ -107,6 +114,21 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
+  @import '../../styles/main';
+  .subHeader {
+    background-color: $darkBlue;
+    color: white;
+    padding: 5px;
+    text-align: left;
+
+    a {
+      color: white;
+      i { padding-right: 5px;}
+      &:hover {
+        color: white;
+      }
+    }
+  }
   .statsWrapper {
     display: flex;
     text-align: center;
@@ -114,6 +136,12 @@ export default {
 
     div {
       flex-grow: 1;
+    }
+
+    .stat-item {
+      &.active {
+        border-bottom: 3px solid $lightBlue
+      }
     }
   }
 </style>

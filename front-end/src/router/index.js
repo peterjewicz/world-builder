@@ -13,6 +13,12 @@ import Character from '@/components/character/Character';
 import Location from '@/components/location/Location';
 import Region from '@/components/region/Region';
 import City from '@/components/city/City';
+import Creature from '@/components/creature/Creature';
+import PointOfInterest from '@/components/pointOfInterest/PointOfInterest';
+import Religion from '@/components/religion/Religion';
+import Language from '@/components/language/Language';
+import Spell from '@/components/spell/Spell';
+import Item from '@/components/item/Item';
 
 // Bring in all the required liraries and extras
 const axios = require('axios');
@@ -68,6 +74,36 @@ export default new Router({
       path: '/new/city',
       name: 'Create-City',
       component: City
+    },
+    {
+      path: '/new/pointOfInterest',
+      name: 'Create-PointOfInterst',
+      component: PointOfInterest
+    },
+    {
+      path: '/new/creature',
+      name: 'Create-Creature',
+      component: Creature
+    },
+    {
+      path: '/new/religion',
+      name: 'Create-Religion',
+      component: Religion
+    },
+    {
+      path: '/new/language',
+      name: 'Create-Language',
+      component: Language
+    },
+    {
+      path: '/new/spell',
+      name: 'Create-Spell',
+      component: Spell
+    },
+    {
+      path: '/new/item',
+      name: 'Create-item',
+      component: Item
     },
     {
       path: '/dashboard',

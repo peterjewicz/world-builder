@@ -12,7 +12,7 @@
 
 (def cors-headers
   { "Access-Control-Allow-Origin" "*"
-    "Access-Control-Allow-Headers" "Content-Type"
+    "Access-Control-Allow-Headers" "X-Requested-With, Content-Type, Accept, token"
     "Access-Control-Allow-Credentials" "true"
     "Access-Control-Allow-Methods" "GET,POST,OPTIONS" })
 

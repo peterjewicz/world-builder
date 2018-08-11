@@ -16,6 +16,11 @@
 (defstate db
   :start (:db db*))
 
+(defn format-id
+  "Takes an entity and returns it with the :_converted to a string"
+  [entity]
+  (assoc entity :_id (str (entity :_id))))
+
 (defn get-user-count-username
   [username]
   (mc/count db "user" {:username username}))
@@ -27,6 +32,12 @@
 (defn get-user-by-username [username]
   (def user (mc/find-one-as-map db "user" {:username username}))
   (assoc user :_id (str (user :_id))))
+
+(defn get-user-by-token [token]
+  (def user (mc/find-one-as-map db "user" {:token token}))
+  (if (not-empty user)
+    (format-id user)
+    false))
 
 (defn create-user
   "Creates a new user with a token"
@@ -68,16 +79,15 @@
 
 ;TODO remove the println and replace with something a bit better, that's probably not the right way to do it
 (defn create-new-world [name id]
-  (mc/insert db "worlds" {:user_id "5b4403d3c1025107593fa0b4" :name name})
+  (mc/insert db "worlds" {:user_id id :name name})
   (println "World Created"))
 ;
 (defn get-worlds-by-id [id]
-  (let [worlds (mc/find-maps db "worlds" {:user_id "5b4403d3c1025107593fa0b4" })]
+  (let [worlds (mc/find-maps db "worlds" {:user_id id })]
         (if (not-empty worlds)
           (map ; Turn characters into a modified list
             #(update % :_id str) ; By updating each map :id by casting to a string
-            worlds)
-          (println "No Worlds"))))
+            worlds))))
 
 ;********USER SPECIFIC DB OPERATIONS*********
 
