@@ -30,6 +30,10 @@
 <script>
 import Header from './includes/Header';
 import EntityCard from './includes/EntityCard';
+import store from '../../store/store.js';
+
+const axios = require('axios');
+const api = process.env.API;
 
 export default {
   name: 'Dashboard',
@@ -46,7 +50,22 @@ export default {
 
   },
   mounted() {
-    console.log(this.$route.query.world)
+    const worlds = this.$store.getters.getWorlds
+    let currentWorld;
+    if (this.$route.query.world) {
+      // currentWorld
+    } else {
+      currentWorld = worlds[0];
+    }
+    store.commit('saveCurrentWorld', currentWorld._id)
+    axios({
+      url: api + '/worlds/' + currentWorld._id + '/entities',
+      method: 'get'
+      // headers: {'token': localStorage.getItem('token')}
+    }).then(response => {
+      console.log(response)
+    })
+    // console.log(this.$route.query.world)
   }
 }
 </script>

@@ -53,10 +53,12 @@ export default {
     },
     addEntity() {
       const encodedVal = JSON.stringify(this.completeValues);
-      // TODO remove this
+      const worldId = this.$store.getters.getCurrentWorld
+
       axios.post(api + '/entity', {
         type: 'creature',
-        values: encodedVal
+        values: encodedVal,
+        worldId: worldId
       })
         .then((response) => {
           // Holds the token for future logins

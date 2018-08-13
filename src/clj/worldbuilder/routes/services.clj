@@ -94,12 +94,17 @@
       :summary     "Gets a specific entity by its `id`"
       (ok (db/get-entity-by-id type id)))
 
+    (GET "/worlds/:id/entities" []
+      :path-params [id :- String]
+      :summary     "Gets all the entities associated with a world"
+      (ok (db/get-all-entities id)))
+
     ; TODO attach Middleware route here to check auth
     (POST "/entity" []
-      :body-params [type :- String, values :- String]
+      :body-params [type :- String, values :- String, worldId :- String]
       ; :header-params [authToken :- String]
       ; (ok {:body values}))
-      (ok (db/create-entity type values)))
+      (ok (db/create-entity type values worldId)))
 
     (POST "/divide" []
       :return      Double

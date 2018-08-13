@@ -84,17 +84,18 @@ export default {
       this.socialActive = false;
       this.historyActive = false;
       this[val] = true;
-      console.log(this.historyActive);
     },
     valuesChanged(e) {
       this.completeValues[e.title] = e.values;
     },
     addCharacter() {
       const encodedVal = JSON.stringify(this.completeValues);
+      const worldId = this.$store.getters.getCurrentWorld
 
       axios.post(api + '/entity', {
         type: 'character',
-        values: encodedVal
+        values: encodedVal,
+        worldId: worldId
       })
         .then((response) => {
           // Holds the token for future logins
