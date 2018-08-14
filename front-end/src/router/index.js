@@ -6,6 +6,7 @@ import HelloWorld from '@/components/HelloWorld';
 import Login from '@/components/Login';
 import Create from '@/components/user/Create';
 import Dashboard from '@/components/pages/Dashboard';
+import ViewAll from '@/components/pages/ViewAll';
 import NewWorld from '@/components/NewWorld';
 
 // Import all of your entity components here
@@ -104,6 +105,11 @@ export default new Router({
       path: '/new/item',
       name: 'Create-item',
       component: Item
+    },
+    {
+      path: '/all/:entity',
+      name: 'View-Entity',
+      component: ViewAll
     },
     {
       path: '/dashboard',

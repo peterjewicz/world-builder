@@ -4,6 +4,7 @@
             [schema.core :as s]
             [cheshire.core :refer :all]
             [worldbuilder.db.core :as db]
+            [worldbuilder.db.entities :as entities]
             [compojure.api.meta :refer [restructure-param]]
             [buddy.auth.accessrules :refer [restrict]]
             [worldbuilder.user.create :as user]
@@ -94,10 +95,12 @@
       :summary     "Gets a specific entity by its `id`"
       (ok (db/get-entity-by-id type id)))
 
-    (GET "/worlds/:id/entities" []
+    (GET "/worlds/:id/entities" request
       :path-params [id :- String]
+      :header-params [token :- String]
+      ; :middleware [wrap-api-auth]
       :summary     "Gets all the entities associated with a world"
-      (ok (db/get-all-entities id)))
+      (ok (entities/get-all-entities id)))
 
     ; TODO attach Middleware route here to check auth
     (POST "/entity" []

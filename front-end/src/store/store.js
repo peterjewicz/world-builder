@@ -12,7 +12,7 @@ const state = {
 const getters = {
   getWorlds: state => state.worlds,
   getCurrentWorld: state => state.currentWorld,
-  getValue: state => state.values
+  getValues: state => state.values
 };
 
 const mutations = {

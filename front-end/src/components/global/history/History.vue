@@ -1,6 +1,8 @@
 <template>
   <div v-if="isactive">
+    <HistoryAdd v-bind:active="historyAddActive"/>
     <h2>History</h2>
+    <button class="primary" v-on:click="toggleHistoryAddActive">Add Event</button>
     <div class="history-wrapper">
       <!-- eslint-disable-next-line -->
       <HistoryItem v-for="item in data" v-bind:key="index" v-bind:title="item.title" v-bind:time="item.time" v-bind:desc="item.desc"/>
@@ -10,16 +12,19 @@
 
 <script>
 import HistoryItem from './HistoryItem';
+import HistoryAdd from './HistoryAdd';
 
 export default {
   name: 'History',
   components: {
-    HistoryItem
+    HistoryItem,
+    HistoryAdd
   },
   props: ['active'],
   data () {
     return {
-      data: []
+      data: [],
+      historyAddActive: false
     }
   },
   computed: {
@@ -59,6 +64,9 @@ export default {
         // TODO we need to add the checks to put the arrows here on the sortedData array
 
       this.data = sortedData;
+    },
+    toggleHistoryAddActive() {
+      this.historyAddActive = true;
     }
   }
 }

@@ -2,6 +2,7 @@
   <div v-if="isactive" class="Overview">
     <h2>Overview</h2>
     <FormText @valueChanged="formValueChanged" title="Name" description="What's The Name Of Your Character?" v-bind:value="nameValue" />
+    <TextField @valueChanged="formValueChanged" title="Bio" description="Write a Short Bio About This Character?" v-bind:value="bioValue" />
     <FormText @valueChanged="formValueChanged" title="Role" description="What's This Characters Role?" v-bind:value="roleValue" />
     <FormText @valueChanged="formValueChanged" title="Nickname" description="Does the character go by any nicknames?" v-bind:value="nicknameValue" />
     <FormText @valueChanged="formValueChanged" title="Gender" description="What gender is this character?" v-bind:value="genderValue" />
@@ -11,16 +12,19 @@
 
 <script>
 import FormText from '../../global/FieldText';
+import TextField from '../../global/TextField';
 
 export default {
   name: 'Overview',
   components: {
-    FormText
+    FormText,
+    TextField
   },
   props: ['active', 'values'],
   data () {
     return {
       nameValue: '',
+      bioValue: '',
       roleValue: '',
       nicknameValue: '',
       genderValue: '',
@@ -43,6 +47,7 @@ export default {
     _emitValues() {
       const valuesArray = {
         name: this.nameValue,
+        bio: this.bioValue,
         role: this.roleValue,
         nickname: this.nicknameValue,
         gender: this.genderValue,

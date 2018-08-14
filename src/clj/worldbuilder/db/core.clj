@@ -22,29 +22,6 @@
   (assoc entity :_id (str (entity :_id))))
 
 
-(defn get-entity-by-world
-  "Gets all entities of 'entityType' for world 'worldId'"
-  [entityType worldId]
-  (let [entities (mc/find-maps db entityType {:worldId worldId})]
-    (map ; Turn characters into a modified list
-      #(update % :_id str) ; By updating each map :id by casting to a string
-      entities)))
-
-; TODO change the world ID to come from the service route
-(defn get-all-entities
-  "Grabs all the entities for a user"
-  [worldId]
-  (let [entities {}]
-    (assoc entities :characters (get-entity-by-world "character" worldId)
-                    :creatures (get-entity-by-world "creature" worldId)
-                    :region (get-entity-by-world "stuff" worldId)
-                    :city (get-entity-by-world "stuff" worldId)
-                    :pointofinterest (get-entity-by-world "stuff" worldId)
-                    :religion (get-entity-by-world "stuff" worldId)
-                    :language (get-entity-by-world "stuff" worldId)
-                    :spell (get-entity-by-world "stuff" worldId)
-                    :item (get-entity-by-world "stuff" worldId))))
-
 (defn get-user-count-username
   [username]
   (mc/count db "user" {:username username}))
@@ -83,12 +60,14 @@
 
 ;TODO we have to coerce vlaue into its own map
 ;TODO pass userID
+;TODO move to entities DB file
 (defn create-entity [type, value, worldId]
   (let
     [item (parse-string value true)]
     (mc/insert db type {:user_id "00000000" :value item :worldId worldId}))
     "Entity Inserted")
 
+;TODO move to entities DB file
 (defn find-entity-by-id []
     (def characters (mc/find-maps db "characters" {:user_id "5b4403d3c1025107593fa0b4" }))
   (map ; Turn characters into a modified list

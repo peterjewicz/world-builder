@@ -59,12 +59,12 @@ export default {
   },
   data () {
     return {
-
-      overviewActive: true,
+      // TODO change this back when you're done with history
+      overviewActive: false,
       physicalActive: false,
       personalityActive: false,
       socialActive: false,
-      historyActive: false,
+      historyActive: true,
 
       overviewValues: [],
 
@@ -116,20 +116,6 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
   @import '../../styles/main';
-  .subHeader {
-    background-color: $darkBlue;
-    color: white;
-    padding: 5px;
-    text-align: left;
-
-    a {
-      color: white;
-      i { padding-right: 5px;}
-      &:hover {
-        color: white;
-      }
-    }
-  }
   .statsWrapper {
     display: flex;
     text-align: center;

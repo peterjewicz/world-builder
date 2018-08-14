@@ -10,7 +10,7 @@
       <div class="header-left-content">
         <div class="worlds-wrapper">
           Worlds:
-          <select>
+          <select v-model="currentWorld" v-on:change="changeWorld">
             <option v-for="world in worlds">{{ world.name }}</option>
           </select>
         </div>
@@ -28,11 +28,18 @@ export default {
   name: 'Header',
   data () {
     return {
+      currentWorld: '',
       worlds: this.$store.getters.getWorlds
     }
   },
   methods: {
+    changeWorld() {
+      this.$router.push(`/dashboard?world=${this.currentWorld}`);
 
+      // TODO we probably just want to bubble this up to the dashboard instead of reloading the page
+      // We'll leave it now cause I'm lazy
+      location.reload()
+    }
   }
 }
 </script>
