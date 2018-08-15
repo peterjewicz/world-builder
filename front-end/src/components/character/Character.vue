@@ -8,6 +8,7 @@
     </div>
     <h2>Character</h2>
     <p>Create a new character here. Fill in as much or as little data a you want!</p>
+    <p class="error">{{errorMessage}}</p>
     <div class="statsWrapper">
       <div class="overview stat-item" v-bind:class="{ active: overviewActive }" v-on:click="changeActiveScreen('overviewActive')">
         <h4>Overview</h4>
@@ -29,7 +30,7 @@
     <Physical @valueChanged="valuesChanged" v-bind:active="physicalActive"/>
     <Personality @valueChanged="valuesChanged" v-bind:active="personalityActive" />
     <Social v-bind:active="socialActive" />
-    <History v-bind:active="historyActive" />
+    <History @valueChanged="valuesChanged" v-bind:active="historyActive" />
     <button class="primary large" v-on:click="addCharacter">Save Character!</button>
   </div>
 </template>
@@ -60,19 +61,22 @@ export default {
   data () {
     return {
       // TODO change this back when you're done with history
-      overviewActive: false,
+      overviewActive: true,
       physicalActive: false,
       personalityActive: false,
       socialActive: false,
-      historyActive: true,
+      historyActive: false,
 
       overviewValues: [],
 
       completeValues: {
         overview: [],
         physical: [],
-        personality: []
-      }
+        personality: [],
+        history: []
+      },
+
+      errorMessage: ''
 
     }
   },
@@ -91,23 +95,24 @@ export default {
     addCharacter() {
       const encodedVal = JSON.stringify(this.completeValues);
       const worldId = this.$store.getters.getCurrentWorld
-
-      axios.post(api + '/entity', {
-        type: 'character',
-        values: encodedVal,
-        worldId: worldId
+      axios({
+        url: api + '/entity',
+        method: 'post',
+        data: {
+          type: 'character',
+          values: encodedVal,
+          worldId: worldId},
+        headers: {'token': localStorage.getItem('token')}
+      }).then(response => {
+        // TODO we need to handle the response here
+        console.log(response)
+      }).catch(error => {
+        if (error.response.status === 401) {
+          this.errorMessage = 'Your login is invalid, please login to continue';
+        } else {
+          this.errorMessage = 'An unknown error has occured. Please try again or contact support.'
+        }
       })
-        .then((response) => {
-          // Holds the token for future logins
-          console.log(response)
-        })
-        .catch((response) => {
-          console.log(response);
-          this.loginError = true;
-        })
-        .then(function () {
-          // always executed
-        });
     }
   }
 }

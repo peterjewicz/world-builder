@@ -98,16 +98,16 @@
     (GET "/worlds/:id/entities" request
       :path-params [id :- String]
       :header-params [token :- String]
-      ; :middleware [wrap-api-auth]
+      :middleware [wrap-api-auth]
       :summary     "Gets all the entities associated with a world"
       (ok (entities/get-all-entities id)))
 
     ; TODO attach Middleware route here to check auth
-    (POST "/entity" []
+    (POST "/entity" request
       :body-params [type :- String, values :- String, worldId :- String]
-      ; :header-params [authToken :- String]
-      ; (ok {:body values}))
-      (ok (db/create-entity type values worldId)))
+      :header-params [token :- String]
+      :middleware [wrap-api-auth]
+      (ok (entities/create-entity type values worldId (:_id (:user request)))))
 
     (POST "/divide" []
       :return      Double

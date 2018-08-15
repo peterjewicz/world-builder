@@ -11,7 +11,7 @@
         <div class="worlds-wrapper">
           Worlds:
           <select v-model="currentWorld" v-on:change="changeWorld">
-            <option v-for="world in worlds">{{ world.name }}</option>
+            <option v-for="world in worlds" :value="world._id">{{ world.name }}</option>
           </select>
         </div>
         <div>
@@ -23,6 +23,7 @@
 </template>
 
 <script>
+import store from '../../../store/store.js';
 
 export default {
   name: 'Header',
@@ -34,11 +35,13 @@ export default {
   },
   methods: {
     changeWorld() {
-      this.$router.push(`/dashboard?world=${this.currentWorld}`);
-
-      // TODO we probably just want to bubble this up to the dashboard instead of reloading the page
-      // We'll leave it now cause I'm lazy
-      location.reload()
+      store.commit('saveCurrentWorld', this.currentWorld)
+      this.$emit('worldUpdated', this.currentWorld)
+      // this.$router.push(`/dashboard?world=${this.currentWorld}`);
+      //
+      // // TODO we probably just want to bubble this up to the dashboard instead of reloading the page
+      // // We'll leave it now cause I'm lazy
+      // location.reload()
     }
   }
 }

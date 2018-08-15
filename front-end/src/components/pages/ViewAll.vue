@@ -1,6 +1,6 @@
 <template>
   <div class="ViewAll">
-    <Header />
+    <Header @worldUpdated="worldUpdated"/>
     <div class="subHeader">
       <div class="maxWidthWrap">
         <router-link to="/dashboard"><i class="fas fa-arrow-left"></i>Back To World</router-link>
@@ -8,13 +8,13 @@
     </div>
     <h2>{{this.$route.params.entity}}s</h2>
     <div class="entityWrapper">
-      <div class="entity" v-for="entity in entities">
-        {{entity._id}}
+      <div class="entity" v-for="entity in getEntities">
         <div v-for="entityValues in entity.value">
           <div v-for="(value, key) in entityValues">
             {{key}}: {{value}}
           </div>
         </div>
+        <!-- <router-link v-bind:to="new/character/entity._id">View More/Edit</router-link> -->
       </div>
     </div>
   </div>
@@ -22,6 +22,10 @@
 
 <script>
 import Header from './includes/Header';
+import store from '../../store/store.js';
+
+const axios = require('axios');
+const api = process.env.API;
 
 export default {
   name: 'ViewAll',
@@ -33,14 +37,23 @@ export default {
       entities: []
     }
   },
-  methods: {
-
+  computed: {
+    getEntities() {
+      const currentEntity = this.$route.params.entity;
+      const storeSegment = this.$store.getters.getValues[currentEntity];
+      return storeSegment;
+    }
   },
-  mounted() {
-    const currentEntity = this.$route.params.entity;
-    const storeSegment = this.$store.getters.getValues[currentEntity];
-    this.entities = storeSegment;
-    console.log(this.entities)
+  methods: {
+    worldUpdated(currentWorld) {
+      axios({
+        url: api + '/worlds/' + currentWorld + '/entities',
+        method: 'get',
+        headers: {'token': localStorage.getItem('token')}
+      }).then(response => {
+        store.commit('saveValue', response.data)
+      })
+    }
   }
 }
 </script>
@@ -54,13 +67,23 @@ export default {
 
   .entityWrapper {
     display: flex;
+    flex-wrap: wrap;
 
     .entity {
-      flex-basis: 33%;
+      flex-basis: 30%;
+      box-sizing: border-box;
       text-align: left;
       padding: 10px;
-      margin: 0 10px;
+      margin: 10px auto;
       border: 1px solid black;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .entityWrapper {
+      .entity{
+        flex-basis: 90%;
+      }
     }
   }
 </style>

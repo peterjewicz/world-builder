@@ -1,11 +1,11 @@
 <template>
   <div v-if="isactive">
-    <HistoryAdd v-bind:active="historyAddActive"/>
+    <HistoryAdd @historyItemAdded="historyItemAdded"  v-bind:active="historyAddActive"/>
     <h2>History</h2>
     <button class="primary" v-on:click="toggleHistoryAddActive">Add Event</button>
     <div class="history-wrapper">
       <!-- eslint-disable-next-line -->
-      <HistoryItem v-for="item in data" v-bind:key="index" v-bind:title="item.title" v-bind:time="item.time" v-bind:desc="item.desc"/>
+      <HistoryItem v-for="(item, index) in historyPoints" v-bind:key="index" v-bind:title="item.title" v-bind:time="item.time" v-bind:desc="item.desc"/>
     </div>
   </div>
 </template>
@@ -23,8 +23,8 @@ export default {
   props: ['active'],
   data () {
     return {
-      data: [],
-      historyAddActive: false
+      historyAddActive: false,
+      historyPoints: []
     }
   },
   computed: {
@@ -34,36 +34,26 @@ export default {
     }
   },
   created() {
-    this.generateHistoryItems();
+    // this.generateHistoryItems();
   },
   methods: {
-    generateHistoryItems() {
-      // TODO Pull this from somewhere else
-      const historyPoints = [
-        {
-          title: 'another',
-          time: 300,
-          desc: 'suff'
-        },
-        {
-          title: 'test',
-          time: 100,
-          desc: 'test text here for stuff test text here for stuff test text here for stuff test text here for stuff test text here for stuff test text here for stuff test text here for stuff test text here for stuff'
-        },
-        {
-          title: 'test2',
-          time: 50,
-          desc: 'test text here for stuffssss'
-        }];
+    historyItemAdded(item) {
+      this.historyPoints.push(item);
+      this.histroyPoints = this.sortHistoryItems(this.historyPoints);
+      this.historyAddActive = false;
 
-      // We created a new local var as we still need to add the arrows and stuff
-      let sortedData = historyPoints.sort((a, b) => {
-        return a.time > b.time;
+      const data = {
+        title: 'history',
+        values: this.historyPoints
+      }
+      this.$emit('valueChanged', data)
+    },
+    sortHistoryItems(arr) {
+      let sortedData = arr.sort((a, b) => {
+        return parseInt(a.time) > parseInt(b.time);
       });
 
-        // TODO we need to add the checks to put the arrows here on the sortedData array
-
-      this.data = sortedData;
+      return sortedData;
     },
     toggleHistoryAddActive() {
       this.historyAddActive = true;

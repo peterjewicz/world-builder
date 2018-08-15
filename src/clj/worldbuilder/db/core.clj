@@ -57,16 +57,6 @@
     (:token (get-user-by-username username)))
 )
 
-
-;TODO we have to coerce vlaue into its own map
-;TODO pass userID
-;TODO move to entities DB file
-(defn create-entity [type, value, worldId]
-  (let
-    [item (parse-string value true)]
-    (mc/insert db type {:user_id "00000000" :value item :worldId worldId}))
-    "Entity Inserted")
-
 ;TODO move to entities DB file
 (defn find-entity-by-id []
     (def characters (mc/find-maps db "characters" {:user_id "5b4403d3c1025107593fa0b4" }))

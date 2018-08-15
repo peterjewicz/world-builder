@@ -1,6 +1,6 @@
 <template>
   <div class="dashboard">
-    <Header />
+    <Header @worldUpdated="worldUpdated"/>
     <h2>What Would You Like To Do</h2>
     <p>Here you can add details to your world. To switch worlds check the drop down in the upper-right.</p>
     <div class="dashboard-body">
@@ -47,34 +47,36 @@ export default {
     }
   },
   methods: {
-
+    worldUpdated(currentWorld) {
+      console.log(currentWorld);
+      axios({
+        url: api + '/worlds/' + currentWorld + '/entities',
+        method: 'get',
+        headers: {'token': localStorage.getItem('token')}
+      }).then(response => {
+        store.commit('saveValue', response.data)
+        console.log(response)
+      })
+    }
   },
   mounted() {
-    const worlds = this.$store.getters.getWorlds
-    let currentWorld;
-
+    const worlds = this.$store.getters.getWorlds;
+    let currentWorld = this.$store.getters.getCurrentWorld;
     // We either take the first world in the list or
     // we have to go through and find which one the user is
     // currently looking at.
-    if (this.$route.query.world) {
-      currentWorld = this.$store.getters.getWorlds.filter(world => {
-        if (world.name === this.$route.query.world) {
-          return true
-        } else {
-          return false
-        }
-      })
-      currentWorld = currentWorld[0]
+    if (currentWorld) {
     } else {
-      currentWorld = worlds[0];
+      store.commit('saveCurrentWorld', worlds[0]._id)
+      currentWorld = worlds[0]._id
     }
-    store.commit('saveCurrentWorld', currentWorld._id)
 
+    console.log(currentWorld)
     // Here we need to grab all of the entities associated with a world and
     // store them in state. This cuts down on API calls and makes it
     // easier to search as it's all in memory
     axios({
-      url: api + '/worlds/' + currentWorld._id + '/entities',
+      url: api + '/worlds/' + currentWorld + '/entities',
       method: 'get',
       headers: {'token': localStorage.getItem('token')}
     }).then(response => {

@@ -1,11 +1,21 @@
 (ns worldbuilder.db.entities
   (:require [monger.core :as mg]
             [monger.collection :as mc]
+            [cheshire.core :refer :all]
             [mount.core :refer [defstate]]
             [worldbuilder.db.core :refer [db]]
             [worldbuilder.config :refer [env]]
             [monger.operators :refer :all])
             (:import org.bson.types.ObjectId))
+;TODO we have to coerce vlaue into its own map
+;TODO pass userID
+;TODO move to entities DB file
+(defn create-entity [type, value, worldId, userId]
+  (let
+    [item (parse-string value true)]
+    (mc/insert db type {:user_id userId :value item :worldId worldId}))
+    "Entity Inserted")
+
 
 (defn get-entity-by-world
   "Gets all entities of 'entityType' for world 'worldId'"
