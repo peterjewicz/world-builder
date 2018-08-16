@@ -37,6 +37,17 @@ export default {
       return this.active;
     }
   },
+  watch: {
+    values: function(newVal, oldVal) {
+      this.ageValue = newVal.age;
+      this.nameValue = newVal.name;
+      this.genderValue = newVal.gender;
+      this.nicknameValue = newVal.nickname;
+      this.roleValue = newVal.role
+    }
+  },
+  mounted() {
+  },
   methods: {
     formValueChanged(e) {
       const title = e.field.toLowerCase();

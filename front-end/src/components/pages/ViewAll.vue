@@ -9,12 +9,16 @@
     <h2>{{this.$route.params.entity}}s</h2>
     <div class="entityWrapper">
       <div class="entity" v-for="entity in getEntities">
-        <div v-for="entityValues in entity.value">
+        <div v-for="(entityValues, key) in entity.value">
+          <p>{{key}}</p>
           <div v-for="(value, key) in entityValues">
-            {{key}}: {{value}}
+            <span v-if="value">
+              {{key}}: {{value}}
+            </span>
           </div>
         </div>
-        <!-- <router-link v-bind:to="new/character/entity._id">View More/Edit</router-link> -->
+        <router-link v-bind:to="`/new/character/${entity._id}`">View More/Edit</router-link>
+        <p>{{entity._id}}</p>
       </div>
     </div>
   </div>

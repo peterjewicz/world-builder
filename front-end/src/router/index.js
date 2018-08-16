@@ -57,7 +57,12 @@ export default new Router({
       component: Create
     },
     {
-      path: '/new/character',
+      path: '/new/character/',
+      name: 'Create-Character',
+      component: Character
+    },
+    {
+      path: '/new/character/:id',
       name: 'Create-Character',
       component: Character
     },

@@ -20,6 +20,11 @@ export default {
       fieldValue: this.value
     }
   },
+  watch: {
+    value: function(newVal, oldVal) {
+      this.fieldValue = this.value
+    }
+  },
   methods: {
     handleValueChange: function () {
       const data = {

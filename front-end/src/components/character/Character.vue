@@ -27,7 +27,7 @@
       </div>
     </div>
     <Overview @valueChanged="valuesChanged" v-bind:values="this.overviewValues" v-bind:active="overviewActive"/>
-    <Physical @valueChanged="valuesChanged" v-bind:active="physicalActive"/>
+    <Physical @valueChanged="valuesChanged" v-bind:values="this.physicalValues" v-bind:active="physicalActive"/>
     <Personality @valueChanged="valuesChanged" v-bind:active="personalityActive" />
     <Social v-bind:active="socialActive" />
     <History @valueChanged="valuesChanged" v-bind:active="historyActive" />
@@ -67,7 +67,11 @@ export default {
       socialActive: false,
       historyActive: false,
 
-      overviewValues: [],
+      // This set of values is for edit functionality
+      // They will hold the current value in the DB
+      // and then pass it down to the specific child
+      overviewValues: {},
+      physicalValues: {},
 
       completeValues: {
         overview: [],
@@ -76,8 +80,27 @@ export default {
         history: []
       },
 
+      currentId: '',
       errorMessage: ''
 
+    }
+  },
+  mounted() {
+    if (this.$route.params.id) {
+      const values = this.$store.getters.getValues;
+      const currentChar = values.character.filter((char) => {
+        if (char._id === this.$route.params.id) {
+          return true;
+        }
+      });
+
+      this.currentId = currentChar[0]._id;
+
+      this.overviewValues = currentChar[0].value.overview;
+      this.completeValues.overview = {...currentChar[0].value.overview};
+
+      this.physicalValues = currentChar[0].value.physical;
+      this.physicalValues.overview = {...currentChar[0].value.physical};
     }
   },
   methods: {
@@ -90,18 +113,20 @@ export default {
       this[val] = true;
     },
     valuesChanged(e) {
+      console.log(e)
       this.completeValues[e.title] = e.values;
     },
     addCharacter() {
       const encodedVal = JSON.stringify(this.completeValues);
-      const worldId = this.$store.getters.getCurrentWorld
+      const worldId = this.$store.getters.getCurrentWorld;
       axios({
         url: api + '/entity',
         method: 'post',
         data: {
           type: 'character',
           values: encodedVal,
-          worldId: worldId},
+          worldId: worldId,
+          currentId: this.currentId},
         headers: {'token': localStorage.getItem('token')}
       }).then(response => {
         // TODO we need to handle the response here

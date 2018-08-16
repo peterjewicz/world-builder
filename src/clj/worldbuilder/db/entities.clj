@@ -9,11 +9,15 @@
             (:import org.bson.types.ObjectId))
 ;TODO we have to coerce vlaue into its own map
 ;TODO pass userID
-;TODO move to entities DB file
-(defn create-entity [type, value, worldId, userId]
+;TODO We need to make this a bit nicer - break udate into its own function
+(defn create-entity [type, value, worldId, userId, currentId]
+  (if (clojure.string/blank? currentId)
   (let
     [item (parse-string value true)]
     (mc/insert db type {:user_id userId :value item :worldId worldId}))
+    (let
+      [item (parse-string value true)]
+      (mc/update-by-id db type (ObjectId. currentId) {$set {:value item}} {:multi false})))
     "Entity Inserted")
 
 

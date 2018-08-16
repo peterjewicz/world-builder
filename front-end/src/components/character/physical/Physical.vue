@@ -4,7 +4,7 @@
     <FormText @valueChanged="formValueChanged" title="Race" description="What's The Race or Species of This Character?" v-bind:value="raceValue" />
     <FormText @valueChanged="formValueChanged" title="Weight" description="How Much Does This Character Weight?" v-bind:value="weightValue" />
     <FormText @valueChanged="formValueChanged" title="Height" description="How Tall Is This Character?" v-bind:value="heightValue" />
-    <FormText @valueChanged="formValueChanged" title="EyeColor" description="What's This Characers Eye Color?" v-bind:value="eyeValue" />
+    <FormText @valueChanged="formValueChanged" title="Eye" description="What's This Characers Eye Color?" v-bind:value="eyeValue" />
     <FormText @valueChanged="formValueChanged" title="HairColor" description="What's This Characers Hair Color?" v-bind:value="hairValue" />
     <FormText @valueChanged="formValueChanged" title="FacialHair" description="Describe any Facial Hair." v-bind:value="facialValue" />
     <FormText @valueChanged="formValueChanged" title="TatoosPiecing" description="Does This Character Have any Tatoos?" v-bind:value="tatooValue" />
@@ -19,7 +19,7 @@ export default {
   components: {
     FormText
   },
-  props: ['active'],
+  props: ['active', 'values'],
   data () {
     return {
       raceValue: '',
@@ -35,6 +35,17 @@ export default {
     isactive: function () {
       // `this` points to the vm instance
       return this.active;
+    }
+  },
+  watch: {
+    values: function(newVal, oldVal) {
+      this.raceValue = newVal.race;
+      this.weightValue = newVal.weight;
+      this.heightValue = newVal.height;
+      this.eyeValue = newVal.eye;
+      this.hairValue = newVal.hair;
+      this.facialValue = newVal.facial;
+      this.tatooValue = newVal.tatoo;
     }
   },
   methods: {
