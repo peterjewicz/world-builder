@@ -48,7 +48,6 @@ export default {
   },
   methods: {
     worldUpdated(currentWorld) {
-      console.log(currentWorld);
       axios({
         url: api + '/worlds/' + currentWorld + '/entities',
         method: 'get',

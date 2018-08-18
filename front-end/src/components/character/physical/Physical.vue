@@ -1,13 +1,13 @@
 <template>
   <div v-if="isactive" class="Physical">
     <h2>Physical</h2>
-    <FormText @valueChanged="formValueChanged" title="Race" description="What's The Race or Species of This Character?" v-bind:value="raceValue" />
-    <FormText @valueChanged="formValueChanged" title="Weight" description="How Much Does This Character Weight?" v-bind:value="weightValue" />
-    <FormText @valueChanged="formValueChanged" title="Height" description="How Tall Is This Character?" v-bind:value="heightValue" />
-    <FormText @valueChanged="formValueChanged" title="Eye" description="What's This Characers Eye Color?" v-bind:value="eyeValue" />
-    <FormText @valueChanged="formValueChanged" title="HairColor" description="What's This Characers Hair Color?" v-bind:value="hairValue" />
-    <FormText @valueChanged="formValueChanged" title="FacialHair" description="Describe any Facial Hair." v-bind:value="facialValue" />
-    <FormText @valueChanged="formValueChanged" title="TatoosPiecing" description="Does This Character Have any Tatoos?" v-bind:value="tatooValue" />
+    <FormText @valueChanged="formValueChanged" title="Race" name="race" description="What's The Race or Species of This Character?" v-bind:value="raceValue" />
+    <FormText @valueChanged="formValueChanged" title="Weight" name="weight" description="How Much Does This Character Weight?" v-bind:value="weightValue" />
+    <FormText @valueChanged="formValueChanged" title="Height" name="height" description="How Tall Is This Character?" v-bind:value="heightValue" />
+    <FormText @valueChanged="formValueChanged" title="Eye Color" name="eye" description="What's This Characers Eye Color?" v-bind:value="eyeValue" />
+    <FormText @valueChanged="formValueChanged" title="Hair Color" name="hair" description="What's This Characers Hair Color?" v-bind:value="hairValue" />
+    <FormText @valueChanged="formValueChanged" title="Facial Hair" name="facialhair" description="Describe any Facial Hair." v-bind:value="facialValue" />
+    <FormText @valueChanged="formValueChanged" title="Tatoos and Piecings" name="tatoo" description="Does This Character Have any Tatoos?" v-bind:value="tatooValue" />
   </div>
 </template>
 

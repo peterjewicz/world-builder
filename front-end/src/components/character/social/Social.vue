@@ -1,14 +1,14 @@
 <template>
   <div v-if="isactive" class="Social">
     <h2>Social</h2>
-    <FormText @valueChanged="formValueChanged" title="Family" description="Who's Related To This Character?" v-bind:value="familyValue" />
-    <FormText @valueChanged="formValueChanged" title="Friends" description="Who's Friends With This Character?" v-bind:value="friendsValue" />
-    <FormText @valueChanged="formValueChanged" title="Enemies" description="Who's Enemies With This Character?" v-bind:value="enemiesValue" />
-    <FormText @valueChanged="formValueChanged" title="Religion" description="Does This Character Follow Any Religions?" v-bind:value="religionValue" />
-    <FormText @valueChanged="formValueChanged" title="Politics" description="Is This Character Involved or Following any Politics?" v-bind:value="politicsValue" />
-    <FormText @valueChanged="formValueChanged" title="Occupation" description="What's This Characters Job?" v-bind:value="occupationValue" />
-    <FormText @valueChanged="formValueChanged" title="Likes" description="What Does This Character Like?" v-bind:value="likesValue" />
-    <FormText @valueChanged="formValueChanged" title="Dislikes" description="What Does This Character Dislike?" v-bind:value="dislikesValue" />
+    <FormText @valueChanged="formValueChanged" title="Family" name="family" description="Who's Related To This Character?" v-bind:value="familyValue" />
+    <FormText @valueChanged="formValueChanged" title="Friends" name="friends" description="Who's Friends With This Character?" v-bind:value="friendsValue" />
+    <FormText @valueChanged="formValueChanged" title="Enemies" name="enemies" description="Who's Enemies With This Character?" v-bind:value="enemiesValue" />
+    <FormText @valueChanged="formValueChanged" title="Religion" name="religion" description="Does This Character Follow Any Religions?" v-bind:value="religionValue" />
+    <FormText @valueChanged="formValueChanged" title="Politics" name="politics" description="Is This Character Involved or Following any Politics?" v-bind:value="politicsValue" />
+    <FormText @valueChanged="formValueChanged" title="Occupation" name="occupation" description="What's This Characters Job?" v-bind:value="occupationValue" />
+    <FormText @valueChanged="formValueChanged" title="Likes" name="likes" description="What Does This Character Like?" v-bind:value="likesValue" />
+    <FormText @valueChanged="formValueChanged" title="Dislikes" name="dislikes" description="What Does This Character Dislike?" v-bind:value="dislikesValue" />
 
   </div>
 </template>

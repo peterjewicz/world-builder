@@ -1,5 +1,6 @@
 <template>
   <div class="Character">
+    <Dropdown :text="dropdownText" :color="dropdownColor" :active="dropdownActive" @hideDropdown="hideDropdown"/>
     <Header />
     <div class="subHeader">
       <div class="maxWidthWrap">
@@ -46,8 +47,9 @@ import Header from '../pages/includes/Header';
 const axios = require('axios');
 const api = process.env.API;
 
-export default {
+import Dropdown from '../global/Dropdown';
 
+export default {
   name: 'Character',
   components: {
     Overview,
@@ -55,7 +57,8 @@ export default {
     Personality,
     Social,
     History,
-    Header
+    Header,
+    Dropdown
 
   },
   data () {
@@ -81,7 +84,10 @@ export default {
       },
 
       currentId: '',
-      errorMessage: ''
+      errorMessage: '',
+      dropdownActive: false,
+      dropdownText: '',
+      dropdownColor: ''
 
     }
   },
@@ -129,15 +135,25 @@ export default {
           currentId: this.currentId},
         headers: {'token': localStorage.getItem('token')}
       }).then(response => {
-        // TODO we need to handle the response here
-        console.log(response)
+        this.dropdownText = "Your Character Has Been Added!";
+        this.dropdownColor = "green";
+        this.dropdownActive = true;
+
+        if(response.data !== "Entity Updated") {
+          this.currentId = response.data._id;
+        }
       }).catch(error => {
         if (error.response.status === 401) {
-          this.errorMessage = 'Your login is invalid, please login to continue';
+          this.dropdownText = 'Your login is invalid, please login to continue';
         } else {
-          this.errorMessage = 'An unknown error has occured. Please try again or contact support.'
+          this.dropdownText= 'An unknown error has occured. Please try again or contact support.'
         }
+        this.dropdownColor = "red";
+        this.dropdownActive = true;
       })
+    },
+    hideDropdown() {
+      this.dropdownActive = false;
     }
   }
 }

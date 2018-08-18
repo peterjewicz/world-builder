@@ -14,7 +14,7 @@
 
 export default {
   name: 'FieldText',
-  props: ['title', 'description', 'value'],
+  props: ['title', 'name', 'description', 'value'],
   data () {
     return {
       fieldValue: this.value
@@ -28,7 +28,7 @@ export default {
   methods: {
     handleValueChange: function () {
       const data = {
-        field: this.title,
+        field: this.name,
         value: this.fieldValue
       }
       this.$emit('valueChanged', data)
