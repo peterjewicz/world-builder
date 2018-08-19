@@ -17,7 +17,7 @@
             </span>
           </div>
         </div>
-        <router-link v-bind:to="`/new/character/${entity._id}`">View More/Edit</router-link>
+        <router-link v-bind:to="`/new/${entityType}/${entity._id}`">View More/Edit</router-link>
         <p>{{entity._id}}</p>
       </div>
     </div>
@@ -38,7 +38,8 @@ export default {
   },
   data () {
     return {
-      entities: []
+      entities: [],
+      entityType: this.$route.params.entity
     }
   },
   computed: {

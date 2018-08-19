@@ -1,7 +1,7 @@
 <template>
   <div v-if="isactive" class="Overview">
     <h2>Overview</h2>
-    <FormText @valueChanged="formValueChanged" title="Name" description="What's The Name Of This Item?" v-bind:value="nameValue" />
+    <FormText @valueChanged="formValueChanged" title="Name" name="name" description="What's The Name Of This Item?" v-bind:value="nameValue" />
   </div>
 </template>
 
@@ -17,6 +17,11 @@ export default {
   data () {
     return {
       nameValue: ''
+    }
+  },
+  watch: {
+    values: function(newVal, oldVal) {
+      this.nameValue = newVal.name;
     }
   },
   computed: {

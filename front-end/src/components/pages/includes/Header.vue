@@ -10,7 +10,7 @@
       <div class="header-left-content">
         <div class="worlds-wrapper">
           Worlds:
-          <select v-model="currentWorld" v-on:change="changeWorld">
+          <select :value="currentWorld" v-model="selectedWorld" v-on:change="changeWorld">
             <option v-for="world in worlds" :value="world._id">{{ world.name }}</option>
           </select>
         </div>
@@ -24,19 +24,29 @@
 
 <script>
 import store from '../../../store/store.js';
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'Header',
   data () {
     return {
-      currentWorld: '',
-      worlds: this.$store.getters.getWorlds
+      worlds: this.$store.getters.getWorlds,
+      selectedWorld: this.currentWorld
     }
+  },
+  computed: {
+    ...mapGetters({
+      currentWorld: 'getCurrentWorld'
+    })
+  },
+  mounted() {
+    console.log(this.$store.getters.getCurrentWorld)
   },
   methods: {
     changeWorld() {
-      store.commit('saveCurrentWorld', this.currentWorld)
-      this.$emit('worldUpdated', this.currentWorld)
+      console.log(this.selectedWorld)
+      store.commit('saveCurrentWorld', this.selectedWorld)
+      this.$emit('worldUpdated', this.selectedWorld)
       // this.$router.push(`/dashboard?world=${this.currentWorld}`);
       //
       // // TODO we probably just want to bubble this up to the dashboard instead of reloading the page

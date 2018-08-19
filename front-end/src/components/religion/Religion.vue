@@ -1,5 +1,12 @@
 <template>
-  <div class="Creature">
+  <div class="Religion">
+    <Dropdown :text="dropdownText" :color="dropdownColor" :active="dropdownActive" @hideDropdown="hideDropdown"/>
+    <Header />
+    <div class="subHeader">
+      <div class="maxWidthWrap">
+        <router-link to="/dashboard"><i class="fas fa-arrow-left"></i>Back To World</router-link>
+      </div>
+    </div>
     <h2>Religion</h2>
     <p>Use this to create a new religion. Fill out as much or as little as you like.</p>
     <div class="statsWrapper">
@@ -16,7 +23,9 @@
 </template>
 
 <script>
-import Overview from './overview/Overview'
+import Overview from './overview/Overview';
+import Dropdown from '../global/Dropdown';
+import Header from '../pages/includes/Header';
 // import History from '../global/history/History'
 const axios = require('axios');
 const api = process.env.API;
@@ -25,7 +34,9 @@ export default {
 
   name: 'Religion',
   components: {
-    Overview
+    Overview,
+    Dropdown,
+    Header
   },
   data () {
     return {
@@ -38,8 +49,28 @@ export default {
 
       completeValues: {
         overview: []
-      }
+      },
 
+      currentId: '',
+      dropdownActive: false,
+      dropdownText: '',
+      dropdownColor: ''
+
+    }
+  },
+  mounted() {
+    if (this.$route.params.id) {
+      const values = this.$store.getters.getValues;
+      const currentReligion = values.religion.filter((religion) => {
+        if (religion._id === this.$route.params.id) {
+          return true;
+        }
+      });
+
+      this.currentId = currentReligion[0]._id;
+
+      this.overviewValues = currentReligion[0].value.overview;
+      this.completeValues.overview = {...currentReligion[0].value.overview};
     }
   },
   methods: {
@@ -51,24 +82,39 @@ export default {
     valuesChanged(e) {
       this.completeValues[e.title] = e.values;
     },
+    // TODO break this out in all to a separate file to re-use
     addEntity() {
       const encodedVal = JSON.stringify(this.completeValues);
-      // TODO remove this
-      axios.post(api + '/entity', {
-        type: 'religion',
-        values: encodedVal
+      const worldId = this.$store.getters.getCurrentWorld;
+      axios({
+        url: api + '/entity',
+        method: 'post',
+        data: {
+          type: 'religion',
+          values: encodedVal,
+          worldId: worldId,
+          currentId: this.currentId},
+        headers: {'token': localStorage.getItem('token')}
+      }).then(response => {
+        this.dropdownText = 'Your Item Has Been Added!';
+        this.dropdownColor = 'green';
+        this.dropdownActive = true;
+
+        if (response.data !== 'Entity Updated') {
+          this.currentId = response.data._id;
+        }
+      }).catch(error => {
+        if (error.response.status === 401) {
+          this.dropdownText = 'Your login is invalid, please login to continue';
+        } else {
+          this.dropdownText = 'An unknown error has occured. Please try again or contact support.'
+        }
+        this.dropdownColor = 'red';
+        this.dropdownActive = true;
       })
-        .then((response) => {
-          // Holds the token for future logins
-          console.log(response)
-        })
-        .catch((response) => {
-          console.log(response);
-          this.loginError = true;
-        })
-        .then(function () {
-          // always executed
-        });
+    },
+    hideDropdown() {
+      this.dropdownActive = false;
     }
   }
 }

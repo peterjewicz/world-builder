@@ -46,8 +46,6 @@ export default {
       this.roleValue = newVal.role
     }
   },
-  mounted() {
-  },
   methods: {
     formValueChanged(e) {
       const title = e.field.toLowerCase();

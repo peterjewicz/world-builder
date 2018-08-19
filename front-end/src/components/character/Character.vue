@@ -37,17 +37,16 @@
 </template>
 
 <script>
-import Overview from './overview/Overview'
-import Physical from './physical/Physical'
-import Personality from './personality/Personality'
-import Social from './social/Social'
-import History from '../global/history/History'
+import Overview from './overview/Overview';
+import Physical from './physical/Physical';
+import Personality from './personality/Personality';
+import Social from './social/Social';
+import History from '../global/history/History';
+import Dropdown from '../global/Dropdown';
 
 import Header from '../pages/includes/Header';
 const axios = require('axios');
 const api = process.env.API;
-
-import Dropdown from '../global/Dropdown';
 
 export default {
   name: 'Character',
@@ -119,7 +118,6 @@ export default {
       this[val] = true;
     },
     valuesChanged(e) {
-      console.log(e)
       this.completeValues[e.title] = e.values;
     },
     addCharacter() {
@@ -135,20 +133,20 @@ export default {
           currentId: this.currentId},
         headers: {'token': localStorage.getItem('token')}
       }).then(response => {
-        this.dropdownText = "Your Character Has Been Added!";
-        this.dropdownColor = "green";
+        this.dropdownText = 'Your Character Has Been Added!';
+        this.dropdownColor = 'green';
         this.dropdownActive = true;
 
-        if(response.data !== "Entity Updated") {
+        if (response.data !== 'Entity Updated') {
           this.currentId = response.data._id;
         }
       }).catch(error => {
         if (error.response.status === 401) {
           this.dropdownText = 'Your login is invalid, please login to continue';
         } else {
-          this.dropdownText= 'An unknown error has occured. Please try again or contact support.'
+          this.dropdownText = 'An unknown error has occured. Please try again or contact support.'
         }
-        this.dropdownColor = "red";
+        this.dropdownColor = 'red';
         this.dropdownActive = true;
       })
     },

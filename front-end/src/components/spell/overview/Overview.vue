@@ -1,7 +1,7 @@
 <template>
   <div v-if="isactive" class="Overview">
     <h2>Overview</h2>
-    <FormText @valueChanged="formValueChanged" title="Name" description="What's The Name Of This Spell?" v-bind:value="nameValue" />
+    <FormText @valueChanged="formValueChanged" title="Name" name="name" description="What's The Name Of This Spell?" v-bind:value="nameValue" />
   </div>
 </template>
 
@@ -19,6 +19,11 @@ export default {
       nameValue: ''
     }
   },
+  watch: {
+    values: function(newVal, oldVal) {
+      this.nameValue = newVal.name;
+    }
+  },
   computed: {
     isactive: function () {
       // `this` points to the vm instance
@@ -34,19 +39,7 @@ export default {
     },
     _emitValues() {
       const valuesArray = {
-        name: this.nameValue,
-        nickname: this.nicknameValue,
-        district: this.districtValue,
-        language: this.languageValue,
-        religion: this.religionValue,
-        import: this.importValue,
-        export: this.exportValue,
-        goverment: this.govermentValue,
-        title: this.titleValue,
-        ruler: this.rulerValue,
-        population: this.populationValue,
-        reputation: this.reputationValue,
-        size: this.sizeValue
+        name: this.nameValue
       };
       const data = {
         title: 'overview',

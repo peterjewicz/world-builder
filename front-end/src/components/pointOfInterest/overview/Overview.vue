@@ -1,9 +1,9 @@
 <template>
   <div v-if="isactive" class="Overview">
     <h2>Overview</h2>
-    <FormText @valueChanged="formValueChanged" title="Name" description="What's The Name Of This Location?" v-bind:value="nameValue" />
-    <FormText @valueChanged="formValueChanged" title="Location" description="Where is It Located?" v-bind:value="locationValue" />
-    <FormText @valueChanged="formValueChanged" title="Significane" description="Why Is The Location Significant?" v-bind:value="significaneValue" />
+    <FormText @valueChanged="formValueChanged" title="Name" name="name" description="What's The Name Of This Location?" v-bind:value="nameValue" />
+    <FormText @valueChanged="formValueChanged" title="Location" name="location" description="Where is It Located?" v-bind:value="locationValue" />
+    <FormText @valueChanged="formValueChanged" title="Significance" name="significance" description="Why Is The Location Significant?" v-bind:value="significanceValue" />
   </div>
 </template>
 
@@ -20,7 +20,14 @@ export default {
     return {
       nameValue: '',
       locationValue: '',
-      significaneValue: ''
+      significanceValue: ''
+    }
+  },
+  watch: {
+    values: function(newVal, oldVal) {
+      this.nameValue = newVal.name;
+      this.locationValue = newVal.location;
+      this.significanceValue = newVal.significance;
     }
   },
   computed: {
@@ -39,18 +46,9 @@ export default {
     _emitValues() {
       const valuesArray = {
         name: this.nameValue,
-        nickname: this.nicknameValue,
-        district: this.districtValue,
-        language: this.languageValue,
-        religion: this.religionValue,
-        import: this.importValue,
-        export: this.exportValue,
-        goverment: this.govermentValue,
-        title: this.titleValue,
-        ruler: this.rulerValue,
-        population: this.populationValue,
-        reputation: this.reputationValue,
-        size: this.sizeValue
+        location: this.locationValue,
+        significance: this.significanceValue
+
       };
       const data = {
         title: 'overview',

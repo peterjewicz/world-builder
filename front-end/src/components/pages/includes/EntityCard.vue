@@ -30,12 +30,15 @@ export default {
   @import '../../../styles/main';
 
   .entity {
+    border-radius: 25px;
     width: 300px;
     min-width: 300px;
-    height: 150px;
+    height: 100px;
     border: 2px solid $darkBlue;
     display: flex;
     flex-direction: column;
+    color: white;
+    background: #888888;
 
     .entity-inner {
       display: flex;

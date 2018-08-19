@@ -1,10 +1,10 @@
 <template>
   <div v-if="isactive" class="Overview">
     <h2>Overview</h2>
-    <FormText @valueChanged="formValueChanged" title="Name" description="What's The Name Of the Creature?" v-bind:value="nameValue" />
-    <FormText @valueChanged="formValueChanged" title="Location" description="What's Does This Creature Live?" v-bind:value="locationValue" />
-    <FormText @valueChanged="formValueChanged" title="Population" description="How Many Are Left In The World?" v-bind:value="populationValue" />
-    <FormText @valueChanged="formValueChanged" title="diet" description="What Does This Creatue Eat?" v-bind:value="dietValue" />
+    <FormText @valueChanged="formValueChanged" title="Name" name="name" description="What's The Name Of the Creature?" v-bind:value="nameValue" />
+    <FormText @valueChanged="formValueChanged" title="Location" name="location" description="What's Does This Creature Live?" v-bind:value="locationValue" />
+    <FormText @valueChanged="formValueChanged" title="Population" name="population" description="How Many Are Left In The World?" v-bind:value="populationValue" />
+    <FormText @valueChanged="formValueChanged" title="diet" name="diet" description="What Does This Creatue Eat?" v-bind:value="dietValue" />
   </div>
 </template>
 
@@ -25,6 +25,14 @@ export default {
       dietValue: ''
     }
   },
+  watch: {
+    values: function(newVal, oldVal) {
+      this.nameValue = newVal.name;
+      this.locationValue = newVal.location;
+      this.populationValue = newVal.population;
+      this.dietValue = newVal.diet
+    }
+  },
   computed: {
     isactive: function () {
       // `this` points to the vm instance
@@ -41,18 +49,9 @@ export default {
     _emitValues() {
       const valuesArray = {
         name: this.nameValue,
-        nickname: this.nicknameValue,
-        district: this.districtValue,
-        language: this.languageValue,
-        religion: this.religionValue,
-        import: this.importValue,
-        export: this.exportValue,
-        goverment: this.govermentValue,
-        title: this.titleValue,
-        ruler: this.rulerValue,
+        location: this.locationValue,
         population: this.populationValue,
-        reputation: this.reputationValue,
-        size: this.sizeValue
+        diet: this.dietValue
       };
       const data = {
         title: 'overview',

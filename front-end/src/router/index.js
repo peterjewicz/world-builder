@@ -57,57 +57,52 @@ export default new Router({
       component: Create
     },
     {
-      path: '/new/character/',
+      path: '/new/character/:id?',
       name: 'Create-Character',
       component: Character
     },
     {
-      path: '/new/character/:id',
-      name: 'Create-Character',
-      component: Character
-    },
-    {
-      path: '/new/location',
+      path: '/new/location/:id?',
       name: 'Create-Location',
       component: Location
     },
     {
-      path: '/new/region',
+      path: '/new/region/:id?',
       name: 'Create-Region',
       component: Region
     },
     {
-      path: '/new/city',
+      path: '/new/city/:id?',
       name: 'Create-City',
       component: City
     },
     {
-      path: '/new/pointOfInterest',
+      path: '/new/pointOfInterest/:id?',
       name: 'Create-PointOfInterst',
       component: PointOfInterest
     },
     {
-      path: '/new/creature',
+      path: '/new/creature/:id?',
       name: 'Create-Creature',
       component: Creature
     },
     {
-      path: '/new/religion',
+      path: '/new/religion/:id?',
       name: 'Create-Religion',
       component: Religion
     },
     {
-      path: '/new/language',
+      path: '/new/language/:id?',
       name: 'Create-Language',
       component: Language
     },
     {
-      path: '/new/spell',
+      path: '/new/spell/:id?',
       name: 'Create-Spell',
       component: Spell
     },
     {
-      path: '/new/item',
+      path: '/new/item/:id?',
       name: 'Create-item',
       component: Item
     },

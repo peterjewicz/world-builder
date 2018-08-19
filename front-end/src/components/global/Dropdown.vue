@@ -19,6 +19,7 @@ export default {
       // `this` points to the vm instance
 
       // sends request after 3 seconds to the parent to close the dropdown
+      // eslint-disable-next-line
       setTimeout(() => {
         if (this.active === true) {
           this.$emit('hideDropdown', false)

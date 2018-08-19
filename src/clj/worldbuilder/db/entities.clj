@@ -39,7 +39,7 @@
                     :creature (get-entity-by-world "creature" worldId)
                     :region (get-entity-by-world "region" worldId)
                     :city (get-entity-by-world "city" worldId)
-                    :pointofinterest (get-entity-by-world "poinrtofinterest" worldId)
+                    :pointofinterest (get-entity-by-world "pointofinterest" worldId)
                     :religion (get-entity-by-world "religion" worldId)
                     :language (get-entity-by-world "language" worldId)
                     :spell (get-entity-by-world "spell" worldId)
