@@ -5,7 +5,13 @@
       <p>{{this.description}}</p>
     </div>
     <div class="field-content">
-      <input type="text" v-model="fieldValue" v-on:change="handleValueChange"/>
+      <input type="text" v-model="fieldValue" v-on:change="handleValueChange" v-on:input="handleInput"/>
+      <div class="linkedEntity" v-if="showEntityPicker">
+        choose
+        <ul>
+          <li v-for="entity in sortedEntities">{{entity.value.overview.name}}</li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
@@ -17,7 +23,11 @@ export default {
   props: ['title', 'name', 'description', 'value'],
   data () {
     return {
-      fieldValue: this.value
+      fieldValue: this.value,
+      atActive: false,
+      currentAtPosition: null,
+      showEntityPicker: false,
+      sortedEntities: []
     }
   },
   watch: {
@@ -32,6 +42,30 @@ export default {
         value: this.fieldValue
       }
       this.$emit('valueChanged', data)
+    },
+    handleInput: function () {
+      if (this.atActive) {
+        let searchValue = this.fieldValue.substring(this.currentAtPosition + 1, this.fieldValue.length);
+        let values = this.$store.getters.getValues['city'];
+        // for (let x = 0; x < values.length; x++) {
+        //   let overview = values[x].value['overview'];
+        //   console.log(overview)
+        // }
+        this.sortedEntities = values.filter(item => {
+          let currentValue = item.value.overview
+          if (currentValue.name.includes(searchValue) || currentValue.ruler.includes(searchValue)) {
+            return true;
+          }
+        })
+        console.log(this.sortedEntities)
+      } else {
+        let atPosition = this.fieldValue[this.fieldValue.length - 1];
+        if (atPosition === '@') {
+          this.currentAtPosition = this.fieldValue.length - 1;
+          this.atActive = true;
+          this.showEntityPicker = true;
+        }
+      }
     }
   }
 }
@@ -56,9 +90,18 @@ export default {
       justify-content: center;
       flex-direction: column;
       width: 50%;
+      position: relative;
 
       input {
         height: 15px;
+      }
+
+      .linkedEntity {
+        border: 1px solid #e9edf2;
+        position: absolute;
+        top: 70px;
+        width: 300px;
+        height: 50px;
       }
     }
   }

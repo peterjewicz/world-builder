@@ -70,7 +70,6 @@ export default {
       currentWorld = worlds[0]._id
     }
 
-    console.log(currentWorld)
     // Here we need to grab all of the entities associated with a world and
     // store them in state. This cuts down on API calls and makes it
     // easier to search as it's all in memory
@@ -80,7 +79,6 @@ export default {
       headers: {'token': localStorage.getItem('token')}
     }).then(response => {
       store.commit('saveValue', response.data)
-      console.log(response)
     })
     // console.log(this.$route.query.world)
   }
