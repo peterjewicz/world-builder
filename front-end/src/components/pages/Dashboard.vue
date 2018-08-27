@@ -91,9 +91,17 @@ export default {
   .dashboard-body {
     clear: both;
     text-align: left;
-    h3 { margin: 20px; }
+    padding-bottom: 35px;
+    border-bottom: 1px solid black;
+    display: flex;
+    flex-flow: wrap;
+    h3 {
+      margin: 20px;
+      width: 100%;
+      flex-basis: 100%;
+    }
     .entity {
-      float: left;
+      // float: left;
       margin: 20px;
     }
   }

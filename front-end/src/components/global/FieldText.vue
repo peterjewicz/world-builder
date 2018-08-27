@@ -48,17 +48,16 @@ export default {
     // TODO we need to account for a space so if the user want's to @ something they haven't made yet
     handleInput: function () {
       // We only care about all this if the field is linkable if not we can just skip it all
-      if(this.linkable) {
+      if (this.linkable) {
         if (this.atActive) {
           let searchValue = this.fieldValue.substring(this.currentAtPosition + 1, this.fieldValue.length);
 
           // This is the instance where they've gone back and ersased the @symbol
-          if (this.fieldValue[this.currentAtPosition] != '@') {
+          if (this.fieldValue[this.currentAtPosition] !== '@') {
             this.atActive = false;
             this.showEntityPicker = false;
             this.currentAtPosition = null;
           } else {
-
             let values = [];
             let currentStoreState = this.$store.getters.getValues;
             let entities = this.searchEntities.split(',');
@@ -77,7 +76,6 @@ export default {
               }
             })
           }
-
         } else {
           let atPosition = this.fieldValue[this.fieldValue.length - 1];
           if (atPosition === '@') {
