@@ -9,7 +9,9 @@
       <div class="linkedEntity" v-if="showEntityPicker">
         choose
         <ul>
-          <li v-for="entity in sortedEntities">{{entity.value.overview.name}}</li>
+          <li v-on:click="selectEntity" v-for="entity in sortedEntities" :data-value="entity.value.overview.name">
+            {{entity.value.overview.name}}
+          </li>
         </ul>
       </div>
     </div>
@@ -20,7 +22,7 @@
 
 export default {
   name: 'FieldText',
-  props: ['title', 'name', 'description', 'value'],
+  props: ['title', 'name', 'description', 'value', 'linkable', 'searchEntities', 'searchArrays'],
   data () {
     return {
       fieldValue: this.value,
@@ -44,28 +46,54 @@ export default {
       this.$emit('valueChanged', data)
     },
     handleInput: function () {
-      if (this.atActive) {
-        let searchValue = this.fieldValue.substring(this.currentAtPosition + 1, this.fieldValue.length);
-        let values = this.$store.getters.getValues['city'];
-        // for (let x = 0; x < values.length; x++) {
-        //   let overview = values[x].value['overview'];
-        //   console.log(overview)
-        // }
-        this.sortedEntities = values.filter(item => {
-          let currentValue = item.value.overview
-          if (currentValue.name.includes(searchValue) || currentValue.ruler.includes(searchValue)) {
-            return true;
+      // We only care about all this if the field is linkable if not we can just skip it all
+      if(this.linkable) {
+        if (this.atActive) {
+          let searchValue = this.fieldValue.substring(this.currentAtPosition + 1, this.fieldValue.length);
+
+          // This is the instance where they've gone back and ersased the @symbol
+          if (this.fieldValue[this.currentAtPosition] != '@') {
+            this.atActive = false;
+            this.showEntityPicker = false;
+            this.currentAtPosition = null;
+          } else {
+
+            let values = [];
+            let currentStoreState = this.$store.getters.getValues;
+            let entities = this.searchEntities.split(',');
+            entities.forEach(entity => {
+              currentStoreState[entity].forEach(storeEntity => {
+                values.push(storeEntity);
+              })
+            })
+
+            this.sortedEntities = values.filter(item => {
+              let currentValue = item.value.overview
+              for (let property in currentValue) {
+                if (currentValue[property].includes(searchValue)) {
+                  return true;
+                }
+              }
+            })
           }
-        })
-        console.log(this.sortedEntities)
-      } else {
-        let atPosition = this.fieldValue[this.fieldValue.length - 1];
-        if (atPosition === '@') {
-          this.currentAtPosition = this.fieldValue.length - 1;
-          this.atActive = true;
-          this.showEntityPicker = true;
+
+        } else {
+          let atPosition = this.fieldValue[this.fieldValue.length - 1];
+          if (atPosition === '@') {
+            this.currentAtPosition = this.fieldValue.length - 1;
+            this.atActive = true;
+            this.showEntityPicker = true;
+          }
         }
       }
+    },
+    selectEntity(e) {
+      let currentValue = e.srcElement.attributes[1].nodeValue;
+      let preSelectValue = this.fieldValue.substring(this.fieldValue, this.currentAtPosition);
+      this.fieldValue = preSelectValue + '@' + currentValue;
+      this.atActive = false;
+      this.showEntityPicker = false;
+      this.currentAtPosition = null;
     }
   }
 }
