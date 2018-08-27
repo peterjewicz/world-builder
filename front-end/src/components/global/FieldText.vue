@@ -22,7 +22,7 @@
 
 export default {
   name: 'FieldText',
-  props: ['title', 'name', 'description', 'value', 'linkable', 'searchEntities', 'searchArrays'],
+  props: ['title', 'name', 'description', 'value', 'linkable', 'searchEntities'],
   data () {
     return {
       fieldValue: this.value,
@@ -45,6 +45,7 @@ export default {
       }
       this.$emit('valueChanged', data)
     },
+    // TODO we need to account for a space so if the user want's to @ something they haven't made yet
     handleInput: function () {
       // We only care about all this if the field is linkable if not we can just skip it all
       if(this.linkable) {
