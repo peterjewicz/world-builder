@@ -26,12 +26,16 @@
       <div class="history stat-item" v-bind:class="{ active: historyActive }" v-on:click="changeActiveScreen('historyActive')">
         <h4>History</h4>
       </div>
+      <div class="media stat-item" v-bind:class="{ active: mediaActive }" v-on:click="changeActiveScreen('mediaActive')">
+        <h4>Media</h4>
+      </div>
     </div>
     <Overview @valueChanged="valuesChanged" v-bind:values="this.overviewValues" v-bind:active="overviewActive"/>
     <Physical @valueChanged="valuesChanged" v-bind:values="this.physicalValues" v-bind:active="physicalActive"/>
     <Personality @valueChanged="valuesChanged" v-bind:active="personalityActive" />
     <Social v-bind:active="socialActive" />
     <History @valueChanged="valuesChanged" v-bind:active="historyActive" />
+    <Media @valueChanged="valuesChanged" v-bind:active="mediaActive" />
     <button class="primary large" v-on:click="addCharacter">Save Character!</button>
   </div>
 </template>
@@ -42,6 +46,7 @@ import Physical from './physical/Physical';
 import Personality from './personality/Personality';
 import Social from './social/Social';
 import History from '../global/history/History';
+import Media from '../global/media/Media';
 import Dropdown from '../global/Dropdown';
 
 import Header from '../pages/includes/Header';
@@ -56,6 +61,7 @@ export default {
     Personality,
     Social,
     History,
+    Media,
     Header,
     Dropdown
 
@@ -63,11 +69,12 @@ export default {
   data () {
     return {
       // TODO change this back when you're done with history
-      overviewActive: true,
+      overviewActive: false,
       physicalActive: false,
       personalityActive: false,
       socialActive: false,
       historyActive: false,
+      mediaActive: true,
 
       // This set of values is for edit functionality
       // They will hold the current value in the DB
@@ -115,6 +122,7 @@ export default {
       this.personalityActive = false;
       this.socialActive = false;
       this.historyActive = false;
+      this.mediaActive = false;
       this[val] = true;
     },
     valuesChanged(e) {

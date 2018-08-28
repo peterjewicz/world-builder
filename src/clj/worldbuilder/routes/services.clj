@@ -5,11 +5,15 @@
             [cheshire.core :refer :all]
             [worldbuilder.db.core :as db]
             [worldbuilder.db.entities :as entities]
+            [ring.swagger.upload :as upload]
             [compojure.api.meta :refer [restructure-param]]
             [buddy.auth.accessrules :refer [restrict]]
             [worldbuilder.user.create :as user]
             [buddy.auth :refer [authenticated?]])
-            (:import org.bson.types.ObjectId))
+            (:import org.bson.types.ObjectId)
+            (:use [amazonica.aws.s3]))
+
+
 
 
 (defn access-error [_ _]
@@ -72,10 +76,22 @@
 
 
     (GET "/:id/worlds/" request
-      :path-params [id :- String]
+      :body-params [id :- String]
       :summary     "Gets all the worlds related to a specific 'id'"
       :middleware [wrap-api-auth]
       (ok {:body (db/get-worlds-by-id (:_id (:user request)))}))
+
+    (POST "/uploads" []
+      :multipart-params [myFile :- s/Any]
+      :summary     "Gets all the worlds related to a specific 'id'"
+      :middleware [upload/wrap-multipart-params]
+      ; (ok (slurp (myFile :tempfile))))
+     ; (println (:filename myFile)))
+      (ok {:body (put-object creds
+            :bucket-name "worldbuilder-twc"
+            :key (:filename myFile)
+            :file (myFile :tempfile))}))
+      ; (ok {:body "test"}))
 
     (POST "/worlds" request
       :body-params [name :- String]
