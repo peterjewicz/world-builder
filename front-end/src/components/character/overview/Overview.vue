@@ -49,9 +49,9 @@ export default {
   methods: {
     formValueChanged(e) {
       const title = e.field.toLowerCase();
-      this[title + 'Value'] = e.value
+      this[title + 'Value'] = e.value;
 
-      this._emitValues()
+      this._emitValues();
     },
     _emitValues() {
       const valuesArray = {

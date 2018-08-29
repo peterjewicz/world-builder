@@ -9,13 +9,16 @@
     <h2>{{this.$route.params.entity}}s</h2>
     <div class="entityWrapper">
       <div class="entity" v-for="entity in getEntities">
+        <img v-if="entity.value.media" v-bind:src="`https://s3.amazonaws.com/worldbuilder-twc/5b6ae767f0512f0c5d8ef4dd/${entity.value.media}`" width="100%" />
         <div v-for="(entityValues, key) in entity.value">
           <p>{{key}}</p>
-          <div v-for="(value, key) in entityValues">
-            <span v-if="value">
-              {{key}}: {{value}}
-            </span>
-          </div>
+          <span v-if="key !== 'media'">
+            <div v-for="(value, key) in entityValues">
+              <span v-if="value">
+                {{key}}: {{value}}
+              </span>
+            </div>
+          </span>
         </div>
         <router-link v-bind:to="`/new/${entityType}/${entity._id}`">View More/Edit</router-link>
         <p>{{entity._id}}</p>

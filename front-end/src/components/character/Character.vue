@@ -86,7 +86,8 @@ export default {
         overview: [],
         physical: [],
         personality: [],
-        history: []
+        history: [],
+        media: ''
       },
 
       currentId: '',
@@ -129,6 +130,10 @@ export default {
       this.completeValues[e.title] = e.values;
     },
     addCharacter() {
+      this.uploadImage(this.completeValues['media']);
+
+      // we only want to save the name of the file being used here. as we know the pattern and location of it
+      this.completeValues['media'] = this.completeValues['media'].name;
       const encodedVal = JSON.stringify(this.completeValues);
       const worldId = this.$store.getters.getCurrentWorld;
       axios({
@@ -156,6 +161,17 @@ export default {
         }
         this.dropdownColor = 'red';
         this.dropdownActive = true;
+      })
+    },
+    uploadImage(selectedFile) {
+      const formData = new FormData()
+
+      formData.append('myFile', selectedFile, selectedFile.name)
+      formData.append('worldId', this.$store.getters.getCurrentWorld);
+      console.log(formData)
+      axios.post('http://localhost:3000/api/uploads', formData)
+      .then(response => {
+        console.log(response)
       })
     },
     hideDropdown() {

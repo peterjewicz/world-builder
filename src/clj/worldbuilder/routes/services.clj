@@ -76,20 +76,20 @@
 
 
     (GET "/:id/worlds/" request
-      :body-params [id :- String]
+      :path-params [id :- String]
       :summary     "Gets all the worlds related to a specific 'id'"
       :middleware [wrap-api-auth]
       (ok {:body (db/get-worlds-by-id (:_id (:user request)))}))
 
     (POST "/uploads" []
-      :multipart-params [myFile :- s/Any]
+      :multipart-params [myFile :- s/Any, worldId :- s/Any]
       :summary     "Gets all the worlds related to a specific 'id'"
       :middleware [upload/wrap-multipart-params]
       ; (ok (slurp (myFile :tempfile))))
      ; (println (:filename myFile)))
       (ok {:body (put-object creds
             :bucket-name "worldbuilder-twc"
-            :key (:filename myFile)
+            :key (str worldId "/" (:filename myFile))
             :file (myFile :tempfile))}))
       ; (ok {:body "test"}))
 

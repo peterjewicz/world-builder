@@ -31,17 +31,26 @@ export default {
   },
   methods: {
     onFileChanged (event) {
-      this.selectedFile = event.target.files[0]
+      this.selectedFile = event.target.files[0];
+      this._emitValues();
     },
     onUpload() {
       const formData = new FormData()
       console.log(this.selectedFile)
-  formData.append('myFile', this.selectedFile, this.selectedFile.name)
-  console.log(formData)
+      formData.append('myFile', this.selectedFile, this.selectedFile.name)
+      formData.append('worldId', this.$store.getters.getCurrentWorld);
+      console.log(formData)
       axios.post('http://localhost:3000/api/uploads', formData)
       .then(response => {
         console.log(response)
       })
+    },
+    _emitValues() {
+      const data = {
+        title: 'media',
+        values: this.selectedFile
+      }
+      this.$emit('valueChanged', data)
     }
   }
 }
