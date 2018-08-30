@@ -34,7 +34,7 @@
     <Physical @valueChanged="valuesChanged" v-bind:values="this.physicalValues" v-bind:active="physicalActive"/>
     <Personality @valueChanged="valuesChanged" v-bind:active="personalityActive" />
     <Social v-bind:active="socialActive" />
-    <History @valueChanged="valuesChanged" v-bind:active="historyActive" />
+    <History @valueChanged="valuesChanged" v-bind:values="this.historyValues" v-bind:active="historyActive" />
     <Media @valueChanged="valuesChanged" v-bind:active="mediaActive" />
     <button class="primary large" v-on:click="addCharacter">Save Character!</button>
   </div>
@@ -69,18 +69,19 @@ export default {
   data () {
     return {
       // TODO change this back when you're done with history
-      overviewActive: false,
+      overviewActive: true,
       physicalActive: false,
       personalityActive: false,
       socialActive: false,
       historyActive: false,
-      mediaActive: true,
+      mediaActive: false,
 
       // This set of values is for edit functionality
       // They will hold the current value in the DB
       // and then pass it down to the specific child
       overviewValues: {},
       physicalValues: {},
+      historyValues: {},
 
       completeValues: {
         overview: [],
@@ -113,7 +114,10 @@ export default {
       this.completeValues.overview = {...currentChar[0].value.overview};
 
       this.physicalValues = currentChar[0].value.physical;
-      this.physicalValues.overview = {...currentChar[0].value.physical};
+      this.completeValues.physical = {...currentChar[0].value.physical};
+
+      this.historyValues = currentChar[0].value.history;
+      this.completeValues.history = {...currentChar[0].value.physical};
     }
   },
   methods: {
@@ -130,10 +134,13 @@ export default {
       this.completeValues[e.title] = e.values;
     },
     addCharacter() {
-      this.uploadImage(this.completeValues['media']);
+      // It's possible to save without an image
+      if (this.completeValues.media) {
+        this.uploadImage(this.completeValues['media']);
 
-      // we only want to save the name of the file being used here. as we know the pattern and location of it
-      this.completeValues['media'] = this.completeValues['media'].name;
+        // we only want to save the name of the file being used here. as we know the pattern and location of it
+        this.completeValues['media'] = this.completeValues['media'].name;
+      }
       const encodedVal = JSON.stringify(this.completeValues);
       const worldId = this.$store.getters.getCurrentWorld;
       axios({
@@ -170,9 +177,9 @@ export default {
       formData.append('worldId', this.$store.getters.getCurrentWorld);
       console.log(formData)
       axios.post('http://localhost:3000/api/uploads', formData)
-      .then(response => {
-        console.log(response)
-      })
+        .then(response => {
+          console.log(response)
+        })
     },
     hideDropdown() {
       this.dropdownActive = false;

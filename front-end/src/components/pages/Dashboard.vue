@@ -1,28 +1,45 @@
 <template>
   <div class="dashboard">
     <Header @worldUpdated="worldUpdated"/>
-    <h2>What Would You Like To Do</h2>
-    <p>Here you can add details to your world. To switch worlds check the drop down in the upper-right.</p>
-    <div class="dashboard-body">
-      <h3>Characters & Races </h3>
-      <EntityCard title="Characters" newurl="/new/character" allurl="/all/character"/>
-      <EntityCard title="Creatures" newurl="/new/creature" allurl="/all/creature"/>
-    </div>
-    <div class="dashboard-body">
-      <h3>Locations</h3>
-      <EntityCard title="Regions/Countries" newurl="/new/region" allurl="/all/region"/>
-      <EntityCard title="Cities" newurl="/new/city" allurl="/all/city"/>
-      <EntityCard title="Point Of Interest" newurl="/new/pointOfInterest" allurl="/all/pointofinterest"/>
-    </div>
-    <div class="dashboard-body">
-      <h3>Social</h3>
-      <EntityCard title="Religions" newurl="/new/religion" allurl="/all/religion"/>
-      <EntityCard title="Languages" newurl="/new/language" allurl="/all/language"/>
-    </div>
-    <div class="dashboard-body">
-      <h3>Fantasy</h3>
-      <EntityCard title="Spells" newurl="/new/spell" allurl="/all/spell"/>
-      <EntityCard title="Items" newurl="/new/item" allurl="/all/item"/>
+    <div class="dashboard-inner">
+      <div class="dashboard-sidebar hide-on-mobile">
+        <h4>Your Worlds</h4>
+        <ul class="sidebar-worldList">
+          <li v-for="world in this.$store.getters.getWorlds">
+            <span class="currentWorld" v-if="world._id === currentWorld">
+              {{world.name}}
+            </span>
+            <span v-else>
+              {{world.name}}
+            </span>
+          </li>
+        </ul>
+      </div>
+      <div class="dashboard-content">
+        <h2>What Would You Like To Do</h2>
+        <p>Here you can add details to your world. To switch worlds check the drop down in the upper-right.</p>
+        <div class="dashboard-body">
+          <h3>Characters & Races </h3>
+          <EntityCard title="Characters" newurl="/new/character" allurl="/all/character"/>
+          <EntityCard title="Creatures" newurl="/new/creature" allurl="/all/creature"/>
+        </div>
+        <div class="dashboard-body">
+          <h3>Locations</h3>
+          <EntityCard title="Regions/Countries" newurl="/new/region" allurl="/all/region"/>
+          <EntityCard title="Cities" newurl="/new/city" allurl="/all/city"/>
+          <EntityCard title="Point Of Interest" newurl="/new/pointOfInterest" allurl="/all/pointofinterest"/>
+        </div>
+        <div class="dashboard-body">
+          <h3>Social</h3>
+          <EntityCard title="Religions" newurl="/new/religion" allurl="/all/religion"/>
+          <EntityCard title="Languages" newurl="/new/language" allurl="/all/language"/>
+        </div>
+        <div class="dashboard-body">
+          <h3>Fantasy</h3>
+          <EntityCard title="Spells" newurl="/new/spell" allurl="/all/spell"/>
+          <EntityCard title="Items" newurl="/new/item" allurl="/all/item"/>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -43,7 +60,7 @@ export default {
   },
   data () {
     return {
-
+      currentWorld: ''
     }
   },
   methods: {
@@ -59,8 +76,10 @@ export default {
     }
   },
   mounted() {
+    console.log(this.$store.getters.getCurrentWorld)
     const worlds = this.$store.getters.getWorlds;
     let currentWorld = this.$store.getters.getCurrentWorld;
+    this.currentWorld = currentWorld;
     // We either take the first world in the list or
     // we have to go through and find which one the user is
     // currently looking at.
@@ -87,6 +106,21 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
+  @import '../../styles/main';
+
+  .dashboard-inner {
+    display: flex;
+    flex-flow: wrap;
+
+    .dashboard-content {
+      width: 85%;
+    }
+
+    .dashboard-sidebar {
+      width: 14%;
+      border-right: 1px solid $darkBlue;
+    }
+  }
 
   .dashboard-body {
     clear: both;
@@ -103,6 +137,14 @@ export default {
     .entity {
       // float: left;
       margin: 20px;
+    }
+  }
+
+  @media(max-width: 767px) {
+    .dashboard-inner {
+      .dashboard-content {
+        width: 100%;
+      }
     }
   }
 

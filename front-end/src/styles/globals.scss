@@ -21,6 +21,15 @@ $globalPadding: 150px;
 }
 
 
+//Mobiel stuff
+
+@media(max-width: 767px) {
+  .hide-on-mobile {
+    display: none;
+  }
+}
+
+
 .slide-fade-enter-active {
   transition: all .3s ease;
 }

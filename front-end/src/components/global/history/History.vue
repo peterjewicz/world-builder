@@ -20,11 +20,18 @@ export default {
     HistoryItem,
     HistoryAdd
   },
-  props: ['active'],
+  props: ['active', 'values'],
   data () {
     return {
       historyAddActive: false,
       historyPoints: []
+    }
+  },
+  watch: {
+    values: function(newVal, oldVal) {
+      newVal.forEach(historyPoint => {
+        this.historyItemAdded(historyPoint);
+      })
     }
   },
   computed: {
