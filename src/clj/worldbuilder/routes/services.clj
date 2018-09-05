@@ -9,6 +9,7 @@
             [compojure.api.meta :refer [restructure-param]]
             [buddy.auth.accessrules :refer [restrict]]
             [worldbuilder.user.create :as user]
+            [worldbuilder.config :refer [env]]
             [buddy.auth :refer [authenticated?]])
             (:import org.bson.types.ObjectId)
             (:use [amazonica.aws.s3]))

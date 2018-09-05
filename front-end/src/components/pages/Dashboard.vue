@@ -2,19 +2,7 @@
   <div class="dashboard">
     <Header @worldUpdated="worldUpdated"/>
     <div class="dashboard-inner">
-      <div class="dashboard-sidebar hide-on-mobile">
-        <h4>Your Worlds</h4>
-        <ul class="sidebar-worldList">
-          <li v-for="world in this.$store.getters.getWorlds">
-            <span class="currentWorld" v-if="world._id === currentWorld">
-              {{world.name}}
-            </span>
-            <span v-else>
-              {{world.name}}
-            </span>
-          </li>
-        </ul>
-      </div>
+      <Sidebar/>
       <div class="dashboard-content">
         <h2>What Would You Like To Do</h2>
         <p>Here you can add details to your world. To switch worlds check the drop down in the upper-right.</p>
@@ -46,6 +34,7 @@
 
 <script>
 import Header from './includes/Header';
+import Sidebar from './includes/Sidebar';
 import EntityCard from './includes/EntityCard';
 import store from '../../store/store.js';
 
@@ -56,7 +45,8 @@ export default {
   name: 'Dashboard',
   components: {
     Header,
-    EntityCard
+    EntityCard,
+    Sidebar
   },
   data () {
     return {

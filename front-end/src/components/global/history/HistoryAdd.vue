@@ -1,5 +1,6 @@
 <template>
   <div class="HistoryAdd" v-if="isactive">
+    <span v-on:click="closeHistory">X</span>
     <h2>Add a New Historical Event</h2>
     <label for="title">Title</label>
     <input v-model="itemTitle" type="text" name="title" />
@@ -50,6 +51,9 @@ export default {
       this.itemDate = '';
       this.itemDesc = '';
       this.$emit('historyItemAdded', tempObj)
+    },
+    closeHistory() {
+       this.$emit('closeHistory', true);
     }
   }
 }

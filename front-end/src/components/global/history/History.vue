@@ -1,6 +1,6 @@
 <template>
   <div v-if="isactive">
-    <HistoryAdd @historyItemAdded="historyItemAdded"  v-bind:active="historyAddActive"/>
+    <HistoryAdd @historyItemAdded="historyItemAdded" @closeHistory="closeHistory"  v-bind:active="historyAddActive"/>
     <h2>History</h2>
     <button class="primary" v-on:click="toggleHistoryAddActive">Add Event</button>
     <div class="history-wrapper">
@@ -64,6 +64,9 @@ export default {
     },
     toggleHistoryAddActive() {
       this.historyAddActive = true;
+    },
+    closeHistory() {
+       this.historyAddActive = false;
     }
   }
 }
