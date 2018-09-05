@@ -87,7 +87,7 @@
       :middleware [upload/wrap-multipart-params]
       ; (ok (slurp (myFile :tempfile))))
      ; (println (:filename myFile)))
-      (ok {:body (put-object creds
+      (ok {:body (put-object (:s3creds env)
             :bucket-name "worldbuilder-twc"
             :key (str worldId "/" (:filename myFile))
             :file (myFile :tempfile))}))
