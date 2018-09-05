@@ -2,7 +2,7 @@
   <div class="dashboard">
     <Header @worldUpdated="worldUpdated"/>
     <div class="dashboard-inner">
-      <Sidebar/>
+      <Sidebar @worldUpdated="worldUpdated"/>
       <div class="dashboard-content">
         <h2>What Would You Like To Do</h2>
         <p>Here you can add details to your world. To switch worlds check the drop down in the upper-right.</p>

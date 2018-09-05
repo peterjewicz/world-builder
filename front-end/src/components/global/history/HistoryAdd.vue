@@ -53,7 +53,7 @@ export default {
       this.$emit('historyItemAdded', tempObj)
     },
     closeHistory() {
-       this.$emit('closeHistory', true);
+      this.$emit('closeHistory', true);
     }
   }
 }

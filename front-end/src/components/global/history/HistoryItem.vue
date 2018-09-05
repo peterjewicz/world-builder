@@ -1,5 +1,13 @@
 <template>
   <div class="historyItem">
+    <div class="editHistoryItemWrapper" v-if="this.editActive">
+      <span v-on:click="editActive = false" class="editTrigger">Close</span>
+      <input v-model="itemTitle" v-on:change="editHistoryItem" type="text" name="title" />
+      <input v-model="itemDate"  v-on:change="editHistoryItem" type="text" name="date" />
+      <textarea v-model="itemDesc"  v-on:change="editHistoryItem" type="text" name="description" />
+    </div>
+    <!-- TODO put icon here -->
+    <span v-on:click="editActive = true" class="editTrigger">Edit</span>
     <p class="date">{{time}}</p>
     <h4>{{title}}</h4>
     <p>{{desc}}</p>
@@ -13,11 +21,22 @@ export default {
   props: ['title', 'time', 'desc'],
   data () {
     return {
-
+      editActive: false,
+      itemTitle: this.title,
+      itemDate: this.time,
+      itemDesc: this.desc
     }
   },
   methods: {
+    editHistoryItem() {
+      let historyData = {
+        title: this.itemTitle,
+        time: this.itemDate,
+        desc: this.desc
+      }
 
+      this.$emit('editHistoryItem', historyData);
+    }
   }
 }
 </script>
@@ -33,6 +52,18 @@ export default {
     margin: 200px 0;
     position: relative;
     right: 320px;
+
+    .editHistoryItemWrapper {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: white;
+      overflow: scroll;
+      left: 0;
+      top: 0;
+      z-index: 2;
+      border: 1px solid black;
+    }
 
     .date {
       position: absolute;

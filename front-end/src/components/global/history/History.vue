@@ -5,7 +5,7 @@
     <button class="primary" v-on:click="toggleHistoryAddActive">Add Event</button>
     <div class="history-wrapper">
       <!-- eslint-disable-next-line -->
-      <HistoryItem v-for="(item, index) in historyPoints" v-bind:key="index" v-bind:title="item.title" v-bind:time="item.time" v-bind:desc="item.desc"/>
+      <HistoryItem v-for="(item, index) in historyPoints" v-bind:key="index" v-bind:title="item.title" v-bind:time="item.time" v-bind:desc="item.desc" @editHistoryItem="editHistoryItem($event, index)"/>
     </div>
   </div>
 </template>
@@ -66,7 +66,12 @@ export default {
       this.historyAddActive = true;
     },
     closeHistory() {
-       this.historyAddActive = false;
+      this.historyAddActive = false;
+    },
+    editHistoryItem(historyData, index) {
+      this.historyPoints[index].title = historyData.title;
+      this.historyPoints[index].time = historyData.time;
+      this.historyPoints[index].desc = historyData.desc;
     }
   }
 }

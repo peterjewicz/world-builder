@@ -6,7 +6,7 @@
          <span class="currentWorld" v-if="world._id === selectedWorld">
            {{world.name}}
          </span>
-         <span v-else>
+         <span v-else v-on:click="changeWorld(world._id)">
            {{world.name}}
          </span>
        </li>
@@ -14,17 +14,25 @@
    </div>
  </template>
 
- <script>
- export default {
-   name: 'Sidebar',
-   data () {
-     return {
-       worlds: this.$store.getters.getWorlds,
-       selectedWorld: this.$store.getters.getCurrentWorld
-     }
-   }
- }
- </script>
+<script>
+import store from '../../../store/store.js';
+
+export default {
+  name: 'Sidebar',
+  data () {
+    return {
+      worlds: this.$store.getters.getWorlds,
+      selectedWorld: this.$store.getters.getCurrentWorld
+    }
+  },
+  methods: {
+    changeWorld(id) {
+      store.commit('saveCurrentWorld', id)
+      this.$emit('worldUpdated', id)
+    }
+  }
+}
+</script>
 
  <style lang="scss" scoped>
    .dashboard-sidebar {
