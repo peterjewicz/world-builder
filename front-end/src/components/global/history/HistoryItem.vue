@@ -1,13 +1,13 @@
 <template>
   <div class="historyItem">
     <div class="editHistoryItemWrapper" v-if="this.editActive">
-      <span v-on:click="editActive = false" class="editTrigger">Close</span>
+      <span v-on:click="editActive = false" class="editTrigger">Close <i class="fas fa-times"></i></span>
       <input v-model="itemTitle" v-on:change="editHistoryItem" type="text" name="title" />
       <input v-model="itemDate"  v-on:change="editHistoryItem" type="text" name="date" />
       <textarea v-model="itemDesc"  v-on:change="editHistoryItem" type="text" name="description" />
     </div>
     <!-- TODO put icon here -->
-    <span v-on:click="editActive = true" class="editTrigger">Edit</span>
+    <span v-on:click="editActive = true" class="editTrigger">Edit <i class="fas fa-edit"></i></span>
     <p class="date">{{time}}</p>
     <h4>{{title}}</h4>
     <p>{{desc}}</p>
@@ -43,6 +43,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
+  @import '../../../styles/main';
 
   .historyItem {
     width: 100%;
@@ -53,8 +54,26 @@ export default {
     position: relative;
     right: 320px;
 
+    .editTrigger {
+      font-size: .75rem;
+      position: absolute;
+      cursor: pointer;
+      transition: all .25s;
+      top: 5px;
+      right: 5px;
+      margin: 0;
+      i {
+        font-size: 1rem;
+      }
+
+      &:hover {
+        color: $lightBlue;
+      }
+    }
+
     .editHistoryItemWrapper {
       position: absolute;
+      padding-top: 25px;
       width: 100%;
       height: 100%;
       background: white;

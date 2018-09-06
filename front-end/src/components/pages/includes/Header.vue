@@ -24,7 +24,6 @@
 
 <script>
 import store from '../../../store/store.js';
-import { mapGetters } from 'vuex'
 
 export default {
   name: 'Header',
@@ -35,15 +34,11 @@ export default {
     }
   },
   computed: {
-    // ...mapGetters({
-    //   currentWorld: 'getCurrentWorld'
-    // })
-    currentWorld : {
+    currentWorld: {
       get () {
         return store.getters.getCurrentWorld;
       },
       set (value) {
-        console.log(value)
         store.commit('saveCurrentWorld', value);
         this.$emit('worldUpdated', value)
       }

@@ -6,6 +6,7 @@
     </div>
     <div class="field-content">
       <input type="text" v-model="fieldValue" v-on:change="handleValueChange" v-on:input="handleInput"/>
+      <wysiwyg v-model="fieldValue" />
       <div class="linkedEntity" v-if="showEntityPicker">
         choose
         <ul>
@@ -26,6 +27,7 @@ export default {
   data () {
     return {
       fieldValue: this.value,
+      // fieldValue: "<a href='test.html'>test text</a>",
       atActive: false,
       currentAtPosition: null,
       showEntityPicker: false,
@@ -35,6 +37,7 @@ export default {
   watch: {
     value: function(newVal, oldVal) {
       this.fieldValue = this.value
+      console.log(this.value)
     }
   },
   methods: {

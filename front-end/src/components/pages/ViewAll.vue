@@ -11,18 +11,9 @@
       <template v-if="getEntities.length > 0">
         <div class="entity" v-for="entity in getEntities">
           <img v-if="entity.value.media" v-bind:src="`https://s3.amazonaws.com/worldbuilder-twc/5b6ae767f0512f0c5d8ef4dd/${entity.value.media}`" width="100%" />
-          <div v-for="(entityValues, key) in entity.value">
-            <p>{{key}}</p>
-            <span v-if="key !== 'media'">
-              <div v-for="(value, key) in entityValues">
-                <span v-if="value">
-                  {{key}}: {{value}}
-                </span>
-              </div>
-            </span>
-          </div>
-          <router-link v-bind:to="`/new/${entityType}/${entity._id}`">View More/Edit</router-link>
-          <p>{{entity._id}}</p>
+          <h5>Name: {{entity.value.overview.name}}</h5>
+          <h5>Role: {{entity.value.overview.role}}</h5>
+          <router-link v-bind:to="`/new/${entityType}/${entity._id}`"><button class="primary">View/Edit</button></router-link>
         </div>
       </template>
       <h3 v-else >No Entities Found For This Type</h3>

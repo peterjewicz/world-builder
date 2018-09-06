@@ -24,7 +24,9 @@
   (restrict handler {:handler  rule
                      :on-error access-error}))
 
-(defn wrap-api-auth [handler]
+(defn check-user-auth
+  "Checks a given token against users to see if it's a real user"
+  [handler]
   (fn [request]
     (let
       [token (get (:headers request) "token")
@@ -32,6 +34,21 @@
       (if user
         (handler (assoc request :user user))     ; pass to wrapped handler
         (unauthorized {:error "unauthorized"})))))
+
+
+; TODO change the end to check the userId param against the current user
+; TODO we also need to check that the :body call actually works, might not
+; THIS IS JUST PLACEHOLDER FOR NOW
+; (defn check-world-auth
+;   "Checks an operation being performed on the world it's being performed on
+;    If the logged in user owns the world it's good, if not return unauthorized"
+;   [handler]
+;   (fn [request]
+;     (let [worldId (get (:body worldId))
+;           world (db/get-world-by-id worldId)]
+;           (if world
+;             (handler (assoc request :user user))     ; pass to wrapped handler
+;             (unauthorized {:error "unauthorized"})))))
 
 (defmethod restructure-param :auth-rules
   [_ rule acc]
@@ -57,7 +74,7 @@
 
     (GET "/plus" []
       :return       Long
-      :middleware [wrap-api-auth]
+      :middleware [check-user-auth]
       :query-params [x :- Long, {y :- Long 1}]
       :summary      "x+y with query-parameters. y defaults to 1."
       (ok (+ x y)))
@@ -78,7 +95,7 @@
     (GET "/:id/worlds/" request
       :path-params [id :- String]
       :summary     "Gets all the worlds related to a specific 'id'"
-      :middleware [wrap-api-auth]
+      :middleware [check-user-auth]
       (ok {:body (db/get-worlds-by-id (:_id (:user request)))}))
 
     (POST "/uploads" []
@@ -96,7 +113,7 @@
     (POST "/worlds" request
       :body-params [name :- String]
       :header-params [token :- String]
-      :middleware [wrap-api-auth]
+      :middleware [check-user-auth]
       :summary "Creates a new world with 'name'"
       (ok (db/create-new-world name (:_id (:user request)))))
 
@@ -114,7 +131,7 @@
     (GET "/worlds/:id/entities" request
       :path-params [id :- String]
       :header-params [token :- String]
-      :middleware [wrap-api-auth]
+      :middleware [check-user-auth]
       :summary     "Gets all the entities associated with a world"
       (ok (entities/get-all-entities id)))
 
@@ -124,7 +141,7 @@
                     worldId :- String
                     currentId :- String]
       :header-params [token :- String]
-      :middleware [wrap-api-auth]
+      :middleware [check-user-auth]
       (ok (entities/create-entity type values worldId (:_id (:user request)) currentId)))
 
     (POST "/divide" []
