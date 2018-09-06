@@ -24,7 +24,6 @@
   (restrict handler {:handler  rule
                      :on-error access-error}))
 
-; TODO actually make it check stuff
 (defn wrap-api-auth [handler]
   (fn [request]
     (let

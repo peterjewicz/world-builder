@@ -10,7 +10,7 @@
       <div class="header-left-content">
         <div class="worlds-wrapper">
           Worlds:
-          <select :value="currentWorld" v-model="selectedWorld" v-on:change="changeWorld">
+          <select v-model="currentWorld">
             <option v-for="world in worlds" :value="world._id">{{ world.name }}</option>
           </select>
         </div>
@@ -35,24 +35,24 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({
-      currentWorld: 'getCurrentWorld'
-    })
+    // ...mapGetters({
+    //   currentWorld: 'getCurrentWorld'
+    // })
+    currentWorld : {
+      get () {
+        return store.getters.getCurrentWorld;
+      },
+      set (value) {
+        console.log(value)
+        store.commit('saveCurrentWorld', value);
+        this.$emit('worldUpdated', value)
+      }
+    }
   },
   mounted() {
-    console.log(this.$store.getters.getCurrentWorld)
+    // console.log(this.$store.getters.getCurrentWorld)
   },
   methods: {
-    changeWorld() {
-      console.log(this.selectedWorld)
-      store.commit('saveCurrentWorld', this.selectedWorld)
-      this.$emit('worldUpdated', this.selectedWorld)
-      // this.$router.push(`/dashboard?world=${this.currentWorld}`);
-      //
-      // // TODO we probably just want to bubble this up to the dashboard instead of reloading the page
-      // // We'll leave it now cause I'm lazy
-      // location.reload()
-    }
   }
 }
 </script>
