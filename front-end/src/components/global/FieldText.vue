@@ -5,12 +5,15 @@
       <p>{{this.description}}</p>
     </div>
     <div class="field-content">
-      <input type="text" v-model="fieldValue" v-on:change="handleValueChange" v-on:input="handleInput"/>
-      <wysiwyg v-model="fieldValue" />
+      <!-- <input type="text" v-model="fieldValue" v-on:change="handleValueChange" v-on:input="handleInput"/> -->
+      <wysiwyg v-model="fieldValue" v-on:change="handleValueChange" @change="handleInput" v-on:input="handleInput"/>
       <div class="linkedEntity" v-if="showEntityPicker">
         choose
         <ul>
-          <li v-on:click="selectEntity" v-for="entity in sortedEntities" :data-value="entity.value.overview.name">
+          <li v-on:click="selectEntity" v-for="entity in sortedEntities"
+              :data-value="entity.value.overview.name"
+              :data-id="entity._id"
+              :data-type="entity.type">
             {{entity.value.overview.name}}
           </li>
         </ul>
@@ -37,7 +40,7 @@ export default {
   watch: {
     value: function(newVal, oldVal) {
       this.fieldValue = this.value
-      console.log(this.value)
+      // console.log(this.value)
     }
   },
   methods: {
@@ -66,6 +69,8 @@ export default {
             let entities = this.searchEntities.split(',');
             entities.forEach(entity => {
               currentStoreState[entity].forEach(storeEntity => {
+                // assign the type here so we can build the link
+                storeEntity.type = entity;
                 values.push(storeEntity);
               })
             })
@@ -90,12 +95,22 @@ export default {
       }
     },
     selectEntity(e) {
-      let currentValue = e.srcElement.attributes[1].nodeValue;
+      // [1] is name
+      // [2] is id
+      // [3] is type
+      let currentName = e.srcElement.attributes[1].nodeValue;
+      let currentId = e.srcElement.attributes[2].nodeValue
+      let currentType = e.srcElement.attributes[3].nodeValue
+
+      let currentValue = `<a target="_blank" href="new/${currentType}/${currentId}">${currentName}</a>`;
       let preSelectValue = this.fieldValue.substring(this.fieldValue, this.currentAtPosition);
       this.fieldValue = preSelectValue + '@' + currentValue;
       this.atActive = false;
       this.showEntityPicker = false;
       this.currentAtPosition = null;
+    },
+    testFunc(e) {
+      // console.log("testsssssss")
     }
   }
 }

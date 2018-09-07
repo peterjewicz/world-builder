@@ -6,7 +6,23 @@ import router from './router'
 import store from './store/store.js';
 
 import wysiwyg from 'vue-wysiwyg';
-Vue.use(wysiwyg, {});
+Vue.use(wysiwyg, {hideModules:
+  { 'bold': true,
+    'italic': true,
+    'underline': true,
+    'justifyLeft': true,
+    'justifyCenter': true,
+    'justifyRight': true,
+    'headings': true,
+    'link': true,
+    'code': true,
+    'orderedList': true,
+    'unorderedList': true,
+    'image': true,
+    'table': true,
+    'removeFormat': true,
+    'separator': true }
+});
 
 Vue.config.productionTip = false
 
