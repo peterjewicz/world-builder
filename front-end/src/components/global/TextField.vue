@@ -1,11 +1,23 @@
 <template>
-  <div class="row">
+  <div class="row area-field">
     <div class="field-details">
       <h4>{{this.title}}</h4>
       <p>{{this.description}}</p>
     </div>
     <div class="field-content">
-      <textarea v-model="fieldValue" v-on:change="handleValueChange"/>
+      <!-- <textarea v-model="fieldValue" v-on:change="handleValueChange"/> -->
+      <wysiwyg v-model="fieldValue" v-on:change="handleValueChange" @change="handleInput" v-on:input="handleInput"/>
+      <div class="linkedEntity" v-if="showEntityPicker">
+        choose
+        <ul>
+          <li v-on:click="selectEntity" v-for="entity in sortedEntities"
+              :data-value="entity.value.overview.name"
+              :data-id="entity._id"
+              :data-type="entity.type">
+            {{entity.value.overview.name}}
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
@@ -14,10 +26,14 @@
 
 export default {
   name: 'TextField',
-  props: ['title', 'name', 'description', 'value'],
+  props: ['title', 'name', 'description', 'value', 'linkable', 'searchEntities'],
   data () {
     return {
-      fieldValue: this.value
+      fieldValue: this.value,
+      atActive: false,
+      currentAtPosition: null,
+      showEntityPicker: false,
+      sortedEntities: []
     }
   },
   watch: {

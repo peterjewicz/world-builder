@@ -1,11 +1,12 @@
 <template>
   <div class="entity">
     <div class="entity-inner">
-      <h3>{{title}}</h3>
+      <h4>{{title}}</h4>
     </div>
+    <img :src="getPic(img)" width="40px" height="40px" />
     <div class="entity-inner">
-      <h4><router-link v-bind:to="newurl">New</router-link></h4>
-      <h4><router-link v-bind:to="allurl">View All</router-link></h4>
+      <h5><router-link v-bind:to="newurl">New</router-link></h5>
+      <h5><router-link v-bind:to="allurl">View All</router-link></h5>
     </div>
   </div>
 </template>
@@ -14,13 +15,15 @@
 export default {
   name: 'EntityCard',
 
-  props: ['title', 'newurl', 'allurl'],
+  props: ['title', 'newurl', 'allurl', 'img'],
   data () {
     return {
     }
   },
   methods: {
-
+    getPic(image) {
+      return require('../../../assets/icons/' + image + '.png');
+    }
   }
 }
 </script>
@@ -31,14 +34,26 @@ export default {
 
   .entity {
     border-radius: 2px;
-    width: 250px;
-    min-width: 250px;
+    width: 215px;
+    min-width: 215px;
     height: 125px;
-    border: 2px solid $darkBlue;
+    border: 2px solid #444;
     display: flex;
     flex-direction: column;
     color: white;
-    background: #444;
+    background: #555;
+
+    img {
+      margin: 0 auto;
+    }
+
+    a {
+      color: white;
+
+      &:hover {
+        color: $lightBlue;
+      }
+    }
 
     .entity-inner {
       display: flex;
@@ -47,7 +62,7 @@ export default {
       justify-content: space-between;
       height: 75px;
 
-      h3,h4{
+      h3,h4,h5{
         margin: 0;
         display: block;
         flex-grow: 1;

@@ -8,24 +8,24 @@
         <p>Here you can add details to your world. To switch worlds check the drop down in the upper-right.</p>
         <div class="dashboard-body">
           <h3>Characters & Races </h3>
-          <EntityCard title="Characters" newurl="/new/character" allurl="/all/character"/>
-          <EntityCard title="Creatures" newurl="/new/creature" allurl="/all/creature"/>
+          <EntityCard title="Characters" img="Characters" newurl="/new/character" allurl="/all/character"/>
+          <EntityCard title="Creatures" img="Creatures" newurl="/new/creature" allurl="/all/creature"/>
         </div>
         <div class="dashboard-body">
           <h3>Locations</h3>
-          <EntityCard title="Regions/Countries" newurl="/new/region" allurl="/all/region"/>
-          <EntityCard title="Cities" newurl="/new/city" allurl="/all/city"/>
-          <EntityCard title="Point Of Interest" newurl="/new/pointOfInterest" allurl="/all/pointofinterest"/>
+          <EntityCard title="Regions/Countries" img="Countries" newurl="/new/region" allurl="/all/region"/>
+          <EntityCard title="Cities" img="Cities" newurl="/new/city" allurl="/all/city"/>
+          <EntityCard title="Point Of Interest"  img="Interest"newurl="/new/pointOfInterest" allurl="/all/pointofinterest"/>
         </div>
         <div class="dashboard-body">
           <h3>Social</h3>
-          <EntityCard title="Religions" newurl="/new/religion" allurl="/all/religion"/>
-          <EntityCard title="Languages" newurl="/new/language" allurl="/all/language"/>
+          <EntityCard title="Religions" img="Religions" newurl="/new/religion" allurl="/all/religion"/>
+          <EntityCard title="Languages" img="Languages" newurl="/new/language" allurl="/all/language"/>
         </div>
         <div class="dashboard-body">
           <h3>Fantasy</h3>
-          <EntityCard title="Spells" newurl="/new/spell" allurl="/all/spell"/>
-          <EntityCard title="Items" newurl="/new/item" allurl="/all/item"/>
+          <EntityCard title="Spells" img="Spells" newurl="/new/spell" allurl="/all/spell"/>
+          <EntityCard title="Items" img="Items" newurl="/new/item" allurl="/all/item"/>
         </div>
       </div>
     </div>

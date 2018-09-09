@@ -1,12 +1,14 @@
 <template>
-  <div class="row">
+  <div class="row text-field ">
     <div class="field-details">
       <h4>{{this.title}}</h4>
       <p>{{this.description}}</p>
     </div>
-    <div class="field-content">
+    <div class="field-content" >
       <!-- <input type="text" v-model="fieldValue" v-on:change="handleValueChange" v-on:input="handleInput"/> -->
-      <wysiwyg v-model="fieldValue" v-on:change="handleValueChange" @change="handleInput" v-on:input="handleInput"/>
+      <div v-bind:class="{ large: this.largeField }">
+        <wysiwyg v-model="fieldValue" v-on:change="handleValueChange" @change="handleInput" v-on:input="handleInput"/>
+      </div>
       <div class="linkedEntity" v-if="showEntityPicker">
         choose
         <ul>
@@ -26,7 +28,7 @@
 
 export default {
   name: 'FieldText',
-  props: ['title', 'name', 'description', 'value', 'linkable', 'searchEntities'],
+  props: ['title', 'name', 'description', 'value', 'linkable', 'searchEntities', 'largeField'],
   data () {
     return {
       fieldValue: this.value,

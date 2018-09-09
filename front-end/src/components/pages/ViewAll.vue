@@ -11,8 +11,7 @@
       <template v-if="getEntities.length > 0">
         <div class="entity" v-for="entity in getEntities">
           <img v-if="entity.value.media" v-bind:src="`https://s3.amazonaws.com/worldbuilder-twc/5b6ae767f0512f0c5d8ef4dd/${entity.value.media}`" width="100%" />
-          <h5>Name: {{entity.value.overview.name}}</h5>
-          <h5>Role: {{entity.value.overview.role}}</h5>
+          <h5>Name: <span v-html="entity.value.overview.name">{{entity.value.overview.name}}</span></h5>
           <router-link v-bind:to="`/new/${entityType}/${entity._id}`"><button class="primary">View/Edit</button></router-link>
         </div>
       </template>

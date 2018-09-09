@@ -2,7 +2,7 @@
   <div class="header">
     <div class="maxWidthWrap">
       <div class="hamburger">
-        <i class="fas fa-bars"></i>
+        <!-- <i class="fas fa-bars"></i> -->
       </div>
       <div>
         Dashboard
