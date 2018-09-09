@@ -10,7 +10,7 @@
         <wysiwyg v-model="fieldValue" v-on:change="handleValueChange" @change="handleInput" v-on:input="handleInput"/>
       </div>
       <div class="linkedEntity" v-if="showEntityPicker">
-        choose
+        <span class="linkedTitle">Choose an Item To Link</span>
         <ul>
           <li v-on:click="selectEntity" v-for="entity in sortedEntities"
               :data-value="entity.value.overview.name"
@@ -60,6 +60,12 @@ export default {
         if (this.atActive) {
           let searchValue = this.fieldValue.substring(this.currentAtPosition + 1, this.fieldValue.length);
 
+          // check for ; as its the last of the nbsp; we use in the html
+          if (searchValue[searchValue.length - 1] === ';') {
+            this.atActive = false;
+            this.showEntityPicker = false;
+            this.currentAtPosition = null;
+          }
           // This is the instance where they've gone back and ersased the @symbol
           if (this.fieldValue[this.currentAtPosition] !== '@') {
             this.atActive = false;
@@ -120,6 +126,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
+  @import '../../styles/main';
   .row {
     display: flex;
     max-width: 620px;
@@ -144,11 +151,35 @@ export default {
       }
 
       .linkedEntity {
-        border: 1px solid #e9edf2;
+        border: 2px solid #e9edf2;
         position: absolute;
         top: 70px;
         width: 300px;
-        height: 50px;
+        max-height: 100px;
+        overflow: scroll;
+        padding: 5px;
+        background: white;
+        z-index: 5;
+
+        .linkedTitle {
+          border-bottom: 1px solid #e9edf2;
+        }
+
+        ul {
+          margin: 0;
+          list-style: none;
+          text-align: left;
+
+          li{
+            transition: all .25s;
+            cursor: pointer;
+
+            &:hover{
+              color: $lightBlue;
+            }
+
+          }
+        }
       }
     }
   }
