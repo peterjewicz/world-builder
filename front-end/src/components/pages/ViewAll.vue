@@ -15,7 +15,7 @@
           <router-link v-bind:to="`/new/${entityType}/${entity._id}`"><button class="primary">View/Edit</button></router-link>
         </div>
       </template>
-      <h3 v-else >No Entities Found For This Type</h3>
+      <h3 style="margin: 0 auto;" v-else >No Entities Found For This Type</h3>
     </div>
   </div>
 </template>

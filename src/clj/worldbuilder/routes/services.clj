@@ -98,6 +98,15 @@
       :middleware [check-user-auth]
       (ok {:body (db/get-worlds-by-id (:_id (:user request)))}))
 
+    (GET "/worlds/:id/images" request
+      :path-params [id :- String]
+      :header-params [token :- String]
+      :summary     "Gets all the images for the world supplied by 'id'"
+      :middleware [check-user-auth]
+      (ok {:body (list-objects-v2 (:s3creds env)
+                  {:bucket-name "worldbuilder-twc"
+                   :prefix id})}))
+
     (POST "/uploads" []
       :multipart-params [myFile :- s/Any, worldId :- s/Any]
       :summary     "Gets all the worlds related to a specific 'id'"

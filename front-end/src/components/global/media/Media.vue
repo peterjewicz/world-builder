@@ -1,5 +1,6 @@
 <template>
-  <div v-if="isactive">
+  <div class="Media" v-if="isactive">
+    <MediaManager />
     <h2>Media</h2>
     <div class="media-wrapper">
       <input type="file" @change="onFileChanged">
@@ -8,9 +9,12 @@
 </template>
 
 <script>
+import MediaManager from './MediaManager';
+
 export default {
   name: 'Media',
   components: {
+    MediaManager
   },
   props: ['active'],
   data () {
@@ -45,4 +49,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
+  .Media {
+    position: relative;
+  }
 </style>

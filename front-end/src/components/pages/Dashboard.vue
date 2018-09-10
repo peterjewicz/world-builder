@@ -15,7 +15,7 @@
           <h3>Locations</h3>
           <EntityCard title="Regions/Countries" img="Countries" newurl="/new/region" allurl="/all/region"/>
           <EntityCard title="Cities" img="Cities" newurl="/new/city" allurl="/all/city"/>
-          <EntityCard title="Point Of Interest"  img="Interest"newurl="/new/pointOfInterest" allurl="/all/pointofinterest"/>
+          <EntityCard title="Point Of Interest"  img="Interest" newurl="/new/pointOfInterest" allurl="/all/pointofinterest"/>
         </div>
         <div class="dashboard-body">
           <h3>Social</h3>
