@@ -35,10 +35,6 @@
         (handler (assoc request :user user))     ; pass to wrapped handler
         (unauthorized {:error "unauthorized"})))))
 
-; (:user request)
-; TODO change the end to check the userId param against the current user
-; TODO we also need to check that the :body call actually works, might not
-; THIS IS JUST PLACEHOLDER FOR NOW
 (defn check-world-auth
   "Checks an operation being performed on the world it's being performed on
   If the logged in user owns the world it's good, if not return unauthorized"
