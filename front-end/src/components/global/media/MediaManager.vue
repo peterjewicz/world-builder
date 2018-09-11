@@ -1,14 +1,23 @@
 <template>
-  <div class="MediaManager">
-    <h2>Media Manager</h2>
+  <div v-if="isactive" class="MediaManager">
+    <div v-on:click="handleCloseMediaManager" class="closeMediaManager">Close</div>
     <div class="media-wrapper">
       <div class="currentMedia">
-        <div v-for="image in userImages">
-          <img v-bind:src="`https://s3.amazonaws.com/worldbuilder-twc/${image.key}`" width="100px"/>
+        <h3>Media Manager</h3>
+        <p>Select an image to use or upload a new one!</p>
+        <div class="image-wrapper" v-for="(image, index) in userImages">
+          <img v-bind:key="index" v-on:click="selectImage(`https://s3.amazonaws.com/worldbuilder-twc/${image.key}`)" v-bind:src="`https://s3.amazonaws.com/worldbuilder-twc/${image.key}`" width="100px"/>
         </div>
       </div>
       <div class="newMedia">
-        <input type="file" @change="onFileChanged">
+        <div class="currentSelection">
+          <p>Currently Selected</p>
+          <img :src="selectedImage" v-if="selectedImage" width="100%"/>
+        </div>
+        <div class="newMediaBottom">
+          <input type="file" @change="onFileChanged">
+          <button v-on:click="uploadImage" class="primary">Upload</button>
+        </div>
       </div>
     </div>
   </div>
@@ -26,7 +35,8 @@ export default {
   data () {
     return {
       selectedFile: null,
-      userImages: []
+      userImages: [1, 3],
+      selectedImage: null
     }
   },
   computed: {
@@ -38,21 +48,40 @@ export default {
   created() {
 
   },
-  mounted() {
+  beforeCreate() {
     let currentWorld = this.$store.getters.getCurrentWorld;
     axios({
       url: api + '/worlds/' + currentWorld + '/images',
       method: 'get',
       headers: {'token': localStorage.getItem('token')}
     }).then(response => {
-      console.log(response.data.body['object-summaries']);
-      this.userImages = response.data.body['object-summaries']
+      response.data.body['object-summaries'].forEach(item => {
+        this.userImages.push(item);
+      })
     })
   },
   methods: {
     onFileChanged (event) {
       this.selectedFile = event.target.files[0];
       this._emitValues();
+    },
+    selectImage(imgUrl) {
+      console.log(imgUrl)
+      this.selectedImage = imgUrl;
+    },
+    handleCloseMediaManager() {
+      this.$emit('closeMediaManager', true)
+    },
+    uploadImage() {
+      const formData = new FormData()
+
+      formData.append('myFile', this.selectedFile, this.selectedFile.name)
+      formData.append('worldId', this.$store.getters.getCurrentWorld);
+      axios.post('http://localhost:3000/api/uploads', formData)
+        .then(response => {
+          console.log(response)
+          this.userImages.push(`https://s3.amazonaws.com/worldbuilder-twc/${this.selectedFile.name}`)
+        })
     },
     _emitValues() {
       const data = {
@@ -67,12 +96,78 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
+  @import '../../../styles/main';
+
   .MediaManager {
     position: absolute;
-    top: 0;
-    left: 0;
+    top: -100px;
+    left: calc(50% - 360px);
     background: white;
-    width: 75%;
+    width: 720px;
     margin: 0 auto;
+    border: 1px solid $lightBlue;
+    min-height: 240px;
+    flex-flow: wrap;
+
+    .closeMediaManager {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+    }
+
+    h3 {
+      margin: 10px 0;
+      width: 100%;
+    }
+    p {
+      margin-bottom: 5px;
+      width: 100%;
+    }
+
+    .media-wrapper {
+      display: flex;
+      flex-flow: wrap;
+
+      .currentMedia {
+        width: 540px;
+        flex-flow: wrap;
+        overflow-y: scroll;
+        max-height:480px;
+      }
+
+      .newMedia{
+        width: 180px;
+        padding: 5px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+
+        .newMediaBottom {
+          align-self: flex-end;
+        }
+
+        input {
+          width: 90%;
+        }
+      }
+    }
+
+    .image-wrapper {
+      width: 260px;
+      height: 200px;
+      overflow: hidden;
+      img{
+        min-width: 100%;
+        max-width: none;
+        width: auto;
+        min-height: 100%;
+        max-height: 100%;
+      }
+    }
+
+    .currentMedia {
+      display: flex;
+      flex-direction: row;
+    }
   }
 </style>

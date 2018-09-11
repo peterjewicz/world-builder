@@ -1,9 +1,9 @@
 <template>
   <div class="Media" v-if="isactive">
-    <MediaManager />
+    <MediaManager v-bind:active="mediaManagerActive" @closeMediaManager="closeMediaManager"/>
     <h2>Media</h2>
     <div class="media-wrapper">
-      <input type="file" @change="onFileChanged">
+      <input v-on:click="openMediaManager" type="text" @change="onFileChanged">
     </div>
   </div>
 </template>
@@ -19,7 +19,8 @@ export default {
   props: ['active'],
   data () {
     return {
-      selectedFile: null
+      selectedFile: null,
+      mediaManagerActive: false
     }
   },
   computed: {
@@ -32,9 +33,15 @@ export default {
 
   },
   methods: {
-    onFileChanged (event) {
+    onFileChanged(event) {
       this.selectedFile = event.target.files[0];
       this._emitValues();
+    },
+    openMediaManager() {
+      this.mediaManagerActive = true;
+    },
+    closeMediaManager() {
+      this.mediaManagerActive = false;
     },
     _emitValues() {
       const data = {

@@ -84,7 +84,7 @@
 
 (defn get-world-by-id [id]
   (def world (mc/find-one-as-map db "worlds" {:_id (ObjectId. id) }))
-  (assoc user :_id (str (test :_id))))
+  (assoc world :_id (str (test :_id))))
 
 ;********USER SPECIFIC DB OPERATIONS*********
 

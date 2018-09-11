@@ -35,20 +35,20 @@
         (handler (assoc request :user user))     ; pass to wrapped handler
         (unauthorized {:error "unauthorized"})))))
 
-
+; (:user request)
 ; TODO change the end to check the userId param against the current user
 ; TODO we also need to check that the :body call actually works, might not
 ; THIS IS JUST PLACEHOLDER FOR NOW
-; (defn check-world-auth
-;   "Checks an operation being performed on the world it's being performed on
-;    If the logged in user owns the world it's good, if not return unauthorized"
-;   [handler]
-;   (fn [request]
-;     (let [worldId (get (:body worldId))
-;           world (db/get-world-by-id worldId)]
-;           (if world
-;             (handler (assoc request :user user))     ; pass to wrapped handler
-;             (unauthorized {:error "unauthorized"})))))
+(defn check-world-auth
+  "Checks an operation being performed on the world it's being performed on
+  If the logged in user owns the world it's good, if not return unauthorized"
+  [handler]
+  (fn [request]
+    (let [worldId (get (:route-params request) :id)
+          world (db/get-world-by-id worldId)]
+          (if (= (:user_id world) (:_id (:user request)))
+          (handler (assoc request :world world))
+          (unauthorized {:error "unauthorized"})))))
 
 (defmethod restructure-param :auth-rules
   [_ rule acc]
@@ -102,7 +102,7 @@
       :path-params [id :- String]
       :header-params [token :- String]
       :summary     "Gets all the images for the world supplied by 'id'"
-      :middleware [check-user-auth]
+      :middleware [check-user-auth check-world-auth]
       (ok {:body (list-objects-v2 (:s3creds env)
                   {:bucket-name "worldbuilder-twc"
                    :prefix id})}))
