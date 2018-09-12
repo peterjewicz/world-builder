@@ -13,6 +13,7 @@
         <div class="currentSelection">
           <p>Currently Selected</p>
           <img :src="selectedImage" v-if="selectedImage" width="100%"/>
+          <button v-on:click="handleChooseImage" class="primary">Use</button>
         </div>
         <div class="newMediaBottom">
           <input type="file" @change="onFileChanged">
@@ -71,6 +72,9 @@ export default {
     },
     handleCloseMediaManager() {
       this.$emit('closeMediaManager', true)
+    },
+    handleChooseImage() {
+      this.$emit('imageSelected', this.selectedImage)
     },
     uploadImage() {
       const formData = new FormData()

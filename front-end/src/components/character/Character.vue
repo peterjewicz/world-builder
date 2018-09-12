@@ -135,12 +135,12 @@ export default {
     },
     addCharacter() {
       // It's possible to save without an image
-      if (this.completeValues.media) {
-        this.uploadImage(this.completeValues['media']);
-
-        // we only want to save the name of the file being used here. as we know the pattern and location of it
-        this.completeValues['media'] = this.completeValues['media'].name;
-      }
+      // if (this.completeValues.media) {
+      //   this.uploadImage(this.completeValues['media']);
+      //
+      //   // we only want to save the name of the file being used here. as we know the pattern and location of it
+      //   this.completeValues['media'] = this.completeValues['media'].name;
+      // }
       const encodedVal = JSON.stringify(this.completeValues);
       const worldId = this.$store.getters.getCurrentWorld;
       axios({

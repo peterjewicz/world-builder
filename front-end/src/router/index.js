@@ -130,9 +130,9 @@ export default new Router({
               next();
             }
           })
-          .catch((error) => {
+          .catch(() => {
             // redirect to login
-            console.log(error)
+            next({ path: 'login' })
           })
       }
     }

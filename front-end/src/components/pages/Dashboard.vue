@@ -66,7 +66,6 @@ export default {
     }
   },
   mounted() {
-    console.log(this.$store.getters.getCurrentWorld)
     const worlds = this.$store.getters.getWorlds;
     let currentWorld = this.$store.getters.getCurrentWorld;
     this.currentWorld = currentWorld;
@@ -87,9 +86,9 @@ export default {
       method: 'get',
       headers: {'token': localStorage.getItem('token')}
     }).then(response => {
+      console.log(response)
       store.commit('saveValue', response.data)
     })
-    // console.log(this.$route.query.world)
   }
 }
 </script>
@@ -116,7 +115,9 @@ export default {
     clear: both;
     text-align: left;
     padding-bottom: 35px;
-    border-bottom: 1px solid black;
+    margin-left: 10px;
+    margin-right: 10px;
+    border-bottom: 2px solid black;
     display: flex;
     flex-flow: wrap;
     h3 {
