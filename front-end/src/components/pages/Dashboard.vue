@@ -1,6 +1,6 @@
 <template>
   <div class="dashboard">
-    <Header @worldUpdated="worldUpdated"/>
+    <Header @worldUpdated="worldUpdated" titleText="Dashboard"/>
     <div class="dashboard-inner">
       <Sidebar @worldUpdated="worldUpdated"/>
       <div class="dashboard-content">
@@ -26,6 +26,11 @@
           <h3>Fantasy</h3>
           <EntityCard title="Spells" img="Spells" newurl="/new/spell" allurl="/all/spell"/>
           <EntityCard title="Items" img="Items" newurl="/new/item" allurl="/all/item"/>
+        </div>
+        <div class="dashboard-body">
+          <h3>Sci-Fi</h3>
+          <EntityCard title="Planet" img="Spells" newurl="/new/planet" allurl="/all/planet"/>
+          <EntityCard title="Technology" img="Items" newurl="/new/technology" allurl="/all/technology"/>
         </div>
       </div>
     </div>

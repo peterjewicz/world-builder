@@ -1,6 +1,6 @@
 <template>
   <div v-if="isactive" class="MediaManager">
-    <div v-on:click="handleCloseMediaManager" class="closeMediaManager">Close</div>
+    <div v-on:click="handleCloseMediaManager" class="closeMediaManager">Close <i class="fas fa-times"></i></div>
     <div class="media-wrapper">
       <div class="currentMedia">
         <h3>Media Manager</h3>
@@ -36,7 +36,7 @@ export default {
   data () {
     return {
       selectedFile: null,
-      userImages: [1, 3],
+      userImages: [],
       selectedImage: null
     }
   },

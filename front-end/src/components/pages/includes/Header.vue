@@ -5,17 +5,18 @@
         <!-- <i class="fas fa-bars"></i> -->
       </div>
       <div>
-        Dashboard
+        {{titleText}}
       </div>
       <div class="header-left-content">
-        <div class="worlds-wrapper">
+        <div class="worlds-wrapper" v-if="!hideWorlds">
           Worlds:
           <select v-model="currentWorld">
             <option v-for="world in worlds" :value="world._id">{{ world.name }}</option>
           </select>
+          <router-link v-bind:to="'create-world'"><span class="addWorld hover-darkblue">Add World +</span></router-link>
         </div>
         <div>
-          <i class="fas fa-user"></i>
+          <router-link v-bind:to="'settings'"><i class="fas fa-user"></i></router-link>
         </div>
       </div>
     </div>
@@ -27,6 +28,7 @@ import store from '../../../store/store.js';
 
 export default {
   name: 'Header',
+  props: ['hideWorlds', 'titleText'],
   data () {
     return {
       worlds: this.$store.getters.getWorlds,
@@ -74,6 +76,11 @@ export default {
 
     select {
       min-width: 100px;
+    }
+
+    .addWorld {
+      color: white;
+      font-size: .5rem;
     }
 
     .header-left-content {

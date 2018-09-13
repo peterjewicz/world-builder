@@ -11,6 +11,7 @@
             [worldbuilder.user.create :as user]
             [worldbuilder.middleware.auth :as auth-middleware]
             [worldbuilder.config :refer [env]]
+            [worldbuilder.billing :as billing]
             [buddy.auth :refer [authenticated?]])
             (:import org.bson.types.ObjectId)
             (:use [amazonica.aws.s3]))
@@ -44,6 +45,9 @@
        (ok {:user user}))
   (context "/api" []
     :tags ["worldbuilder"]
+
+  (GET "/testbilling" []
+    (ok {:body (billing/get-stripe-plans)}))
 
     (GET "/:id/worlds/" request
       :path-params [id :- String]

@@ -4,6 +4,7 @@
   :url "http://example.com/FIXME"
 
   :dependencies [[buddy "2.0.0"]
+                 [abengoa/clj-stripe "1.0.4"]
                  [amazonica "0.3.132"]
                  [cheshire "5.8.0"]
                  [clj-time "0.14.4"]

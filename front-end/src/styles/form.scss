@@ -9,8 +9,6 @@ input {
   border: 1px solid #e9edf2;
 }
 
-
-
 textarea {
   height: 100px;
   width: 320px;
@@ -23,6 +21,8 @@ textarea {
   border: 1px solid #e9edf2;
 }
 
+
+// WYSIWYG Editor Style Overrides
 .editr--content:focus {
    box-shadow: 0 0 3pt 2pt #bfdfff;
 }
@@ -62,7 +62,7 @@ textarea {
 
   .large {
     height: 100px;
-    
+
     .editr--content {
       height: 100px;
       max-height: 100px;

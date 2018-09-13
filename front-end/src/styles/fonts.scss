@@ -20,3 +20,19 @@ a {
 .error {
   color: red;
 }
+
+.hover-lightblue {
+  transition: all .25s;
+
+  &:hover{
+    color: $lightBlue;
+  }
+}
+
+.hover-darkblue {
+  transition: all .25s;
+
+  &:hover{
+    color: $darkBlue;
+  }
+}

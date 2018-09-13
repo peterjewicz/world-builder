@@ -1,6 +1,6 @@
 <template>
   <div class="HistoryAdd" v-if="isactive">
-    <span v-on:click="closeHistory">X</span>
+    <span class="closeHistory hover-lightblue" v-on:click="closeHistory">Close <i class="fas fa-times"></i></span>
     <h2>Add a New Historical Event</h2>
     <label for="title">Title</label>
     <input v-model="itemTitle" type="text" name="title" />
@@ -68,7 +68,14 @@ export default {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(255,255,255,.85);
+    background: rgba(255,255,255,.95);
     z-index: 10;
+
+    .closeHistory {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      cursor: pointer;
+    }
   }
 </style>

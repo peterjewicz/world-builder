@@ -2,7 +2,8 @@ import Vue from 'vue';
 import store from '../store/store.js';
 
 import Router from 'vue-router';
-import HelloWorld from '@/components/HelloWorld';
+import Home from '@/components/Home';
+import Settings from '@/components/Settings';
 import Login from '@/components/Login';
 import Create from '@/components/user/Create';
 import Dashboard from '@/components/pages/Dashboard';
@@ -31,8 +32,13 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
+      name: 'Home',
+      component: Home
+    },
+    {
+      path: '/settings',
+      name: 'Settings',
+      component: Settings
     },
     {
       path: '/login',
@@ -40,8 +46,8 @@ export default new Router({
       component: Login
     },
     {
-      path: '/new-world',
-      name: 'NewWorld',
+      path: '/create-world',
+      name: 'createWorld',
       component: NewWorld,
       beforeEnter: (to, from, next) => {
         if (localStorage.getItem('token')) {
