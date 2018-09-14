@@ -67,7 +67,6 @@ export default {
       this._emitValues();
     },
     selectImage(imgUrl) {
-      console.log(imgUrl)
       this.selectedImage = imgUrl;
     },
     handleCloseMediaManager() {

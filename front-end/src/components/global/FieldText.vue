@@ -116,9 +116,6 @@ export default {
       this.atActive = false;
       this.showEntityPicker = false;
       this.currentAtPosition = null;
-    },
-    testFunc(e) {
-      // console.log("testsssssss")
     }
   }
 }

@@ -16,14 +16,6 @@
 </template>
 
 <script>
-
-// TODO
-// 1. We need to push all added events to some type of que system so we can save them
-// Unless we want to just auto save them?
-// 2. Same Goes For edits/deletes - Need to keep a que of the changes and push that with the
-// entire entity? Then we need to remove it from the object before save. Seems messy.
-// Best way might just be to blow it away eahc time - yea that'll work
-
 export default {
   name: 'HistoryAdd',
   props: ['active'],

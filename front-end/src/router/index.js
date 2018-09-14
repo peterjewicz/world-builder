@@ -3,7 +3,7 @@ import store from '../store/store.js';
 
 import Router from 'vue-router';
 import Home from '@/components/Home';
-import Settings from '@/components/Settings';
+import Settings from '@/components/pages/Settings';
 import Login from '@/components/Login';
 import Create from '@/components/user/Create';
 import Dashboard from '@/components/pages/Dashboard';

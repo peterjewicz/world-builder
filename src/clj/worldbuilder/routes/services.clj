@@ -55,30 +55,30 @@
       :middleware [auth-middleware/check-user-auth]
       (ok {:body (db/get-worlds-by-id (:_id (:user request)))}))
 
-    (GET "/worlds/:worldId/images" request
-      :path-params [worldId :- String]
-      :header-params [token :- String]
-      :summary     "Gets all the images for the world supplied by 'id'"
-      :middleware [auth-middleware/check-user-auth auth-middleware/check-world-auth]
-      (ok {:body (list-objects-v2 (:s3creds env)
-                  {:bucket-name "worldbuilder-twc"
-                   :prefix worldId})}))
+  (GET "/worlds/:worldId/images" request
+    :path-params [worldId :- String]
+    :header-params [token :- String]
+    :summary     "Gets all the images for the world supplied by 'id'"
+    :middleware [auth-middleware/check-user-auth auth-middleware/check-world-auth]
+    (ok {:body (list-objects-v2 (:s3creds env)
+                {:bucket-name "worldbuilder-twc"
+                 :prefix worldId})}))
 
-    (POST "/uploads" []
-      :multipart-params [myFile :- s/Any, worldId :- s/Any]
-      :summary     "Uploads an image file for a specific world"
-      :middleware [upload/wrap-multipart-params]
-      (ok {:body (put-object (:s3creds env)
-            :bucket-name "worldbuilder-twc"
-            :key (str worldId "/" (:filename myFile))
-            :file (myFile :tempfile))}))
+  (POST "/uploads" []
+    :multipart-params [myFile :- s/Any, worldId :- s/Any]
+    :summary     "Uploads an image file for a specific world"
+    :middleware [upload/wrap-multipart-params]
+    (ok {:body (put-object (:s3creds env)
+          :bucket-name "worldbuilder-twc"
+          :key (str worldId "/" (:filename myFile))
+          :file (myFile :tempfile))}))
 
-    (POST "/worlds" request
-      :body-params [name :- String]
-      :header-params [token :- String]
-      :middleware [auth-middleware/check-user-auth]
-      :summary "Creates a new world with 'name'"
-      (ok (db/create-new-world name (:_id (:user request)))))
+  (POST "/worlds" request
+    :body-params [name :- String]
+    :header-params [token :- String]
+    :middleware [auth-middleware/check-user-auth]
+    :summary "Creates a new world with 'name'"
+    (ok (db/create-new-world name (:_id (:user request)))))
 
     (GET "/entity/:type/" []
       :path-params [type :- String]
