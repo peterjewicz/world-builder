@@ -1,7 +1,7 @@
 (ns worldbuilder.test.handler
   (:require [clojure.test :refer :all]
             [ring.mock.request :refer :all]
-            [mount.core :refer [defstate]]
+            [mount.core :refer :all]
             [monger.core :as mg]
             [monger.collection :as mc]
             [monger.operators :refer :all]
@@ -9,24 +9,26 @@
             [worldbuilder.db.core :as db-query]
             [mount.core :as mount]))
 
-(use-fixtures
-  :once
-  (fn [f]
-    (mount/start #'worldbuilder.config/env
-                 #'worldbuilder.handler/app)
 
 
 
-    (f)))
+; (def db (mg/connect-via-uri "mongodb://127.0.0.1:27017/worldbuilder"))
+; (defstate db*
+;   :start (-> "mongodb://127.0.0.1:27017/worldbuilder" mg/connect-via-uri)
+;   :stop (-> db* :conn mg/disconnect))
+;
+; (defstate db
+;   :start (:db db*))
+(defn start-states [f]
+  (mount.core/start)
+  (f))
 
-    ; (defstate db*
-    ;   :start (-> "mongodb://127.0.0.1:27017/worldbuilder" mg/connect-via-uri)
-    ;   :stop (-> db* :conn mg/disconnect))
-    ; (defstate db
-    ;   :start (:db db*))
-(def db (mg/connect-via-uri "mongodb://127.0.0.1:27017/worldbuilder"))
+(clojure.test/use-fixtures :once start-states)
+
 
 (deftest test-app
+
+
   (testing "main route"
     (let [response (app (request :get "/"))]
       (is (= 2 2))))

@@ -3,9 +3,10 @@ body, html {
   margin: 0;
 }
 $globalPadding: 150px;
+$maxWidth: 1024px;
 
 .maxWidthWrap{
-  max-width: 1024px;
+  max-width: $maxWidth;
   margin: 0 auto;
 }
 
