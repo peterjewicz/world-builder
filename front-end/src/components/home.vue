@@ -26,7 +26,14 @@
         <h2 class="purpleText">A New World At Your Fingertips</h2>
         <p>
           Worldbuilder is built to make creating worlds as easy as possible.
-          Never forget a fact, never contradict yourself again.
+          Never forget a fact, never contradict yourself again. With all your facts
+          contained in one place it makes building your worlds as easy as possible.
+        </p>
+        <p>
+          Whether you're a writer, dungeon master, or just love building worlds Worldbuilder
+          is the perfect tool to help keep you oragnized. Our preloaded entities give you
+          thee power to create neatly organized worlds that will make keeping everything
+          in sycn.
         </p>
       </div>
       <img class="circle-image" :src="getImage('dragon')" width="400px" height="400px"/>
@@ -81,19 +88,19 @@
     <div class="features row">
       <div class="feature-row">
         <div class="feature">
-          <h3>Feature Title</h3>
+          <h3>Unlimited Entities</h3>
           <p>Feature text can go here
             to talk about the feature in question
           </p>
         </div>
         <div class="feature">
-          <h3>Feature Title</h3>
+          <h3>Maps</h3>
           <p>Feature text can go here
             to talk about the feature in question
           </p>
         </div>
         <div class="feature">
-          <h3>Feature Title</h3>
+          <h3>Link With References</h3>
           <p>Feature text can go here
             to talk about the feature in question
           </p>
@@ -101,19 +108,19 @@
       </div>
       <div class="feature-row">
         <div class="feature">
-          <h3>Feature Title</h3>
+          <h3>Backed Up And Safe</h3>
           <p>Feature text can go here
             to talk about the feature in question
           </p>
         </div>
         <div class="feature">
-          <h3>Feature Title</h3>
+          <h3>Add Imagery</h3>
           <p>Feature text can go here
             to talk about the feature in question
           </p>
         </div>
         <div class="feature">
-          <h3>Feature Title</h3>
+          <h3>Multiple Worlds</h3>
           <p>Feature text can go here
             to talk about the feature in question
           </p>
@@ -154,7 +161,6 @@ export default {
 
     p {
       line-height: 25px;
-      font-size: 18px;
     }
 
     .hero {
