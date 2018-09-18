@@ -3,8 +3,8 @@
     <div class="hero">
       <div class="nav">
         <ul>
-          <li>Login</li>
-          <li>Signup</li>
+          <li><router-link v-bind:to="'login'">Login</router-link></li>
+          <li><router-link v-bind:to="'create'">Signup</router-link></li>
           <li>Pricing</li>
         </ul>
       </div>
@@ -21,7 +21,7 @@
         <img :src="getImage('cloud')" width="100px"/>
       </div>
     </div>
-    <div class="row">
+    <div class="row content-row">
       <div class="col-6">
         <h2 class="purpleText">A New World At Your Fingertips</h2>
         <p>
@@ -51,13 +51,13 @@
           </p>
         </div>
         <div class="col-6">
-          <img :src="getImageJPG('flowitem1')" width="100%"/>
+          <img :src="getImageJPG('flowitem1')"/>
         </div>
       </div>
 
       <div class="flow-item">
         <div class="col-6">
-          <img :src="getImageJPG('flowitem2')" width="100%"/>
+          <img :src="getImageJPG('flowitem2')"/>
         </div>
         <div class="col-6">
           <h2>Add Details</h2>
@@ -81,48 +81,57 @@
           </p>
         </div>
         <div class="col-6">
-          <img :src="getImageJPG('flowitem3')" width="100%"/>
+          <img :src="getImageJPG('flowitem3')"/>
         </div>
       </div>
     </div>
     <div class="features row">
       <div class="feature-row">
         <div class="feature">
-          <h3>Unlimited Entities</h3>
-          <p>Feature text can go here
-            to talk about the feature in question
+          <h3>Unlimited Details</h3>
+          <p>
+            Write as much or as little as you like. There's no limit to how
+            many worlds, characters, cities, and more than you can write.
           </p>
         </div>
         <div class="feature">
-          <h3>Maps</h3>
-          <p>Feature text can go here
-            to talk about the feature in question
+          <h3>Maps (Coming Soon)</h3>
+          <p>
+            Upload and drop pins on maps to keep an eye on all your locations. Pins can be linked
+            to other maps making it a seemless experience going from country to region to city maps.
           </p>
         </div>
         <div class="feature">
           <h3>Link With References</h3>
-          <p>Feature text can go here
-            to talk about the feature in question
+          <p>
+            Our smart linking feature allows you to "@" other entities. Easily
+            link up a character with the city he lives in or an important event
+            with a point of interest.
           </p>
         </div>
       </div>
       <div class="feature-row">
         <div class="feature">
           <h3>Backed Up And Safe</h3>
-          <p>Feature text can go here
-            to talk about the feature in question
+          <p>
+            With everything saved to our server you never have to worry about
+            losing a notebook with important details in it. Our servers are
+            secured with best practices to keep your info safe.
           </p>
         </div>
         <div class="feature">
           <h3>Add Imagery</h3>
-          <p>Feature text can go here
-            to talk about the feature in question
+          <p>
+            Upload images associated with all your details to keep a visual reference. We
+            save and store all your images that you can edit or add to at any time.
           </p>
         </div>
         <div class="feature">
           <h3>Multiple Worlds</h3>
-          <p>Feature text can go here
-            to talk about the feature in question
+          <p>
+            For paid members, there's no limit to the amount of worlds you can create.
+            For one low payment create as many worlds as you like, they're all backed up
+            and safely stored for you to access at any time!
           </p>
         </div>
       </div>
@@ -131,7 +140,22 @@
       <h3>Free Forever For Your First World</h3>
       <h4>And Then $7/month for unlimited worlds</h4>
       <button class="primary">Sign Up Free</button>
-
+    </div>
+    <div class="footer">
+      <div class="col-6">
+        <ul>
+          <li><router-link v-bind:to="'login'">Login</router-link></li>
+          <li><router-link v-bind:to="'create'">Signup</router-link></li>
+        </ul>
+      </div>
+      <div class="col-6">
+        <input type="text" placeholder="Get Updates" />
+        <button class="newsletter-submit primary">Get Updates</button>
+      </div>
+    </div>
+    <div class="copyright">
+      Copyright 2018 - World Builder - Built and Owned By <a href="http://www.totalwebconnections.com" target="_blank">
+        Total Web Connections</a>
     </div>
   </div>
 </template>
@@ -170,7 +194,6 @@ export default {
       background-size: cover;
       background-position: bottom;
       position: relative;
-
 
       .nav {
         position: absolute;
@@ -267,6 +290,10 @@ export default {
       box-sizing: border-box;
     }
 
+    .content-row {
+      padding-bottom: $globalPadding + 190;
+    }
+
     .flow-walkthrough {
       background-color: $purple;
       color: white;
@@ -274,13 +301,16 @@ export default {
       position: relative;
       flex-wrap: wrap;
       text-align: left;
-      // padding-bottom: $globalPadding;
 
       .flow-item {
         display: flex;
         max-width: $maxWidth;
         margin: 0 auto;
         padding: $globalPadding/3 0;
+
+        img {
+          width: 100%;
+        }
 
         h2 {
           border-bottom: 2px solid $lightBlue;
@@ -306,6 +336,7 @@ export default {
 
       .feature-row {
         display: flex;
+        flex-wrap: wrap;
       }
     }
 
@@ -314,7 +345,6 @@ export default {
       padding: 0px 10px;
       box-sizing: border-box;
     }
-
 
     .pricing {
       flex-flow: column;
@@ -327,6 +357,81 @@ export default {
       }
       button {
         margin-top: 10px;
+      }
+    }
+
+    .footer {
+      display: flex;
+      padding: $globalPadding/3 15px;
+      max-width: $maxWidth;
+      margin: 0 auto;
+
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        text-align: left;
+      }
+
+      input {
+        margin-right: 0px;
+      }
+
+      button {
+        float: right;
+      }
+    }
+
+    .copyright {
+      padding: 10px 0;
+      font-size: .6rem;
+    }
+
+    // Tablet styles
+    @media(max-width: 1024px) {
+      .content-row {
+        .col-6 {
+          width: 100%;
+          text-align: center;
+        }
+
+        img {
+          display: none;
+        }
+      }
+
+      .feature {
+        width: 50%;
+      }
+
+      .flow-item {
+        flex-wrap: wrap;
+        .col-6 {
+          width: 100%;
+        }
+
+        img {
+          width: 50%;
+        }
+      }
+    }
+
+    // Mobile Styles
+    @media(max-width: 767px) {
+      .feature {
+        width: 100%;
+      }
+
+      .flow-item {
+        img {
+          width: 100%;
+        }
+      }
+
+      .footer {
+        .col-6 {
+          width: 100%;
+        }
       }
     }
   }
