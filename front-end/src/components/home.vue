@@ -79,27 +79,52 @@
       </div>
     </div>
     <div class="features row">
-      <div class="feature">
-        <h3>Feature Title</h3>
-        <p>Feature text can go here
-          to talk about the feature in question
-        </p>
+      <div class="feature-row">
+        <div class="feature">
+          <h3>Feature Title</h3>
+          <p>Feature text can go here
+            to talk about the feature in question
+          </p>
+        </div>
+        <div class="feature">
+          <h3>Feature Title</h3>
+          <p>Feature text can go here
+            to talk about the feature in question
+          </p>
+        </div>
+        <div class="feature">
+          <h3>Feature Title</h3>
+          <p>Feature text can go here
+            to talk about the feature in question
+          </p>
+        </div>
       </div>
-      <div class="feature">
-        <h3>Feature Title</h3>
-        <p>Feature text can go here
-          to talk about the feature in question
-        </p>
-      </div>
-      <div class="feature">
-        <h3>Feature Title</h3>
-        <p>Feature text can go here
-          to talk about the feature in question
-        </p>
+      <div class="feature-row">
+        <div class="feature">
+          <h3>Feature Title</h3>
+          <p>Feature text can go here
+            to talk about the feature in question
+          </p>
+        </div>
+        <div class="feature">
+          <h3>Feature Title</h3>
+          <p>Feature text can go here
+            to talk about the feature in question
+          </p>
+        </div>
+        <div class="feature">
+          <h3>Feature Title</h3>
+          <p>Feature text can go here
+            to talk about the feature in question
+          </p>
+        </div>
       </div>
     </div>
-    <div class="pricing row">
-      Pricing details can go here
+    <div class="pricing">
+      <h3>Free Forever For Your First World</h3>
+      <h4>And Then $7/month for unlimited worlds</h4>
+      <button class="primary">Sign Up Free</button>
+
     </div>
   </div>
 </template>
@@ -253,6 +278,7 @@ export default {
 
         h2 {
           border-bottom: 2px solid $lightBlue;
+          margin-bottom: 65px;
         }
       }
 
@@ -270,11 +296,32 @@ export default {
 
     .features {
       display: flex;
+      flex-wrap: wrap;
+
+      .feature-row {
+        display: flex;
+      }
     }
 
     .feature {
       width: 33%;
       padding: 0px 10px;
+      box-sizing: border-box;
+    }
+
+
+    .pricing {
+      flex-flow: column;
+      background: $lightBlue;
+      color: white;
+      padding: $globalPadding/2 0;
+
+      h3,h4 {
+        margin: 0;
+      }
+      button {
+        margin-top: 10px;
+      }
     }
   }
 </style>
