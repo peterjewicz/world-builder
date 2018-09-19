@@ -112,7 +112,7 @@ export default {
 
     .dashboard-sidebar {
       width: 14%;
-      border-right: 1px solid $darkBlue;
+      border-right: 2px solid $purple;
     }
   }
 
@@ -122,7 +122,7 @@ export default {
     padding-bottom: 35px;
     margin-left: 10px;
     margin-right: 10px;
-    border-bottom: 2px solid black;
+    border-bottom: 2px solid $purple;
     display: flex;
     flex-flow: wrap;
     h3 {

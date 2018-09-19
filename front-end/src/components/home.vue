@@ -11,7 +11,7 @@
       <div class="text-content">
         <h1>Never Miss A detail Building Rich Worlds</h1>
         <h3>Keep Every Charcter, City, and Much More In One Place</h3>
-        <button class="primary">Sign Up</button>
+        <router-link v-bind:to="'create'"><button class="primary">Sign Up</button></router-link>
       </div>
       <div class="castle">
       </div>
@@ -139,7 +139,7 @@
     <div class="pricing">
       <h3>Free Forever For Your First World</h3>
       <h4>And Then $7/month for unlimited worlds</h4>
-      <button class="primary">Sign Up Free</button>
+      <router-link v-bind:to="'create'"><button class="primary">Sign Up Free</button></router-link>
     </div>
     <div class="footer">
       <div class="col-6">
@@ -195,6 +195,11 @@ export default {
       background-position: bottom;
       position: relative;
 
+      button {
+        position: relative;
+        top: 15px;
+      }
+
       .nav {
         position: absolute;
         top: 15px;
@@ -209,6 +214,17 @@ export default {
         li {
           display: inline-block;
           padding: 0 10px;
+          color: white;
+          transition: all .25s;
+          font-size: 1.15rem;
+          a {
+            color: white;
+            transition: all .25s;
+
+            &:hover {
+              color: $darkBlue;
+            }
+          }
         }
       }
 

@@ -58,11 +58,13 @@
 )
 
 ;TODO move to entities DB file
-(defn find-entity-by-id []
-    (def characters (mc/find-maps db "characters" {:user_id "5b4403d3c1025107593fa0b4" }))
-  (map ; Turn characters into a modified list
-    #(update % :_id str) ; By updating each map :id by casting to a string
-    characters))
+(defn find-entity-by-id
+  "Finds a given entity by its 'id'"
+  []
+  (def characters (mc/find-maps db "characters" {:user_id "5b4403d3c1025107593fa0b4" }))
+    (map ; Turn characters into a modified list
+      #(update % :_id str) ; By updating each map :id by casting to a string
+      characters))
 
 ;gets all the entities by type for a given user id
 (defn get-entity-by-type [type id])

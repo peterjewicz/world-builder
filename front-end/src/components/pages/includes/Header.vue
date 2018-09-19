@@ -5,7 +5,7 @@
         <!-- <i class="fas fa-bars"></i> -->
       </div>
       <div>
-        {{titleText}}
+        <h4>{{titleText}}</h4>
       </div>
       <div class="header-left-content">
         <div class="worlds-wrapper" v-if="!hideWorlds">
@@ -60,7 +60,12 @@ export default {
 
   .header {
     background: $lightBlue;
-    padding: 5px;
+    padding: 7px 5px;
+
+    h4 {
+      margin: 0;
+      font-size: 1.25rem;
+    }
 
     .hamburger {
       text-align: left;
@@ -92,6 +97,8 @@ export default {
       }
       .worlds-wrapper {
         flex-grow: 2;
+        position: relative;
+        top: 6px;
       }
     }
   }
