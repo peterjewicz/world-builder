@@ -49,11 +49,11 @@
   (GET "/testbilling" []
     (ok {:body (billing/get-stripe-plans)}))
 
-    (GET "/:id/worlds/" request
-      :path-params [id :- String]
-      :summary     "Gets all the worlds related to a specific 'id'"
-      :middleware [auth-middleware/check-user-auth]
-      (ok {:body (db/get-worlds-by-id (:_id (:user request)))}))
+  (GET "/:id/worlds/" request
+    :path-params [id :- String]
+    :summary     "Gets all the worlds related to a specific 'id'"
+    :middleware [auth-middleware/check-user-auth]
+    (ok {:body (db/get-worlds-by-id (:_id (:user request)))}))
 
   (GET "/worlds/:worldId/images" request
     :path-params [worldId :- String]
@@ -64,6 +64,7 @@
                 {:bucket-name "worldbuilder-twc"
                  :prefix worldId})}))
 
+  ; TODO we need to add middleware here to check image uploader
   (POST "/uploads" []
     :multipart-params [myFile :- s/Any, worldId :- s/Any]
     :summary     "Uploads an image file for a specific world"
@@ -98,13 +99,13 @@
       :summary     "Gets all the entities associated with a world"
       (ok (entities/get-all-entities worldId)))
 
-    (POST "/entity" request
+    (POST "/entity/:worldId" request
+      :path-params [worldId :- String]
       :body-params [type :- String,
                     values :- String,
-                    worldId :- String
                     currentId :- String]
       :header-params [token :- String]
-      :middleware [auth-middleware/check-user-auth]
+      :middleware [auth-middleware/check-user-auth auth-middleware/check-world-auth]
       (ok (entities/create-entity type values worldId (:_id (:user request)) currentId)))
 
     (POST "/create-user" []

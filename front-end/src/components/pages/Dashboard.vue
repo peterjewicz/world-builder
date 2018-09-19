@@ -91,8 +91,9 @@ export default {
       method: 'get',
       headers: {'token': localStorage.getItem('token')}
     }).then(response => {
-      console.log(response)
       store.commit('saveValue', response.data)
+    }).catch(() => {
+      console.log("You don't have permission to access that world")
     })
   }
 }
@@ -102,6 +103,9 @@ export default {
 <style lang="scss" scoped>
   @import '../../styles/main';
 
+  html, body {
+    background: red;
+  }
   .dashboard-inner {
     display: flex;
     flex-flow: wrap;

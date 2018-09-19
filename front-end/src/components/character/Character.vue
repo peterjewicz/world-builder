@@ -35,7 +35,7 @@
     <Personality @valueChanged="valuesChanged" v-bind:active="personalityActive" />
     <Social v-bind:active="socialActive" />
     <History @valueChanged="valuesChanged" v-bind:values="this.historyValues" v-bind:active="historyActive" />
-    <Media @valueChanged="valuesChanged" v-bind:active="mediaActive" />
+    <Media @valueChanged="valuesChanged" v-bind:value="this.mediaValue" v-bind:active="mediaActive" />
     <button class="primary large" v-on:click="addCharacter">Save Character!</button>
   </div>
 </template>
@@ -82,6 +82,7 @@ export default {
       overviewValues: {},
       physicalValues: {},
       historyValues: {},
+      mediaValue: '',
 
       completeValues: {
         overview: [],
@@ -108,6 +109,7 @@ export default {
         }
       });
 
+      // TODO we have to do media here too
       this.currentId = currentChar[0]._id;
 
       this.overviewValues = currentChar[0].value.overview;
@@ -118,6 +120,11 @@ export default {
 
       this.historyValues = currentChar[0].value.history;
       this.completeValues.history = {...currentChar[0].value.physical};
+
+      this.mediaValue = currentChar[0].value.media;
+      this.completedValues.media = this.mediaValue;
+
+      console.log(this.mediaValue)
     }
   },
   methods: {
@@ -137,12 +144,11 @@ export default {
       const encodedVal = JSON.stringify(this.completeValues);
       const worldId = this.$store.getters.getCurrentWorld;
       axios({
-        url: api + '/entity',
+        url: api + `/entity/${worldId}`,
         method: 'post',
         data: {
           type: 'character',
           values: encodedVal,
-          worldId: worldId,
           currentId: this.currentId},
         headers: {'token': localStorage.getItem('token')}
       }).then(response => {
@@ -162,16 +168,6 @@ export default {
         this.dropdownColor = 'red';
         this.dropdownActive = true;
       })
-    },
-    uploadImage(selectedFile) {
-      const formData = new FormData()
-
-      formData.append('myFile', selectedFile, selectedFile.name)
-      formData.append('worldId', this.$store.getters.getCurrentWorld);
-      axios.post('http://localhost:3000/api/uploads', formData)
-        .then(response => {
-          console.log(response)
-        })
     },
     hideDropdown() {
       this.dropdownActive = false;

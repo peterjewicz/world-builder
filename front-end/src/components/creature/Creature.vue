@@ -13,11 +13,16 @@
       <div class="overview stat-item" v-on:click="changeActiveScreen('overviewActive')">
         <h4>Overview</h4>
       </div>
-      <div class="map stat-item" v-on:click="changeActiveScreen('mapActive')">
+      <div class="history stat-item" v-on:click="changeActiveScreen('historyActive')">
         <h4>History</h4>
+      </div>
+      <div class="media stat-item" v-on:click="changeActiveScreen('mediaActive')">
+        <h4>Media</h4>
       </div>
     </div>
     <Overview @valueChanged="valuesChanged" v-bind:values="this.overviewValues" v-bind:active="overviewActive"/>
+    <History @valueChanged="valuesChanged" v-bind:values="this.historyValues" v-bind:active="historyActive" />
+    <Media @valueChanged="valuesChanged" v-bind:active="mediaActive" />
     <button class="primary large" v-on:click="addEntity">Save Creature!</button>
   </div>
 </template>
@@ -26,7 +31,9 @@
 import Overview from './overview/Overview';
 import Dropdown from '../global/Dropdown';
 import Header from '../pages/includes/Header';
-// import History from '../global/history/History'
+import History from '../global/history/History';
+import Media from '../global/media/Media';
+
 const axios = require('axios');
 const api = process.env.API;
 
@@ -36,19 +43,26 @@ export default {
   components: {
     Overview,
     Dropdown,
-    Header
+    Header,
+    History,
+    Media
   },
   data () {
     return {
 
       // TODO Change this back once you're done with the History Studd
       overviewActive: true,
+      historyActive: false,
+      mediaActive: false,
       mapActive: false,
 
-      overviewValues: [],
+      overviewValues: {},
+      historyValues: {},
 
       completeValues: {
-        overview: []
+        overview: [],
+        history: [],
+        media: ''
       },
 
       currentId: '',
@@ -71,6 +85,9 @@ export default {
 
       this.overviewValues = currentCreature[0].value.overview;
       this.completeValues.overview = {...currentCreature[0].value.overview};
+
+      this.historyValues = currentChar[0].value.history;
+      this.completeValues.history = {...currentChar[0].value.physical};
     }
   },
   methods: {
