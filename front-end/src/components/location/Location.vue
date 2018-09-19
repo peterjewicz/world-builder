@@ -1,22 +1,16 @@
 <template>
   <div class="Location">
     <h2>Location</h2>
-    <p>Create a new character here. Fill in as much or as little data a you want!</p>
+    <p>Create a new Location here. Fill in as much or as little data a you want!</p>
     <div class="statsWrapper">
       <div class="overview stat-item" v-on:click="changeActiveScreen('overviewActive')">
         <h4>Overview</h4>
       </div>
-      <div class="Physical stat-item" v-on:click="changeActiveScreen('physicalActive')">
-        <h4>Physical</h4>
-      </div>
-      <div class="personaility stat-item" v-on:click="changeActiveScreen('personalityActive')">
-        <h4>Personaility</h4>
-      </div>
-      <div class="social stat-item" v-on:click="changeActiveScreen('socialActive')">
-        <h4>Social</h4>
-      </div>
       <div class="history stat-item" v-on:click="changeActiveScreen('historyActive')">
         <h4>History</h4>
+      </div>
+      <div class="media stat-item" v-on:click="changeActiveScreen('mediaActive')">
+        <h4>Media</h4>
       </div>
     </div>
 
@@ -25,8 +19,9 @@
 </template>
 
 <script>
+import History from '../global/history/History';
+import Media from '../global/media/Media';
 
-// import History from '../global/history/History'
 const axios = require('axios');
 const api = process.env.API;
 
@@ -34,25 +29,28 @@ export default {
 
   name: 'Location',
   components: {
-
+    History,
+    Media
   },
   data () {
     return {
 
       // TODO Change this back once you're done with the History Studd
       overviewActive: false,
-      physicalActive: false,
-      personalityActive: false,
-      socialActive: false,
       historyActive: true,
+      mediaActive: false,
 
-      overviewValues: [],
+      overviewValues: {},
+      historyValues: {},
+      mediaValue: '',
 
       completeValues: {
         overview: [],
         physical: [],
         personality: [],
-        social: []
+        social: [],
+        history: [],
+        media: ''
       }
 
     }

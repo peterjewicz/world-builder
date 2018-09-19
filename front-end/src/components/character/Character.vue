@@ -35,7 +35,7 @@
     <Personality @valueChanged="valuesChanged" v-bind:active="personalityActive" />
     <Social v-bind:active="socialActive" />
     <History @valueChanged="valuesChanged" v-bind:values="this.historyValues" v-bind:active="historyActive" />
-    <Media @valueChanged="valuesChanged" v-bind:value="this.mediaValue" v-bind:active="mediaActive" />
+    <Media @valueChanged="valuesChanged" v-bind:values="this.mediaValue" v-bind:active="mediaActive" />
     <button class="primary large" v-on:click="addCharacter">Save Character!</button>
   </div>
 </template>
@@ -122,9 +122,7 @@ export default {
       this.completeValues.history = {...currentChar[0].value.physical};
 
       this.mediaValue = currentChar[0].value.media;
-      this.completedValues.media = this.mediaValue;
-
-      console.log(this.mediaValue)
+      this.completeValues.media = this.mediaValue;
     }
   },
   methods: {

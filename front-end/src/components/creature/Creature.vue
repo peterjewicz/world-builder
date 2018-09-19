@@ -22,7 +22,7 @@
     </div>
     <Overview @valueChanged="valuesChanged" v-bind:values="this.overviewValues" v-bind:active="overviewActive"/>
     <History @valueChanged="valuesChanged" v-bind:values="this.historyValues" v-bind:active="historyActive" />
-    <Media @valueChanged="valuesChanged" v-bind:active="mediaActive" />
+    <Media @valueChanged="valuesChanged" v-bind:values="this.mediaValue" v-bind:active="mediaActive"/>
     <button class="primary large" v-on:click="addEntity">Save Creature!</button>
   </div>
 </template>
@@ -58,6 +58,7 @@ export default {
 
       overviewValues: {},
       historyValues: {},
+      mediaValue: '',
 
       completeValues: {
         overview: [],
@@ -86,8 +87,11 @@ export default {
       this.overviewValues = currentCreature[0].value.overview;
       this.completeValues.overview = {...currentCreature[0].value.overview};
 
-      this.historyValues = currentChar[0].value.history;
-      this.completeValues.history = {...currentChar[0].value.physical};
+      this.historyValues = currentCreature[0].value.history;
+      this.completeValues.history = {...currentCreature[0].value.physical};
+
+      this.mediaValue = currentCreature[0].value.media;
+      this.completeValues.media = this.mediaValue;
     }
   },
   methods: {

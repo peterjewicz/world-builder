@@ -19,6 +19,8 @@
       </div>
     </div>
     <Overview @valueChanged="valuesChanged" v-bind:values="this.overviewValues" v-bind:active="overviewActive"/>
+    <History @valueChanged="valuesChanged" v-bind:values="this.historyValues" v-bind:active="historyActive" />
+    <Media @valueChanged="valuesChanged" v-bind:values="this.mediaValue" v-bind:active="mediaActive"/>
     <button class="primary large" v-on:click="addRegion">Save Region!</button>
   </div>
 </template>
@@ -27,7 +29,8 @@
 import Overview from './overview/Overview';
 import Dropdown from '../global/Dropdown';
 import Header from '../pages/includes/Header';
-// import History from '../global/history/History'
+import History from '../global/history/History'
+import Media from '../global/media/Media';
 const axios = require('axios');
 const api = process.env.API;
 
@@ -37,19 +40,25 @@ export default {
   components: {
     Overview,
     Dropdown,
-    Header
+    Header,
+    History,
+    Media
   },
   data () {
     return {
 
       // TODO Change this back once you're done with the History Studd
       overviewActive: true,
+      historyActive: false,
+      mediaActive: false,
       mapActive: false,
 
       overviewValues: [],
 
       completeValues: {
-        overview: []
+        overview: [],
+        history: [],
+        media: ''
       },
 
       currentId: '',
@@ -71,6 +80,12 @@ export default {
 
       this.overviewValues = currentRegion[0].value.overview;
       this.completeValues.overview = {...currentRegion[0].value.overview};
+
+      this.historyValues = currentRegion[0].value.history;
+      this.completeValues.history = {...currentRegion[0].value.physical};
+
+      this.mediaValue = currentRegion[0].value.media;
+      this.completeValues.media = this.mediaValue;
     }
   },
   methods: {

@@ -16,8 +16,13 @@
       <div class="map stat-item" v-on:click="changeActiveScreen('mapActive')">
         <h4>History</h4>
       </div>
+      <div class="media stat-item" v-on:click="changeActiveScreen('mediaActive')">
+        <h4>Media</h4>
+      </div>
     </div>
     <Overview @valueChanged="valuesChanged" v-bind:values="this.overviewValues" v-bind:active="overviewActive"/>
+    <History @valueChanged="valuesChanged" v-bind:values="this.historyValues" v-bind:active="historyActive" />
+    <Media @valueChanged="valuesChanged" v-bind:values="this.mediaValue" v-bind:active="mediaActive"/>
     <button class="primary large" v-on:click="addEntity">Save Religion!</button>
   </div>
 </template>
@@ -26,7 +31,9 @@
 import Overview from './overview/Overview';
 import Dropdown from '../global/Dropdown';
 import Header from '../pages/includes/Header';
-// import History from '../global/history/History'
+import History from '../global/history/History';
+import Media from '../global/media/Media';
+
 const axios = require('axios');
 const api = process.env.API;
 
@@ -36,19 +43,27 @@ export default {
   components: {
     Overview,
     Dropdown,
-    Header
+    Header,
+    History,
+    Media
   },
   data () {
     return {
 
       // TODO Change this back once you're done with the History Studd
       overviewActive: true,
+      historyActive: false,
+      mediaActive: false,
       mapActive: false,
 
-      overviewValues: [],
+      overviewValues: {},
+      historyValues: {},
+      mediaValue: '',
 
       completeValues: {
-        overview: []
+        overview: [],
+        history: [],
+        media: ''
       },
 
       currentId: '',
@@ -71,6 +86,12 @@ export default {
 
       this.overviewValues = currentReligion[0].value.overview;
       this.completeValues.overview = {...currentReligion[0].value.overview};
+
+      this.historyValues = currentReligion[0].value.history;
+      this.completeValues.history = {...currentReligion[0].value.physical};
+
+      this.mediaValue = currentReligion[0].value.media;
+      this.completeValues.media = this.mediaValue;
     }
   },
   methods: {

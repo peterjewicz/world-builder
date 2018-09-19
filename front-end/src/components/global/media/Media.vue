@@ -16,11 +16,16 @@ export default {
   components: {
     MediaManager
   },
-  props: ['active'],
+  props: ['active', 'values'],
   data () {
     return {
       selectedFile: null,
       mediaManagerActive: false
+    }
+  },
+  watch: {
+    values: function(newVal, oldVal) {
+      this.selectedFile = newVal;
     }
   },
   computed: {
