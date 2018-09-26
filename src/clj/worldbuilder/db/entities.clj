@@ -21,8 +21,6 @@
       (mc/update-by-id db type (ObjectId. currentId) {$set {:value item}} {:multi false})
       "Entity Updated")))
 
-
-
 (defn get-entity-by-world
   "Gets all entities of 'entityType' for world 'worldId'"
   [entityType worldId]

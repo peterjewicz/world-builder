@@ -11,10 +11,13 @@
             [worldbuilder.user.create :as user]
             [worldbuilder.middleware.auth :as auth-middleware]
             [worldbuilder.config :refer [env]]
+            [amazonica.aws.s3transfer :as s3]
             [worldbuilder.billing :as billing]
             [buddy.auth :refer [authenticated?]])
             (:import org.bson.types.ObjectId)
             (:use [amazonica.aws.s3]))
+
+
 
 
 (defn access-error [_ _]
@@ -59,16 +62,18 @@
     :path-params [worldId :- String]
     :header-params [token :- String]
     :summary     "Gets all the images for the world supplied by 'id'"
-    :middleware [auth-middleware/check-user-auth auth-middleware/check-world-auth]
+    ; :middleware [auth-middleware/check-user-auth auth-middleware/check-world-auth]
     (ok {:body (list-objects-v2 (:s3creds env)
                 {:bucket-name "worldbuilder-twc"
                  :prefix worldId})}))
 
   ; TODO we need to add middleware here to check image uploader
-  (POST "/uploads" []
-    :multipart-params [myFile :- s/Any, worldId :- s/Any]
+  (POST "/worlds/:worldId/upload" []
+    :multipart-params [myFile :- s/Any]
+    :path-params [worldId :- String]
+    :header-params [token :- String]
     :summary     "Uploads an image file for a specific world"
-    :middleware [upload/wrap-multipart-params]
+    :middleware [auth-middleware/check-user-auth auth-middleware/check-world-auth upload/wrap-multipart-params]
     (ok {:body (put-object (:s3creds env)
           :bucket-name "worldbuilder-twc"
           :key (str worldId "/" (:filename myFile))

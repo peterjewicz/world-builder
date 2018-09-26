@@ -76,15 +76,19 @@ export default {
       this.$emit('imageSelected', this.selectedImage)
     },
     uploadImage() {
-      const formData = new FormData()
-
+      const formData = new FormData();
+      const worldId = this.$store.getters.getCurrentWorld;
       formData.append('myFile', this.selectedFile, this.selectedFile.name)
-      formData.append('worldId', this.$store.getters.getCurrentWorld);
-      axios.post('http://localhost:3000/api/uploads', formData)
-        .then(response => {
-          console.log(response)
-          this.userImages.push(`https://s3.amazonaws.com/worldbuilder-twc/${this.selectedFile.name}`)
-        })
+
+      console.log(localStorage.getItem('token'))
+      axios({
+        url: `http://localhost:3000/api/worlds/${worldId}/upload`,
+        method: 'post',
+        data: formData,
+        headers: {'token': localStorage.getItem('token')}
+      }).then(response => {
+        this.userImages.push(`https://s3.amazonaws.com/worldbuilder-twc/${this.selectedFile.name}`)
+      })
     },
     _emitValues() {
       const data = {

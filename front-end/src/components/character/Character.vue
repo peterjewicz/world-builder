@@ -109,7 +109,6 @@ export default {
         }
       });
 
-      // TODO we have to do media here too
       this.currentId = currentChar[0]._id;
 
       this.overviewValues = currentChar[0].value.overview;

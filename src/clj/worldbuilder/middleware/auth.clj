@@ -21,11 +21,13 @@
     (let
       [token (get (:headers request) "token")
        user (db/get-user-by-token token)]
+       (println token)
       (if user
         (handler (assoc request :user user))     ; pass to wrapped handler
         (unauthorized {:error "unauthorized"})))))
 
 
+; TODO we need to wrap the user check to make sure that a valid world is return, throws a weird error if it isnt
 (defn check-world-auth
   "Checks an operation being performed on the world it's being performed on
   If the logged in user owns the world it's good, if not return unauthorized"
