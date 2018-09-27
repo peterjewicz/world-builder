@@ -29,8 +29,8 @@
         </div>
         <div class="dashboard-body">
           <h3>Sci-Fi</h3>
-          <EntityCard title="Planet" img="Spells" newurl="/new/planet" allurl="/all/planet"/>
-          <EntityCard title="Technology" img="Items" newurl="/new/technology" allurl="/all/technology"/>
+          <EntityCard title="Planet" img="Planet" newurl="/new/planet" allurl="/all/planet"/>
+          <EntityCard title="Technology" img="Technology" newurl="/new/technology" allurl="/all/technology"/>
         </div>
       </div>
     </div>
@@ -135,8 +135,11 @@ export default {
       flex-basis: 100%;
     }
     .entity {
-      // float: left;
       margin: 20px;
+    }
+
+    &:last-child {
+      border: none;
     }
   }
 
