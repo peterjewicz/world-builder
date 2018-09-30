@@ -53,6 +53,7 @@ export default {
     margin: 200px 0;
     position: relative;
     right: 320px;
+    border: 3px solid $darkBlue;
 
     .editTrigger {
       font-size: .75rem;
@@ -81,7 +82,7 @@ export default {
       left: 0;
       top: 0;
       z-index: 2;
-      border: 1px solid black;
+      border: 1px solid $darkBlue;
     }
 
     .date {
@@ -97,7 +98,7 @@ export default {
 
     &:before {
       content: '';
-      background: black;
+      background: $darkBlue;
       position: absolute;
       top: -100px;
       right: calc(-2px - 140px);
@@ -106,7 +107,7 @@ export default {
     }
     &:after {
       content: '';
-      background: black;
+      background: $darkBlue;
       position: absolute;
       top: 50%;
       right: calc(0px - 140px);
@@ -118,7 +119,7 @@ export default {
       left: 320px;
       &:before {
         content: '';
-        background: black;
+        background: $darkBlue;
         position: absolute;
         top: -100px;
         left: calc(-2px - 160px);
@@ -127,7 +128,7 @@ export default {
       }
       &:after {
         content: '';
-        background: black;
+        background: $darkBlue;
         position: absolute;
         top: 50%;
         left: calc(0px - 160px);

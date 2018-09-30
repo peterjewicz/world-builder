@@ -37,6 +37,7 @@ export default {
     width: 215px;
     min-width: 215px;
     height: 125px;
+    margin: 20px;
     border: 2px solid #444;
     display: flex;
     flex-direction: column;
@@ -68,6 +69,12 @@ export default {
         flex-grow: 1;
         flex-basis: 0;
       }
+    }
+  }
+
+  @media(max-width: 767px) {
+    .entity {
+      margin: 20px auto;
     }
   }
 

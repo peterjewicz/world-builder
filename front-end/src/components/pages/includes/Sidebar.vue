@@ -58,6 +58,7 @@ export default {
        li{
          width: 100%;
          padding: 5px 0;
+         cursor: pointer;
        }
 
        span.fullwidth {
@@ -67,6 +68,12 @@ export default {
          box-sizing: border-box;
          width: 100%;
          display: block;
+
+         transition: all .5s;
+
+         &:not(.currentWorld):hover {
+           background: #dbe7db;
+         }
        }
 
        span.activeText {

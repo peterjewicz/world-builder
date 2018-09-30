@@ -134,9 +134,6 @@ export default {
       width: 100%;
       flex-basis: 100%;
     }
-    .entity {
-      margin: 20px;
-    }
 
     &:last-child {
       border: none;

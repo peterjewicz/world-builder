@@ -187,7 +187,8 @@ export default {
 
     .stat-item {
       &.active {
-        border-bottom: 3px solid $lightBlue
+        background: $lightBlue;
+        color: white;
       }
     }
   }
