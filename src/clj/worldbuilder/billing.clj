@@ -18,8 +18,9 @@
 
 
 (defn create-new-customer [stripeToken]
+  (println (:id stripeToken))
   (common/with-token (:stripe-private-key env)
     (common/execute (customers/create-customer
-      (common/card "A card token obtained with stripe.js")
-      (customers/email "site@stripe.com")
-      (common/plan "worldbuilder")))))
+      (common/card (:id stripeToken))
+      (customers/email "worldbuider@stripe.com")
+      (common/plan "plan_DhsxzAIntQRzqu")))))

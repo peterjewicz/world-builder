@@ -118,6 +118,20 @@
       :summary     "creates a user with a given username/password"
       (ok (user/create username email password)))
 
+    (POST "/billing/signup" request
+      :body-params [stripeToken :- s/Any]
+      :header-params [token :- String]
+      :middleware [auth-middleware/check-user-auth]
+      ; (println (:customer (first (:data (:sources (billing/create-new-customer stripeToken))))))
+      (ok {:body (db/update-user-billing token (:customer 
+                    (first (:data (:sources
+                        (billing/create-new-customer stripeToken))))))}))
+
+    (GET "/user" request
+      :header-params [token :- String]
+      :middleware [auth-middleware/check-user-auth]
+      (ok {:body (assoc (:user request) :_id (str ((:user request) :_id)))}))
+
     (POST "/login" []
       :body-params [username :- String,  password :- String]
       :summary     "Validates a users login and returns a token"

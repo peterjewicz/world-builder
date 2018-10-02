@@ -54,8 +54,11 @@
 (defn generate-new-token [username]
   (let
     [current-user (mc/update db "user" {:username username} {$set {:token (str (java.util.UUID/randomUUID))}} {:upsert true})]
-    (:token (get-user-by-username username)))
-)
+    (:token (get-user-by-username username))))
+
+(defn update-user-billing [token stripeToken]
+  (mc/update db "user" {:token token} {$set {:stripeToken stripeToken}} {:upsert true})
+  "User Updated")
 
 ;TODO move to entities DB file
 (defn find-entity-by-id

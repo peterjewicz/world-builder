@@ -15,7 +15,7 @@
           </select>
           <router-link v-bind:to="'create-world'"><span class="addWorld hover-darkblue">Add World +</span></router-link>
         </div>
-        <div>
+        <div class="settings-link">
           <router-link v-bind:to="'settings'"><i class="fas fa-user"></i></router-link>
         </div>
       </div>
@@ -100,6 +100,16 @@ export default {
         position: relative;
         top: 6px;
       }
+    }
+
+    .settings-link {
+      a {
+        color: white;
+        &:hover {
+          color: $darkBlue;
+        }
+      }
+
     }
   }
 
