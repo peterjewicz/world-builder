@@ -39,7 +39,9 @@
           (unauthorized {:error "unauthorized"})))))
 
 (defn check-user-world-count
-  "Cheks if a user is a subscriber, if not, stops them from adding more than one world"
+  "Cheks if a user is a subscriber, if not, stops them from adding more than one world
+  TODO might want to rewrite the logic a bit to remove redudant handler - seems to always fire
+  if place at end even if the unauthorized section fires first"
   [handler]
   (fn [request]
     (let

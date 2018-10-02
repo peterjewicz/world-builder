@@ -76,12 +76,14 @@
 (defn get-entity-by-id [type id])
 
 ;TODO remove the println and replace with something a bit better, that's probably not the right way to do it
-(defn create-new-world [name id]
+(defn create-new-world
+  "Creates a new world with a given 'name' for a given user of 'id'"
+  [name id]
   (mc/insert db "worlds" {:user_id id :name name})
   (println "World Created"))
 ;
 (defn get-worlds-by-id
-  "Gets all the worlds for a given user ID"
+  "Gets all the worlds for a given user ID - Maps through IDs so they can be JSONed"
   [id]
   (let [worlds (mc/find-maps db "worlds" {:user_id id })]
         (if (not-empty worlds)
@@ -90,6 +92,7 @@
             worlds))))
 
 (defn get-world-by-id [id]
+  "Finds a world when supplied the ID of the world"
   (def world (mc/find-one-as-map db "worlds" {:_id (ObjectId. id) }))
   (assoc world :_id (str (test :_id))))
 
