@@ -80,7 +80,9 @@
   (mc/insert db "worlds" {:user_id id :name name})
   (println "World Created"))
 ;
-(defn get-worlds-by-id [id]
+(defn get-worlds-by-id
+  "Gets all the worlds for a given user ID"
+  [id]
   (let [worlds (mc/find-maps db "worlds" {:user_id id })]
         (if (not-empty worlds)
           (map ; Turn characters into a modified list

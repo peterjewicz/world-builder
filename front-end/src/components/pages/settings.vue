@@ -5,21 +5,28 @@
     <p>Email: test@test.com</p>
 
     <h2>Billing</h2>
-    <form action="/charge" method="post" id="payment-form">
-    <div class="form-row">
-      <label for="card-element">
-        Credit or debit card
-      </label>
-      <div id="card-element">
-        <!-- A Stripe Element will be inserted here. -->
-      </div>
+    <template v-if="!activeCustomer">
+      <form action="/charge" method="post" id="payment-form">
+        <div class="form-row">
+          <label for="card-element">
+            Credit or debit card {{activeCustomer}}
+          </label>
+          <div id="card-element">
+            <!-- A Stripe Element will be inserted here. -->
+          </div>
 
-      <!-- Used to display form errors. -->
-      <div id="card-errors" role="alert"></div>
-    </div>
+          <!-- Used to display form errors. -->
+          <div id="card-errors" role="alert"></div>
+        </div>
 
-    <button>Submit Payment</button>
-  </form>
+        <button>Submit Payment</button>
+      </form>
+    </template>
+    <template v-else>
+      <p>You've already subscribed</p>
+      <p>You can unsubscribe anytime, but will lose access too all but your first world</p>
+      <button class="primary">Unsubscribe</button>
+    </template>
   </div>
 </template>
 
@@ -35,9 +42,11 @@ export default {
   },
   data () {
     return {
+      activeCustomer: false
     }
   },
   mounted() {
+    // eslint-disable-next-line
     const stripe = Stripe('pk_test_LgROF2ukcNIc3P3I3p4Nq31v');
 
     // Create an instance of Elements.
@@ -112,7 +121,7 @@ export default {
         console.log(response.data.body.id)
       }).catch((e) => {
         console.log(e)
-        console.log("SIGNUP ERROR")
+        console.log('SIGNUP ERROR')
       })
     }
 
@@ -121,9 +130,12 @@ export default {
       method: 'get',
       headers: {'token': localStorage.getItem('token')}
     }).then(response => {
-      console.log(response)
+      console.log(response.data.body)
+      if (response.data.body.stripeToken) {
+        this.activeCustomer = true;
+      }
     }).catch(() => {
-      console.log("User Doesn't Exist")
+      console.log('User Doesn\'t Exist')
     })
   }
 }

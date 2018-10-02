@@ -82,7 +82,7 @@
   (POST "/worlds" request
     :body-params [name :- String]
     :header-params [token :- String]
-    :middleware [auth-middleware/check-user-auth]
+    :middleware [auth-middleware/check-user-auth auth-middleware/check-user-world-count]
     :summary "Creates a new world with 'name'"
     (ok (db/create-new-world name (:_id (:user request)))))
 
@@ -122,8 +122,7 @@
       :body-params [stripeToken :- s/Any]
       :header-params [token :- String]
       :middleware [auth-middleware/check-user-auth]
-      ; (println (:customer (first (:data (:sources (billing/create-new-customer stripeToken))))))
-      (ok {:body (db/update-user-billing token (:customer 
+      (ok {:body (db/update-user-billing token (:customer
                     (first (:data (:sources
                         (billing/create-new-customer stripeToken))))))}))
 

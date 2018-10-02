@@ -21,7 +21,6 @@
     (let
       [token (get (:headers request) "token")
        user (db/get-user-by-token token)]
-       (println token)
       (if user
         (handler (assoc request :user user))     ; pass to wrapped handler
         (unauthorized {:error "unauthorized"})))))
@@ -38,3 +37,19 @@
           (if (= (:user_id world) (:_id (:user request)))
           (handler (assoc request :world world))
           (unauthorized {:error "unauthorized"})))))
+
+(defn check-user-world-count
+  "Cheks if a user is a subscriber, if not, stops them from adding more than one world"
+  [handler]
+  (fn [request]
+    (let
+      [token (get (:headers request) "token")
+       user (db/get-user-by-token token)
+       worlds (db/get-worlds-by-id (:_id user))]
+       (if (empty? (:stripeToken user))
+        (do
+          (println (> (count worlds) 0))
+          (if (> (count worlds) 0)
+            (unauthorized {:error "Subscribe To Create More Worlds"})
+            (handler request)))
+            (handler request)))))
