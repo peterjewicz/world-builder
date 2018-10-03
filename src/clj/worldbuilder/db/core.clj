@@ -21,7 +21,6 @@
   [entity]
   (assoc entity :_id (str (entity :_id))))
 
-
 (defn get-user-count-username
   [username]
   (mc/count db "user" {:username username}))
@@ -61,6 +60,8 @@
   "User Updated")
 
 ;TODO move to entities DB file
+; Not sure where this is being used right now as the ID is hardcoded? Probably not anywhere
+; as we pull em all and store em locally. Might have no need to singular select at this point
 (defn find-entity-by-id
   "Finds a given entity by its 'id'"
   []
