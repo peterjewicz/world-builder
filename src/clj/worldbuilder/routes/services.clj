@@ -111,6 +111,7 @@
                     currentId :- String]
       :header-params [token :- String]
       :middleware [auth-middleware/check-user-auth auth-middleware/check-world-auth]
+      (println "test")
       (ok (entities/create-entity type values worldId (:_id (:user request)) currentId)))
 
     (POST "/create-user" []

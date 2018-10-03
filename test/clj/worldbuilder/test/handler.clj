@@ -22,8 +22,9 @@
 (defn start-states [f]
   (mount.core/start)
   (f)
-  (mc/remove db "user" { :username "testUser" }))
-;
+  (mc/remove db "user" { :username "testUser" })
+  (mc/remove db "worlds" { :name "testUser-world" }))
+
 (clojure.test/use-fixtures :once start-states)
 
 
@@ -38,10 +39,25 @@
           prev-token (:token current-user)]
           (is (not= prev-token (db-query/generate-new-token "testUser")))))
 
-
   (testing "Should create a world for a user"
-    (let [response (app  (-> (request :post "/api/worlds")
-                             (body :name "testUser-world")
-                             (header :token "1b96fb2b-fb33-4b3b-84cb-1c8c08747d1e")
-    ))]
-    (is (= 401 (:status response))))))
+    (let [current-user (db-query/get-user-by-username "testUser")
+          response (app (header (json-body (request :post "/api/worlds") {:name "testUser-world"}) :token (:token current-user)))]
+    (is (= 200 (:status response)))))
+
+  (testing "If we try to add the world again it should fail for a non-stripe user"
+    (let [current-user (db-query/get-user-by-username "testUser")
+          response (app (header (json-body (request :post "/api/worlds") {:name "testUser-world2"}) :token (:token current-user)))]
+    (is (= 401 (:status response)))))
+
+    (testing "it should add a character"
+      (let [current-user (db-query/get-user-by-username "testUser")
+            current-world (db-query/get-world-by-name "testUser-world")
+            response (app (header (json-body
+              (request :post (str "/api/entity/" (:_id current-world)))
+              {:type "character"
+               :values ""
+               :currentId ""})
+              :token (:token current-user)))]
+      (is (= 200 (:status response)))))
+
+    )

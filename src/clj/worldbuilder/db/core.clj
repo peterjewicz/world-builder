@@ -97,8 +97,11 @@
   (def world (mc/find-one-as-map db "worlds" {:_id (ObjectId. id) }))
   (assoc world :_id (str (test :_id))))
 
-;********USER SPECIFIC DB OPERATIONS*********
+(defn get-world-by-name [name]
+  (let [world (mc/find-one-as-map db "worlds" {:name name})]
+    (assoc world :_id (str (world :_id)))))
 
+;********USER SPECIFIC DB OPERATIONS*********
 (defn get-user-by-id [id]
   (def user (mc/find-one-as-map db "worldbuilder" {:_id (ObjectId. id) }))
   (assoc user :_id (str (test :_id))))
