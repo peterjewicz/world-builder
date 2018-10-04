@@ -58,6 +58,4 @@
                :values ""
                :currentId ""})
               :token (:token current-user)))]
-      (is (= 200 (:status response)))))
-
-    )
+      (is (= 200 (:status response))))))

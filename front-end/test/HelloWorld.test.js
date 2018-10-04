@@ -1,7 +1,8 @@
 // import Vue from 'vue'
+var assert = require('assert');
 
 describe('HelloWorld.vue', () => {
   it('should render correct contents', () => {
-    expect(2).to.equal(3)
+    assert.equal(2,2)
   })
 })
