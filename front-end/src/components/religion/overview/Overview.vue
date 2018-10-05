@@ -2,7 +2,15 @@
   <div v-if="isactive" class="Overview">
     <h2>Overview</h2>
     <FormText @valueChanged="formValueChanged" title="Name" name="name" description="What's The Name Of This Religion?" v-bind:value="nameValue" />
+    <FormText @valueChanged="formValueChanged" title="Description" name="desc" description="Give a General Overview of This Religion" v-bind:value="descValue" largeField="true"/>
+    <FormText @valueChanged="formValueChanged" title="Type" name="type" description="Where Type Of Religion Is This (Monotheistic)?" v-bind:value="typeValue" />
+    <FormText @valueChanged="formValueChanged" title="Motto/Creed" name="motto" description="What's The Motto or Creed of This Religion" v-bind:value="mottoValue" />
+    <FormText @valueChanged="formValueChanged" title="Organization" name="organization" description="What is the Organization Structure" v-bind:value="orgValue" />
+    <FormText @valueChanged="formValueChanged" title="Leader" name="leader" description="Who Is The Leader?" v-bind:value="leaderValue" />
     <FormText @valueChanged="formValueChanged" title="Location" name="location" description="Where is it Practiced?" v-bind:value="locationValue" />
+    <FormText @valueChanged="formValueChanged" title="Assets" name="assets" description="Do They Own Any Significant Assets?" v-bind:value="assetsValue" />
+    <FormText @valueChanged="formValueChanged" title="Public Opinion" name="opinion" description="How Do Non-members Feel About Members?" v-bind:value="opinionValue" />
+    <FormText @valueChanged="formValueChanged" title="Restrictions" name="restrictions" description="Is Anyone/thing Not Allowed To Practice?" v-bind:value="restrictionsValue" />
   </div>
 </template>
 
@@ -18,13 +26,29 @@ export default {
   data () {
     return {
       nameValue: '',
-      locationValue: ''
+      descValue: '',
+      typeValue: '',
+      mottoValue: '',
+      orgValue: '',
+      leaderValue: '',
+      locationValue: '',
+      assetsValue: '',
+      opinionValue: '',
+      restrictionsValue: ''
     }
   },
   watch: {
     values: function(newVal, oldVal) {
       this.nameValue = newVal.name;
-      this.location = newVal.location;
+      this.descValue = newVal.desc;
+      this.typeValue = newVal.type;
+      this.mottoValue = newVal.motto;
+      this.orgValue = newVal.org;
+      this.leaderValue = newVal.leader;
+      this.locationValue = newVal.location;
+      this.assetsValue = newVal.assets;
+      this.opinionValue = newVal.opinion;
+      this.restrictionsValue = newVal.restrictions;
     }
   },
   computed: {
@@ -43,7 +67,15 @@ export default {
     _emitValues() {
       const valuesArray = {
         name: this.nameValue,
-        location: this.locationValue
+        desc: this.descValue,
+        type: this.typeValue,
+        motto: this.mottoValue,
+        org: this.orgValue,
+        leader: this.leaderValue,
+        location: this.locationValue,
+        assets: this.assetsValue,
+        opinion: this.opinionValue,
+        restrictions: this.restrictionsValue
       };
       const data = {
         title: 'overview',

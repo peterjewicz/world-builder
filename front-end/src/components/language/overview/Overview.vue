@@ -2,7 +2,8 @@
   <div v-if="isactive" class="Overview">
     <h2>Overview</h2>
     <FormText @valueChanged="formValueChanged" title="Name" name="name" description="What's The Name Of This Language?" v-bind:value="nameValue" />
-    <FormText @valueChanged="formValueChanged" title="Location" name="location" description="Where is it Spoken?" v-bind:value="locationValue" />
+    <FormText @valueChanged="formValueChanged" title="Spoken By" name="by" description="Who Speaks This Language?" v-bind:value="byValue" />
+    <FormText @valueChanged="formValueChanged" title="Location" name="location" description="Where is it Spoken If Only Specific Regions?" v-bind:value="locationValue" />
   </div>
 </template>
 
@@ -18,12 +19,14 @@ export default {
   data () {
     return {
       nameValue: '',
+      byValue: '',
       locationValue: ''
     }
   },
   watch: {
     values: function(newVal, oldVal) {
       this.nameValue = newVal.name;
+      this.byValue = newVal.by;
       this.locationValue = newVal.location;
     }
   },
@@ -43,6 +46,7 @@ export default {
     _emitValues() {
       const valuesArray = {
         name: this.nameValue,
+        by: this.byValue,
         location: this.locationValue
       };
       const data = {
