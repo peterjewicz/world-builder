@@ -13,7 +13,7 @@
       <input v-model="password" type="text" name="password" class="password" placeholder="Password"/>
       <input v-model="passwordConfirm" type="text" name="password-confirm" class="password-confirm" placeholder="Confirm Password"/>
       <button class="primary large" v-on:click="handleSignup" type="submit">Sign Up!</button>
-      <p><a href="#">Already Have an Account?</a></p>
+      <p><router-link v-bind:to="'login'">Already Have an Account?</router-link></p>
     </div>
   </div>
 </template>

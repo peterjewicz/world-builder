@@ -4,7 +4,7 @@
       <h4>{{this.title}}</h4>
       <p>{{this.description}}</p>
     </div>
-    <div class="field-content" >
+    <div class="field-content">
       <!-- <input type="text" v-model="fieldValue" v-on:change="handleValueChange" v-on:input="handleInput"/> -->
       <div v-bind:class="{ large: this.largeField }">
         <wysiwyg v-model="fieldValue" v-on:change="handleValueChange" @change="handleInput" v-on:input="handleInput"/>

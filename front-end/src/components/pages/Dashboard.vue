@@ -1,6 +1,6 @@
 <template>
   <div class="dashboard">
-    <Header @worldUpdated="worldUpdated" titleText="Dashboard"/>
+    <Header @worldUpdated="worldUpdated" titleText="Dashboard" searchActive="true"/>
     <div class="dashboard-inner">
       <Sidebar @worldUpdated="worldUpdated"/>
       <div class="dashboard-content">

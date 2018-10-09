@@ -88,21 +88,21 @@
     <div class="features row">
       <div class="feature-row">
         <div class="feature">
-          <h3>Unlimited Details</h3>
+          <h3><i class="fas fa-pencil-alt"></i> Unlimited Details</h3>
           <p>
             Write as much or as little as you like. There's no limit to how
             many worlds, characters, cities, and more than you can write.
           </p>
         </div>
         <div class="feature">
-          <h3>Maps (Coming Soon)</h3>
+          <h3><i class="fas fa-map-marked"></i> Maps (Coming Soon)</h3>
           <p>
             Upload and drop pins on maps to keep an eye on all your locations. Pins can be linked
             to other maps making it a seemless experience going from country to region to city maps.
           </p>
         </div>
         <div class="feature">
-          <h3>Link With References</h3>
+          <h3><i class="fas fa-link"></i> Link With References</h3>
           <p>
             Our smart linking feature allows you to "@" other entities. Easily
             link up a character with the city he lives in or an important event
@@ -112,7 +112,7 @@
       </div>
       <div class="feature-row">
         <div class="feature">
-          <h3>Backed Up And Safe</h3>
+          <h3><i class="fas fa-server"></i> Backed Up And Safe</h3>
           <p>
             With everything saved to our server you never have to worry about
             losing a notebook with important details in it. Our servers are
@@ -120,14 +120,14 @@
           </p>
         </div>
         <div class="feature">
-          <h3>Add Imagery</h3>
+          <h3><i class="fas fa-images"></i> Add Imagery</h3>
           <p>
             Upload images associated with all your details to keep a visual reference. We
             save and store all your images that you can edit or add to at any time.
           </p>
         </div>
         <div class="feature">
-          <h3>Multiple Worlds</h3>
+          <h3><i class="fas fa-globe-americas"></i> Multiple Worlds</h3>
           <p>
             For paid members, there's no limit to the amount of worlds you can create.
             For one low payment create as many worlds as you like, they're all backed up
@@ -360,6 +360,10 @@ export default {
       width: 33%;
       padding: 0px 10px;
       box-sizing: border-box;
+
+      i {
+        color: $lightBlue;
+      }
     }
 
     .pricing {

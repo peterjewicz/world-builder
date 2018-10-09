@@ -1,8 +1,11 @@
 <template>
   <div class="header">
     <div class="maxWidthWrap">
-      <div class="hamburger">
-        <!-- <i class="fas fa-bars"></i> -->
+      <!-- TODO redo this as the header relies on having this wrapper -->
+      <div class="search-wrapper">
+        <div v-if="searchActive">
+          <Search />
+        </div>
       </div>
       <div>
         <h4>{{titleText}}</h4>
@@ -25,10 +28,14 @@
 
 <script>
 import store from '../../../store/store.js';
+import Search from '../../global/Search';
 
 export default {
   name: 'Header',
-  props: ['hideWorlds', 'titleText'],
+  components: {
+    Search
+  },
+  props: ['hideWorlds', 'titleText', 'searchActive'],
   data () {
     return {
       worlds: this.$store.getters.getWorlds,
