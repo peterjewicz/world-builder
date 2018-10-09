@@ -21,6 +21,8 @@ import Religion from '@/components/religion/Religion';
 import Language from '@/components/language/Language';
 import Spell from '@/components/spell/Spell';
 import Item from '@/components/item/Item';
+import Planet from '@/components/planet/Planet';
+import Technology from '@/components/technology/Technology';
 
 // Bring in all the required liraries and extras
 const axios = require('axios');
@@ -109,8 +111,18 @@ export default new Router({
     },
     {
       path: '/new/item/:id?',
-      name: 'Create-item',
+      name: 'Create-Item',
       component: Item
+    },
+    {
+      path: '/new/planet/:id?',
+      name: 'Create-Planet',
+      component: Planet
+    },
+    {
+      path: '/new/technology/:id?',
+      name: 'Create-Technology',
+      component: Technology
     },
     {
       path: '/all/:entity',

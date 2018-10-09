@@ -30,7 +30,7 @@ export default {
   computed: {
   },
   mounted() {
-    console.log(this.$store.getters.getCurrentWorld)
+
   },
   methods: {
     handleSearch() {
