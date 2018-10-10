@@ -192,4 +192,14 @@ export default {
       }
     }
   }
+
+  @media(max-width: 768px) {
+    .statsWrapper {
+      flex-flow: wrap;
+
+      div {
+        width: 33%;
+      }
+    }
+  }
 </style>

@@ -16,7 +16,7 @@
   (common/with-token (:stripe-private-key env)
     (common/execute (plans/get-all-plans))))
 
-
+; TODO get user email here
 (defn create-new-customer [stripeToken]
   (println (:id stripeToken))
   (common/with-token (:stripe-private-key env)

@@ -2,15 +2,15 @@
   <div class="header">
     <div class="maxWidthWrap">
       <!-- TODO redo this as the header relies on having this wrapper -->
-      <div class="search-wrapper">
+      <div class="search-wrapper header-section">
         <div v-if="searchActive">
           <Search />
         </div>
       </div>
-      <div>
+      <div class="header-section">
         <h4>{{titleText}}</h4>
       </div>
-      <div class="header-left-content">
+      <div class="header-left-content header-section">
         <div class="worlds-wrapper" v-if="!hideWorlds">
           Worlds:
           <select v-model="currentWorld">
@@ -80,9 +80,9 @@ export default {
 
     .maxWidthWrap {
       display: flex;
-      div {
-        flex-grow: 1;
-        flex-basis: 0;
+
+      .header-section {
+        width: 33%;
       }
     }
 

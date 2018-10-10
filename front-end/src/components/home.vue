@@ -21,8 +21,8 @@
         <img :src="getImage('cloud')" width="100px"/>
       </div>
     </div>
-    <div class="row content-row">
-      <div class="col-6">
+    <div class="content-row">
+      <div class="col-6 content-text">
         <h2 class="purpleText">A New World At Your Fingertips</h2>
         <p>
           Worldbuilder is built to make creating worlds as easy as possible.
@@ -36,7 +36,10 @@
           in sycn.
         </p>
       </div>
-      <img class="circle-image" :src="getImage('dragon')" width="400px" height="400px"/>
+      <div class="col-6 dragonbg">
+      </div>
+      <!-- <img class="circle-image" :src="getImage('dragon')" width="400px" height="400px"/> -->
+      <!-- <img class="" :src="getImage('dragon')" width="100%" />  -->
     </div>
     <div class="flow-walkthrough">
       <div class="flow-item">
@@ -146,6 +149,8 @@
         <ul>
           <li><router-link v-bind:to="'login'">Login</router-link></li>
           <li><router-link v-bind:to="'create'">Signup</router-link></li>
+          <li><router-link v-bind:to="'create'">Contact</router-link></li>
+          <li><router-link v-bind:to="'create'">Terms</router-link></li>
         </ul>
       </div>
       <div class="col-6">
@@ -185,6 +190,10 @@ export default {
 
     p {
       line-height: 25px;
+    }
+
+    h1,h2,h3 {
+      text-transform: uppercase;
     }
 
     .hero {
@@ -307,7 +316,44 @@ export default {
     }
 
     .content-row {
-      padding-bottom: $globalPadding + 190;
+      // padding-bottom: $globalPadding + 190;
+      display: flex;
+      padding: 0 0;
+      text-align: left;
+      box-sizing: border-box;
+
+      .col-6 {
+        padding: $globalPadding 0;
+        padding-bottom: $globalPadding + 190;
+      }
+
+      .content-text {
+        padding-left: 15px;
+        padding-right: 15px;
+      }
+
+      .dragonbg {
+        background-image: url('../assets/dragon.png');
+        background-size: cover;
+        margin-left: 30px;
+      }
+
+      @media(max-width: 1023px) {
+        flex-flow: wrap;
+
+        .col-6 {
+          width: 100%;
+        }
+
+        .col-6:first-child {
+          padding-bottom: $globalPadding / 2;
+          padding-top: $globalPadding / 2;
+        }
+
+        .dragonbg {
+          margin: 0;
+        }
+      }
     }
 
     .flow-walkthrough {
@@ -371,6 +417,7 @@ export default {
       background: $lightBlue;
       color: white;
       padding: $globalPadding/2 0;
+      position: relative;
 
       h3,h4 {
         margin: 0;

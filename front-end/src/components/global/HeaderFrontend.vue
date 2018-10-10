@@ -1,6 +1,6 @@
 <template>
   <div class="header-frontEnd">
-    World Building
+    <h4>World Building</h4>
   </div>
 </template>
 
@@ -34,6 +34,11 @@ export default {
     color: white;
     padding: 5px;
     box-sizing: border-box;
+
+    h4 {
+      margin: 0;
+      font-size: 1.25rem;
+    }
   }
 
 </style>

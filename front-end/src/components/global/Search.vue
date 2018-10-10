@@ -76,17 +76,19 @@ export default {
 
   .Search {
     position: relative;
+    width: 180px;
 
     .searchResults {
       border: 2px solid #e9edf2;
       position: absolute;
       top: 31px;
-      width: 300px;
+      width: 180px;
       max-height: 100px;
       overflow: scroll;
       padding: 5px;
       background: white;
       z-index: 5;
+      overflow-y: scroll;
 
       .resultsTitle {
         border-bottom: 1px solid #e9edf2;
@@ -96,16 +98,29 @@ export default {
         margin: 0;
         list-style: none;
         text-align: left;
+        padding: 0;
 
         li{
           transition: all .25s;
           cursor: pointer;
+          padding: 3px 0;
 
           &:hover{
             color: $lightBlue;
           }
-
         }
+      }
+    }
+
+    @media(max-width: 768px) {
+      input {
+        width: 100%;
+        position: relative;
+        top: 30px;
+      }
+
+      .searchResults {
+        top: 61px;
       }
     }
   }

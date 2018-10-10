@@ -180,4 +180,19 @@ export default {
       }
     }
   }
+
+
+  @media(max-width: 768px) {
+    .row {
+      flex-wrap: wrap;
+
+      .field-details, .field-content {
+        width: 100%;
+      }
+
+      .field-details {
+        text-align: center;
+      }
+    }
+  }
 </style>

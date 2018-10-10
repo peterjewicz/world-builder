@@ -4,7 +4,7 @@
     <div class="dashboard-inner">
       <Sidebar @worldUpdated="worldUpdated"/>
       <div class="dashboard-content">
-        <h2>What Would You Like To Do</h2>
+        <h2>Welcome!</h2>
         <p>Here you can add details to your world. To switch worlds check the drop down in the upper-right.</p>
         <div class="dashboard-body">
           <h3>Characters & Races </h3>
