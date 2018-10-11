@@ -46,7 +46,7 @@
       </div>
     </div>
     <div class="flow-walkthrough">
-      <div class="flow-item">
+      <div class="flow-item swap-row">
         <div class="col-6">
           <h2>Create Worlds</h2>
           <p>
@@ -77,7 +77,7 @@
         </div>
       </div>
 
-      <div class="flow-item">
+      <div class="flow-item swap-row">
         <div class="col-6">
           <h2>Build Endlessly</h2>
           <p>
@@ -345,6 +345,19 @@ export default {
         background-image: url('../assets/dragon.png');
         background-size: cover;
         margin-left: 30px;
+
+        @media(max-width: 1024px) {
+          & {
+            position: relative;
+            top: 50px;
+          }
+        }
+
+        @media(max-width: 768px) {
+          & {
+            top: 20px;
+          }
+        }
       }
 
       @media(max-width: 1023px) {
@@ -379,8 +392,26 @@ export default {
         margin: 0 auto;
         padding: $globalPadding/3 0;
 
-        img {
-          width: 100%;
+        img{ width: 100%;
+          margin: 0 auto;
+          display: table;
+        }
+
+        @media(max-width: 1024px) {
+          img { width: 50%}
+          &.swap-row {
+            .col-6 {
+              position: relative;
+              bottom: 50%;
+            }
+            .col-6:first-child {
+              top: 50%;
+            }
+          }
+        }
+
+        @media(max-width: 768px) {
+          img{ width: 100%;}
         }
 
         h2 {
