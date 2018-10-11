@@ -81,7 +81,7 @@ export default {
     input {
       width: 240px;
     }
-    
+
     .searchResults {
       border: 2px solid #e9edf2;
       position: absolute;

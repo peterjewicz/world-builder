@@ -38,8 +38,12 @@
       </div>
       <div class="col-6 dragonbg">
       </div>
-      <!-- <img class="circle-image" :src="getImage('dragon')" width="400px" height="400px"/> -->
-      <!-- <img class="" :src="getImage('dragon')" width="100%" />  -->
+    </div>
+    <div class="pricing">
+      <div class="pricing-background"></div>
+      <div class="pricing-content">
+        <h2>We Need Something Here</h2>
+      </div>
     </div>
     <div class="flow-walkthrough">
       <div class="flow-item">
@@ -54,13 +58,13 @@
           </p>
         </div>
         <div class="col-6">
-          <img :src="getImageJPG('flowitem1')"/>
+          <img :src="getImageJPG('flowitem1-2')"/>
         </div>
       </div>
 
       <div class="flow-item">
         <div class="col-6">
-          <img :src="getImageJPG('flowitem2')"/>
+          <img :src="getImageJPG('flowitem2-2')"/>
         </div>
         <div class="col-6">
           <h2>Add Details</h2>
@@ -84,7 +88,7 @@
           </p>
         </div>
         <div class="col-6">
-          <img :src="getImageJPG('flowitem3')"/>
+          <img :src="getImageJPG('flowitem3-2')"/>
         </div>
       </div>
     </div>
@@ -140,9 +144,12 @@
       </div>
     </div>
     <div class="pricing">
-      <h3>Free Forever For Your First World</h3>
-      <h4>And Then $7/month for unlimited worlds</h4>
-      <router-link v-bind:to="'create'"><button class="primary">Sign Up Free</button></router-link>
+      <div class="pricing-background second"></div>
+      <div class="pricing-content">
+        <h3>Free Forever For Your First World</h3>
+        <h4>And Then $7/month for unlimited worlds</h4>
+        <router-link v-bind:to="'create'"><button class="primary">Sign Up Free</button></router-link>
+      </div>
     </div>
     <div class="footer">
       <div class="col-6">
@@ -187,6 +194,8 @@ export default {
 <style scoped lang="scss">
 @import '../styles/main';
   .Home {
+
+    overflow-x: hidden;
 
     p {
       line-height: 25px;
@@ -357,8 +366,8 @@ export default {
     }
 
     .flow-walkthrough {
-      background-color: $purple;
-      color: white;
+      // background-color: $purple;
+      color: black;
       display: flex;
       position: relative;
       flex-wrap: wrap;
@@ -380,16 +389,16 @@ export default {
         }
       }
 
-      &:before {
-        width: 100%;
-        height: 190px;
-        content: '';
-        position: absolute;
-        top: -190px;
-        left: 0;
-        background: url('../assets/curve.png') no-repeat center bottom;
-        background-size: auto 180px;
-      }
+      // &:before {
+      //   width: 100%;
+      //   height: 190px;
+      //   content: '';
+      //   position: absolute;
+      //   top: -190px;
+      //   left: 0;
+      //   background: url('../assets/curve.png') no-repeat center bottom;
+      //   background-size: auto 180px;
+      // }
     }
 
     .features {
@@ -414,11 +423,29 @@ export default {
 
     .pricing {
       flex-flow: column;
-      background: $lightBlue;
       color: white;
       padding: $globalPadding/2 0;
       position: relative;
 
+      .pricing-background {
+        background: $purple;
+        position: absolute;
+        top: 0;
+        left: 50%;
+        width: 120%;
+        height: 100%;
+        z-index: 1;
+        transform: translate(-50%,0) rotate(-5deg);
+
+        &.second {
+          transform: translate(-50%,0) rotate(5deg);
+        }
+      }
+
+      .pricing-content {
+        position: relative;
+        z-index: 2;
+      }
       h3,h4 {
         margin: 0;
       }
@@ -429,7 +456,7 @@ export default {
 
     .footer {
       display: flex;
-      padding: $globalPadding/3 15px;
+      padding: $globalPadding/2 15px;
       max-width: $maxWidth;
       margin: 0 auto;
 
