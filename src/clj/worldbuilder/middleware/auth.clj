@@ -50,7 +50,6 @@
        worlds (db/get-worlds-by-id (:_id user))]
        (if (empty? (:stripeToken user))
         (do
-          (println (> (count worlds) 0))
           (if (> (count worlds) 0)
             (unauthorized {:error "Subscribe To Create More Worlds"})
             (handler request)))

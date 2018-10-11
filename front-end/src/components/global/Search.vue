@@ -78,6 +78,10 @@ export default {
     position: relative;
     width: 180px;
 
+    input {
+      width: 240px;
+    }
+    
     .searchResults {
       border: 2px solid #e9edf2;
       position: absolute;

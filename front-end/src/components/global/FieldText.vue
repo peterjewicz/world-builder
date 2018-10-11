@@ -180,8 +180,6 @@ export default {
       }
     }
   }
-
-
   @media(max-width: 768px) {
     .row {
       flex-wrap: wrap;
