@@ -1,7 +1,7 @@
 <template>
   <div class="Character">
     <Dropdown :text="dropdownText" :color="dropdownColor" :active="dropdownActive" @hideDropdown="hideDropdown"/>
-    <Header hideWorlds="true" titleText="Character"/>
+    <Header hideWorlds="true" titleText="Character" homeActive="true"/>
     <div class="subHeader">
       <div class="maxWidthWrap">
         <router-link to="/dashboard"><i class="fas fa-arrow-left"></i>Back To World</router-link>

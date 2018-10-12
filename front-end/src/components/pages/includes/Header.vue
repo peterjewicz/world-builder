@@ -6,6 +6,9 @@
         <div v-if="searchActive">
           <Search />
         </div>
+        <div v-if="homeActive" class="home">
+          <router-link v-bind:to="'dashboard'"><i class="fas fa-home"></i></router-link>
+        </div>
       </div>
       <div class="header-section">
         <h4>{{titleText}}</h4>
@@ -35,7 +38,7 @@ export default {
   components: {
     Search
   },
-  props: ['hideWorlds', 'titleText', 'searchActive'],
+  props: ['hideWorlds', 'titleText', 'searchActive', 'homeActive'],
   data () {
     return {
       worlds: this.$store.getters.getWorlds,
@@ -86,6 +89,18 @@ export default {
       }
     }
 
+    .home {
+      a {
+        color: white;
+        position: relative;
+        top: 5px;
+
+        &:hover {
+          color: $darkBlue;
+        }
+      }
+    }
+
     select {
       min-width: 100px;
     }
@@ -98,9 +113,10 @@ export default {
     .header-left-content {
       display: flex;
       text-align: right;
+      justify-content: right;
       div {
-        flex-grow: 1;
-        flex-basis: 0;
+        // flex-grow: 1;
+        // flex-basis: 0;
       }
       .worlds-wrapper {
         flex-grow: 2;
@@ -110,6 +126,9 @@ export default {
     }
 
     .settings-link {
+      padding-right: 10px;
+      padding-left: 35px;
+      padding-top: 10px;
       a {
         color: white;
         &:hover {

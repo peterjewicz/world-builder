@@ -1,12 +1,16 @@
 <template>
   <div class="Home">
     <div class="hero">
-      <div class="nav">
-        <ul>
+      <div class="nav" v-bind:class="{ scrolled: scrolled }">
+        <ul class="hide-on-mobile">
           <li><router-link v-bind:to="'login'">Login</router-link></li>
           <li><router-link v-bind:to="'create'">Signup</router-link></li>
           <li>Pricing</li>
+          <li>Contact</li>
         </ul>
+        <div class="hamburger mobile-only">
+          <i class="fas fa-bars"></i>
+        </div>
       </div>
       <div class="text-content">
         <h1>Never Miss A detail Building Rich Worlds</h1>
@@ -18,6 +22,10 @@
       <div class="grass">
       </div>
       <div class="cloud cloud1">
+        <img :src="getImage('cloud')" width="100px"/>
+      </div>
+
+      <div class="cloud cloud2">
         <img :src="getImage('cloud')" width="100px"/>
       </div>
     </div>
@@ -143,6 +151,18 @@
         </div>
       </div>
     </div>
+    <div class="contact row">
+      <h2>Question? Comment? Concern?</h2>
+      <h3>Get In Touch!</h3>
+      <div class="formWrapper">
+        <form>
+          <input type="text" name="name" placeholder="Name" />
+          <input type="text" name="email" placeholder="email" />
+          <textarea name="message" placeholder="message"></textarea>
+          <button class="primary form-trigger">SEND MESSAGE</button>
+        </form>
+      </div>
+    </div>
     <div class="pricing">
       <div class="pricing-background second"></div>
       <div class="pricing-content">
@@ -177,7 +197,14 @@ export default {
   name: 'Home',
   data () {
     return {
+      scrolled: false
     }
+  },
+  created () {
+    window.addEventListener('scroll', this.handleScroll);
+  },
+  destroyed () {
+    window.removeEventListener('scroll', this.handleScroll);
   },
   methods: {
     getImage(image) {
@@ -185,6 +212,15 @@ export default {
     },
     getImageJPG(image) {
       return require('../assets/' + image + '.jpg');
+    },
+    handleScroll(e) {
+      let scrollPos = window.scrollY || window.scrollTop || document.getElementsByTagName("html")[0].scrollTop;
+
+      if(scrollPos >= 100) {
+        this.scrolled = true;
+      } else {
+        this.scrolled = false;
+      }
     }
   }
 }
@@ -219,9 +255,18 @@ export default {
       }
 
       .nav {
-        position: absolute;
-        top: 15px;
-        left: 15px;
+        position: fixed;
+        top: 0px;
+        padding: 15px;
+        width: 100%;
+        left: 0px;
+        z-index: 50;
+        text-align: left;
+
+        &.scrolled {
+          background: $lightBlue;
+          border-bottom: 1px solid $purple;
+        }
 
         ul {
           margin: 0;
@@ -291,18 +336,31 @@ export default {
         right: 30px;
       }
 
+      h1,h2,h3 {
+        margin: 0;
+      }
+
+
       .cloud1 {
         animation: cloud1 8s linear infinite;
       }
 
-      h1,h2,h3 {
-        margin: 0;
+      .cloud2 {
+        animation: cloud2 8s linear infinite;
+        top: 200px;
+        left: -900px
       }
 
       @keyframes cloud1 {
           0%   {right: 30px;}
           50% {right: 70px;}
           100% {right: 30px;}
+      }
+
+      @keyframes cloud2 {
+          0%   {left: -900px;}
+          50% {left: -850px;}
+          100% {left: -900px;}
       }
     }
 
@@ -435,6 +493,7 @@ export default {
     .features {
       display: flex;
       flex-wrap: wrap;
+      border-top: 2px solid $purple;
 
       .feature-row {
         display: flex;
@@ -449,6 +508,48 @@ export default {
 
       i {
         color: $lightBlue;
+      }
+    }
+
+    .contact {
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      border-top: 2px solid $purple;
+
+      h3,h2{
+        margin-top: 0px;
+      }
+      h2{margin-bottom: 0px;}
+
+      .formWrapper {
+        width: 100%;
+        max-width: 610px;
+        margin: 0 auto;
+
+        form {
+          display: flex;
+          flex-flow: wrap;
+          flex-direction: row;
+          justify-content: space-between;
+        }
+        input {
+          width: 45%;
+          max-width: 300px;
+          margin-left: 0;
+          margin-right: 0px;
+        }
+
+        textarea {
+          width: 100%;
+          max-width: 610px;
+        }
+      }
+
+      button {
+        margin: 0 auto;
+        display: table;
+        width: 175px;
       }
     }
 

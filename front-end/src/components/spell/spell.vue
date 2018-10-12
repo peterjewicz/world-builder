@@ -1,7 +1,7 @@
 <template>
   <div class="Spell">
     <Dropdown :text="dropdownText" :color="dropdownColor" :active="dropdownActive" @hideDropdown="hideDropdown"/>
-    <Header />
+    <Header homeActive="true"/>
     <div class="subHeader">
       <div class="maxWidthWrap">
         <router-link to="/dashboard"><i class="fas fa-arrow-left"></i>Back To World</router-link>

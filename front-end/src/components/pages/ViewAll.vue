@@ -1,6 +1,6 @@
 <template>
   <div class="ViewAll">
-    <Header @worldUpdated="worldUpdated"/>
+    <Header @worldUpdated="worldUpdated" homeActive="true"/>
     <div class="subHeader">
       <div class="maxWidthWrap">
         <router-link to="/dashboard"><i class="fas fa-arrow-left"></i>Back To World</router-link>

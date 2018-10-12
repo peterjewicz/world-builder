@@ -133,6 +133,7 @@ export default {
       margin: 20px;
       width: 100%;
       flex-basis: 100%;
+      text-transform: uppercase;
     }
 
     &:last-child {

@@ -1,6 +1,6 @@
 <template>
   <div class="Settings">
-    <Header titleText="Settings"/>
+    <Header titleText="Settings" homeActive="true"/>
     <h2>User Settings</h2>
     <p>Email: test@test.com</p>
 
