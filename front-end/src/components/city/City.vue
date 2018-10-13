@@ -54,7 +54,6 @@ export default {
       overviewActive: true,
       historyActive: false,
       mediaActive: false,
-      historyActive: false,
 
       overviewValues: {},
       historyValues: {},

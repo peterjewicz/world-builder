@@ -52,7 +52,6 @@ export default {
 
       // TODO Change this back once you're done with the History Studd
       overviewActive: true,
-      historyActive: false,
       mediaActive: false,
       historyActive: false,
 

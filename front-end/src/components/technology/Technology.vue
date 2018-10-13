@@ -54,7 +54,6 @@ export default {
       overviewActive: true,
       historyActive: false,
       mediaActive: false,
-      historyActive: false,
 
       overviewValues: {},
       historyValues: {},
@@ -98,7 +97,7 @@ export default {
     changeActiveScreen(val) {
       this.overviewActive = false;
       this.historyActive = false;
-      this.mediaActive
+      this.mediaActive = false;
       this[val] = true;
     },
     valuesChanged(e) {
