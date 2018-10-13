@@ -10,13 +10,13 @@
     <h2>Creature</h2>
     <p>Create a new creature, monster, or species. Fill out as much or as little as you like.</p>
     <div class="statsWrapper">
-      <div class="overview stat-item" v-on:click="changeActiveScreen('overviewActive')">
+      <div class="overview stat-item"  v-bind:class="{ active: overviewActive }" v-on:click="changeActiveScreen('overviewActive')">
         <h4>Overview</h4>
       </div>
-      <div class="history stat-item" v-on:click="changeActiveScreen('historyActive')">
+      <div class="history stat-item" v-bind:class="{ active: historyActive }" v-on:click="changeActiveScreen('historyActive')">
         <h4>History</h4>
       </div>
-      <div class="media stat-item" v-on:click="changeActiveScreen('mediaActive')">
+      <div class="media stat-item" v-bind:class="{ active: mediaActive }" v-on:click="changeActiveScreen('mediaActive')">
         <h4>Media</h4>
       </div>
     </div>
@@ -97,7 +97,8 @@ export default {
   methods: {
     changeActiveScreen(val) {
       this.overviewActive = false;
-      this.mapActive = false;
+      this.historyActive = false;
+      this.mediaActive = false;
       this[val] = true;
     },
     valuesChanged(e) {
@@ -107,16 +108,15 @@ export default {
       const encodedVal = JSON.stringify(this.completeValues);
       const worldId = this.$store.getters.getCurrentWorld;
       axios({
-        url: api + '/entity',
+        url: api + `/entity/${worldId}`,
         method: 'post',
         data: {
           type: 'creature',
           values: encodedVal,
-          worldId: worldId,
           currentId: this.currentId},
         headers: {'token': localStorage.getItem('token')}
       }).then(response => {
-        this.dropdownText = 'Your City Has Been Added!';
+        this.dropdownText = 'Your Creature Has Been Saved!';
         this.dropdownColor = 'green';
         this.dropdownActive = true;
 

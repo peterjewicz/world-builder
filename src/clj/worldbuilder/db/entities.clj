@@ -41,4 +41,6 @@
                     :religion (get-entity-by-world "religion" worldId)
                     :language (get-entity-by-world "language" worldId)
                     :spell (get-entity-by-world "spell" worldId)
-                    :item (get-entity-by-world "item" worldId))))
+                    :item (get-entity-by-world "item" worldId)
+                    :planet (get-entity-by-world "planet" worldId)
+                    :technology (get-entity-by-world "technology" worldId))))

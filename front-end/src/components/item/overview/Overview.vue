@@ -63,7 +63,7 @@ export default {
         rarity: this.rarityValue,
         significance: this.significanceValue,
         owners: this.ownersValue,
-        location: this.locationVale
+        location: this.locationValue
       };
       const data = {
         title: 'overview',

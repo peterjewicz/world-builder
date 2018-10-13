@@ -5,7 +5,7 @@
     <FormText @valueChanged="formValueChanged" title="Description" name="desc" description="Give a General Overview of This Religion" v-bind:value="descValue" largeField="true"/>
     <FormText @valueChanged="formValueChanged" title="Type" name="type" description="Where Type Of Religion Is This (Monotheistic)?" v-bind:value="typeValue" />
     <FormText @valueChanged="formValueChanged" title="Motto/Creed" name="motto" description="What's The Motto or Creed of This Religion" v-bind:value="mottoValue" />
-    <FormText @valueChanged="formValueChanged" title="Organization" name="organization" description="What is the Organization Structure" v-bind:value="orgValue" />
+    <FormText @valueChanged="formValueChanged" title="Organization" name="org" description="What is the Organization Structure" v-bind:value="orgValue" />
     <FormText @valueChanged="formValueChanged" title="Leader" name="leader" description="Who Is The Leader?" v-bind:value="leaderValue" />
     <FormText @valueChanged="formValueChanged" title="Location" name="location" description="Where is it Practiced?" v-bind:value="locationValue" />
     <FormText @valueChanged="formValueChanged" title="Assets" name="assets" description="Do They Own Any Significant Assets?" v-bind:value="assetsValue" />

@@ -11,11 +11,14 @@
     <p>Create a new region here. This represents a large swatch of land in your world such as a country,
        kingdom, or large geographical feature. Fill out as much or as little as you like.</p>
     <div class="statsWrapper">
-      <div class="overview stat-item" v-on:click="changeActiveScreen('overviewActive')">
+      <div class="overview stat-item" v-bind:class="{ active: overviewActive }" v-on:click="changeActiveScreen('overviewActive')">
         <h4>Overview</h4>
       </div>
-      <div class="map stat-item" v-on:click="changeActiveScreen('mapActive')">
+      <div class="map stat-item" v-bind:class="{ active: historyActive }" v-on:click="changeActiveScreen('historyActive')">
         <h4>History</h4>
+      </div>
+      <div class="media stat-item" v-bind:class="{ active: mediaActive }" v-on:click="changeActiveScreen('mediaActive')">
+        <h4>Media</h4>
       </div>
     </div>
     <Overview @valueChanged="valuesChanged" v-bind:values="this.overviewValues" v-bind:active="overviewActive"/>
@@ -53,7 +56,9 @@ export default {
       mediaActive: false,
       mapActive: false,
 
-      overviewValues: [],
+      overviewValues: {},
+      historyValues: {},
+      mediaValue: '',
 
       completeValues: {
         overview: [],
@@ -91,7 +96,8 @@ export default {
   methods: {
     changeActiveScreen(val) {
       this.overviewActive = false;
-      this.mapActive = false;
+      this.historyActive = false;
+      this.mediaActive = false;
       this[val] = true;
     },
     valuesChanged(e) {
@@ -101,12 +107,11 @@ export default {
       const encodedVal = JSON.stringify(this.completeValues);
       const worldId = this.$store.getters.getCurrentWorld;
       axios({
-        url: api + '/entity',
+        url: api + `/entity/${worldId}`,
         method: 'post',
         data: {
           type: 'region',
           values: encodedVal,
-          worldId: worldId,
           currentId: this.currentId},
         headers: {'token': localStorage.getItem('token')}
       }).then(response => {
@@ -136,11 +141,17 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
+  @import '../../styles/main';
   .statsWrapper {
     display: flex;
     text-align: center;
     flex-direction: row;
-
+    .stat-item {
+      &.active {
+        background: $lightBlue;
+        color: white;
+      }
+    }
     div {
       flex-grow: 1;
     }

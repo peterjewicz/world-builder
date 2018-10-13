@@ -214,9 +214,9 @@ export default {
       return require('../assets/' + image + '.jpg');
     },
     handleScroll(e) {
-      let scrollPos = window.scrollY || window.scrollTop || document.getElementsByTagName("html")[0].scrollTop;
+      let scrollPos = window.scrollY || window.scrollTop || document.getElementsByTagName('html')[0].scrollTop;
 
-      if(scrollPos >= 100) {
+      if (scrollPos >= 100) {
         this.scrolled = true;
       } else {
         this.scrolled = false;
@@ -339,7 +339,6 @@ export default {
       h1,h2,h3 {
         margin: 0;
       }
-
 
       .cloud1 {
         animation: cloud1 8s linear infinite;

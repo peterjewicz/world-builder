@@ -42,6 +42,7 @@ export default {
     getEntities() {
       const currentEntity = this.$route.params.entity;
       const storeSegment = this.$store.getters.getValues[currentEntity];
+      console.log(storeSegment)
       return storeSegment;
     }
   },

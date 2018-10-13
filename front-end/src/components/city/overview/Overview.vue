@@ -54,7 +54,8 @@ export default {
     values: function(newVal, oldVal) {
       this.nameValue = newVal.name;
       this.nicknameValue = newVal.nickname;
-      this.districtsValue = newVal.Districs;
+      this.districtsValue = newVal.districts;
+      this.religionValue = newVal.religion;
       this.languageValue = newVal.language;
       this.importsValue = newVal.imports;
       this.exportsValue = newVal.exports;
@@ -93,6 +94,7 @@ export default {
         title: 'overview',
         values: valuesArray
       }
+      console.log(data)
       this.$emit('valueChanged', data)
     }
   }
