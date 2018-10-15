@@ -29,6 +29,47 @@ const api = process.env.API;
 
 export default {
   name: 'ViewAll',
+  beforeRouteEnter (to, from, next) {
+    // const currentEntity = this.$route.params.entity;
+    // const storeSegment = this.$store.getters.getValues[currentEntity];
+    // console.log(storeSegment)
+    // return;
+    // const id = localStorage.getItem('token');
+    //
+    // if (!id) {
+    //   next({ path: 'login' })
+    // }
+    // axios({
+    //   url: api + '/' + id + '/worlds/',
+    //   method: 'get',
+    //   headers: {'token': localStorage.getItem('token')}
+    // })
+    // .then((response) => {
+    //   if (response.data.body === null) {
+    //     next({ path: 'new-world' })
+    //   } else {
+    //     store.commit('saveWorlds', response.data.body)
+    //     const worlds = this.$store.getters.getWorlds;
+    //     let currentWorld = this.$store.getters.getCurrentWorld;
+    //
+    //     axios({
+    //       url: api + '/worlds/' + currentWorld + '/entities',
+    //       method: 'get',
+    //       headers: {'token': localStorage.getItem('token')}
+    //     }).then(response => {
+    //       store.commit('saveValue', response.data)
+    //       next();
+    //     })
+    //   }
+    // })
+    // .catch((e) => {
+    //   // redirect to login
+    //   console.log(e)
+    //   return;
+    //   next({ path: 'login' })
+    // })
+    next()
+  },
   components: {
     Header
   },
@@ -38,11 +79,46 @@ export default {
       entityType: this.$route.params.entity
     }
   },
+  mounted() {
+    const currentEntity = this.$route.params.entity;
+    const storeSegment = this.$store.getters.getValues[currentEntity];
+    if (!storeSegment) {
+      // let currentWorld = this.$store.getters.getCurrentWorld;
+
+      const id = localStorage.getItem('token');
+      axios({
+        url: api + '/' + id + '/worlds/',
+        method: 'get',
+        headers: {'token': localStorage.getItem('token')}
+      })
+        .then((response) => {
+          if (response.data.body === null) {
+            // next({ path: 'new-world' })
+          } else {
+            store.commit('saveWorlds', response.data.body)
+            let currentWorld = this.$store.getters.getWorlds[0];
+            console.log(currentWorld)
+            currentWorld = currentWorld._id
+            console.log(currentWorld)
+
+            axios({
+              url: api + '/worlds/' + currentWorld + '/entities',
+              method: 'get',
+              headers: {'token': localStorage.getItem('token')}
+            }).then(response => {
+              store.commit('saveValue', response.data)
+            }).catch(() => {
+              console.log("You don't have permission to access that world")
+            })
+            // next();
+          }
+        })
+    }
+  },
   computed: {
     getEntities() {
       const currentEntity = this.$route.params.entity;
       const storeSegment = this.$store.getters.getValues[currentEntity];
-      console.log(storeSegment)
       return storeSegment;
     }
   },
