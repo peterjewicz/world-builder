@@ -48,6 +48,7 @@ import Social from './social/Social';
 import History from '../global/history/History';
 import Media from '../global/media/Media';
 import Dropdown from '../global/Dropdown';
+import {reloadToDashboard} from '../../scripts/reload';
 
 import Header from '../pages/includes/Header';
 const axios = require('axios');
@@ -101,6 +102,7 @@ export default {
     }
   },
   mounted() {
+    reloadToDashboard(this)
     if (this.$route.params.id) {
       const values = this.$store.getters.getValues;
       const currentChar = values.character.filter((char) => {
