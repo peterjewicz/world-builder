@@ -103,6 +103,7 @@ export default {
   },
   mounted() {
     reloadToDashboard(this)
+    
     if (this.$route.params.id) {
       const values = this.$store.getters.getValues;
       const currentChar = values.character.filter((char) => {

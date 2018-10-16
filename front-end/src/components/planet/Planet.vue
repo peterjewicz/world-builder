@@ -33,6 +33,7 @@ import Dropdown from '../global/Dropdown';
 import Header from '../pages/includes/Header';
 import History from '../global/history/History';
 import Media from '../global/media/Media';
+import {reloadToDashboard} from '../../scripts/reload';
 
 const axios = require('axios');
 const api = process.env.API;
@@ -73,6 +74,8 @@ export default {
     }
   },
   mounted() {
+    reloadToDashboard(this)
+    
     if (this.$route.params.id) {
       const values = this.$store.getters.getValues;
       const currentPlanet = values.planet.filter((planet) => {
