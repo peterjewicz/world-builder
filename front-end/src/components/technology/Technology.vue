@@ -75,7 +75,7 @@ export default {
   },
   mounted() {
     reloadToDashboard(this)
-    
+
     if (this.$route.params.id) {
       const values = this.$store.getters.getValues;
       const currentTechnology = values.technology.filter((technology) => {

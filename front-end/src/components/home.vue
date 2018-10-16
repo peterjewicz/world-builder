@@ -156,10 +156,10 @@
       <h3>Get In Touch!</h3>
       <div class="formWrapper">
         <form>
-          <input type="text" name="name" placeholder="Name" />
-          <input type="text" name="email" placeholder="email" />
-          <textarea name="message" placeholder="message"></textarea>
-          <button class="primary form-trigger">SEND MESSAGE</button>
+          <input v-model="name" type="text" name="name" placeholder="Name" />
+          <input v-model="email" type="text" name="email" placeholder="email" />
+          <textarea v-model="message" name="message" placeholder="message"></textarea>
+          <button @click="submitForm" class="primary form-trigger">SEND MESSAGE</button>
         </form>
       </div>
     </div>
@@ -197,7 +197,10 @@ export default {
   name: 'Home',
   data () {
     return {
-      scrolled: false
+      scrolled: false,
+      name: '',
+      email: '',
+      message: ''
     }
   },
   created () {
@@ -221,6 +224,10 @@ export default {
       } else {
         this.scrolled = false;
       }
+    },
+    submitForm(e) {
+      // handle axios call to email server here
+      alert(this.name);
     }
   }
 }

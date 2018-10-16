@@ -21,7 +21,6 @@
 <script>
 import History from '../global/history/History';
 import Media from '../global/media/Media';
-import {reloadToDashboard} from '../../scripts/reload';
 
 const axios = require('axios');
 const api = process.env.API;
