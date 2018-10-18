@@ -12,3 +12,6 @@ profiles.clj
 /.env
 .nrepl-port
 /log
+/mobile/platforms
+/mobile/plugins
+/mobile/node_modules

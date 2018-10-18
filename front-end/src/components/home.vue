@@ -181,7 +181,7 @@
         </ul>
       </div>
       <div class="col-6">
-        <input type="text" placeholder="Get Updates" />
+        <input type="text" v-model="newsletterEmail" placeholder="Get Updates" />
         <button class="newsletter-submit primary">Get Updates</button>
       </div>
     </div>
@@ -193,6 +193,9 @@
 </template>
 
 <script>
+const axios = require('axios');
+const api = process.env.API;
+
 export default {
   name: 'Home',
   data () {
@@ -200,7 +203,8 @@ export default {
       scrolled: false,
       name: '',
       email: '',
-      message: ''
+      message: '',
+      newsletterEmail : ''
     }
   },
   created () {
@@ -227,6 +231,17 @@ export default {
     },
     submitForm(e) {
       // handle axios call to email server here
+      axios({
+        url: api + '/homeEmail',
+        method: 'get',
+        data: {
+          name: this.name,
+          email: this.email,
+          message: this.message
+        }
+      }).then(response => {
+        // hide form and show confirmation
+      })
       alert(this.name);
     }
   }
