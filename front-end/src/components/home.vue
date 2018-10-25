@@ -204,7 +204,7 @@ export default {
       name: '',
       email: '',
       message: '',
-      newsletterEmail : ''
+      newsletterEmail: ''
     }
   },
   created () {

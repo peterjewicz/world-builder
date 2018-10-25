@@ -12,6 +12,7 @@
       <div class="newMedia">
         <div class="currentSelection">
           <p>Currently Selected</p>
+          <span class="currentSelectedImage" v-if="!selectedImage">No Image Selected</span>
           <img :src="selectedImage" v-if="selectedImage" width="100%"/>
           <button v-on:click="handleChooseImage" class="primary">Use</button>
         </div>
@@ -70,10 +71,14 @@ export default {
       this.selectedImage = imgUrl;
     },
     handleCloseMediaManager() {
-      this.$emit('closeMediaManager', true)
+      this.$emit('closeMediaManager', true);
     },
     handleChooseImage() {
-      this.$emit('imageSelected', this.selectedImage)
+      if (this.secltedImage) {
+        this.$emit('imageSelected', this.selectedImage);
+      } else {
+        alert('Please Select an Image First!');
+      }
     },
     uploadImage() {
       const formData = new FormData();
@@ -116,10 +121,17 @@ export default {
     min-height: 240px;
     flex-flow: wrap;
 
+    button {
+      width: 70px;
+      height: 30px
+    }
+
     .closeMediaManager {
       position: absolute;
       top: 5px;
       right: 5px;
+      font-size: .5rem;
+      cursor: pointer;
     }
 
     h3 {
@@ -134,6 +146,12 @@ export default {
     .media-wrapper {
       display: flex;
       flex-flow: wrap;
+
+      .currentSelectedImage {
+        font-weight: 300;
+        font-size: .75rem;
+        padding-bottom: 5px;
+      }
 
       .currentMedia {
         width: 540px;
@@ -151,6 +169,7 @@ export default {
 
         .newMediaBottom {
           align-self: flex-end;
+          padding-top: 25px;
         }
 
         input {

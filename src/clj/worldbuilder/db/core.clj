@@ -105,10 +105,3 @@
 (defn get-user-by-id [id]
   (def user (mc/find-one-as-map db "worldbuilder" {:_id (ObjectId. id) }))
   (assoc user :_id (str (test :_id))))
-
-
-  ; (defn update-user [id first-name last-name email]
-  ;   (mc/update db "users" {:_id id}
-  ;              {$set {:first_name first-name
-  ;                     :last_name last-name
-  ;                     :email email}}))

@@ -24,3 +24,8 @@
       (common/card (:id stripeToken))
       (customers/email "worldbuider@stripe.com")
       (common/plan "plan_DhsxzAIntQRzqu")))))
+
+; TODO see how SLT handles this
+(defn unsubscribe-user
+  "Unsubscribes a user from stripe"
+  [])
