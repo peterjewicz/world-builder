@@ -126,18 +126,28 @@ export default {
     padding-bottom: 35px;
     margin-left: 10px;
     margin-right: 10px;
-    border-bottom: 2px solid $purple;
+    // border-bottom: 2px solid $purple;
+
+    // Styles form SLT
+    border: 1px solid #dedede;
+    // padding-top: 0;
+    width: 95%;
+    margin: 20px auto;
+    background-color: white;
+    border-radius: 3px;
+    position: relative;
+    box-shadow: 2px 2px 1px #d6dee3;
+
     display: flex;
     flex-flow: wrap;
     h3 {
-      margin: 20px;
+      padding: 12px;
+      margin: 0;
       width: 100%;
       flex-basis: 100%;
       text-transform: uppercase;
-    }
-
-    &:last-child {
-      border: none;
+      background: $purple;
+      color: white;
     }
   }
 

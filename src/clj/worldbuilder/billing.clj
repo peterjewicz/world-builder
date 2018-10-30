@@ -18,14 +18,17 @@
 
 ; TODO get user email here
 (defn create-new-customer [stripeToken]
-  (println (:id stripeToken))
   (common/with-token (:stripe-private-key env)
     (common/execute (customers/create-customer
       (common/card (:id stripeToken))
       (customers/email "worldbuider@stripe.com")
       (common/plan "plan_DhsxzAIntQRzqu")))))
 
-; TODO see how SLT handles this
-(defn unsubscribe-user
-  "Unsubscribes a user from stripe"
-  [])
+; (defn unsubscribe-user
+;   "Unsubscribes a user from stripe"
+;   [userId]
+;   (let [user (db/get-user-by-id userId)]
+;   (common/with-token (:stripe-private-key env)
+;     (common/execute (subscriptions/unsubscribe-customer
+;     (common/customer (:stripeToken user))
+;     (subscriptions/immediately))))))

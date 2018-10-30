@@ -195,5 +195,24 @@ export default {
       display: flex;
       flex-direction: row;
     }
+
+    @media(max-width: 767px) {
+
+      width: 100%;
+      left: 0;
+      top: -100px;
+
+      .currentMedia, .newMedia {
+        width: 100% !important;
+
+        .newMediaBottom {
+          align-self: auto !important;
+        }
+      }
+
+      .image-wrapper {
+        width: 50%;
+      }
+    }
   }
 </style>

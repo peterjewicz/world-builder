@@ -7,7 +7,7 @@
           <Search />
         </div>
         <div v-if="homeActive" class="home">
-          <router-link v-bind:to="'dashboard'"><i class="fas fa-home"></i></router-link>
+          <router-link v-bind:to="'/dashboard'"><i class="fas fa-home"></i></router-link>
         </div>
       </div>
       <div class="header-section">
@@ -22,7 +22,7 @@
           <router-link v-bind:to="'create-world'"><span class="addWorld hover-darkblue">Add World +</span></router-link>
         </div>
         <div class="settings-link">
-          <router-link v-bind:to="'settings'"><i class="fas fa-user"></i></router-link>
+          <router-link v-bind:to="'/settings'"><i class="fas fa-user"></i></router-link>
         </div>
       </div>
     </div>
