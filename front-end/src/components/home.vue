@@ -186,6 +186,9 @@
       </div>
     </div>
     <div class="copyright">
+      <router-link v-bind:to="'privacy'">Privacy Policy</router-link> |
+      <router-link v-bind:to="'terms'">Terms Of Use</router-link>
+      <br>
       Copyright 2018 - World Builder - Built and Owned By <a href="http://www.totalwebconnections.com" target="_blank">
         Total Web Connections</a>
     </div>

@@ -1,6 +1,6 @@
 <template>
   <div class="Search">
-    <input type="text" placeholder="search" v-model="searchVal" @input="handleSearch"/>
+    <input type="text" placeholder="search - type 4+ letters" v-model="searchVal" @input="handleSearch"/>
     <div class="searchResults" v-if="showResults">
       <span class="resultsTitle">Related Items</span>
       <ul>

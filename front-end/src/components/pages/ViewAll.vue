@@ -81,6 +81,14 @@ export default {
       padding: 10px;
       margin: 10px auto;
       border: 1px solid black;
+
+      border: 1px solid #dedede;
+      padding-top: 0;
+      margin: 40px auto;
+      background-color: white;
+      border-radius: 3px;
+      position: relative;
+      box-shadow: 2px 2px 1px #d6dee3;
     }
   }
 

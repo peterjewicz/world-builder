@@ -9,6 +9,8 @@
   	  [clj-stripe.customers :as customers]
   	  [clj-stripe.invoices :as invoices]
   	  [clj-stripe.invoiceitems :as invoiceitems]
+      [clj-http.client :as client]
+      [worldbuilder.db.core :as db]
       [worldbuilder.config :refer [env]]))
 
 
@@ -22,13 +24,19 @@
     (common/execute (customers/create-customer
       (common/card (:id stripeToken))
       (customers/email "worldbuider@stripe.com")
-      (common/plan "plan_DhsxzAIntQRzqu")))))
+      (common/plan (:stripe-plan env))))))
 
 ; (defn unsubscribe-user
 ;   "Unsubscribes a user from stripe"
-;   [userId]
-;   (let [user (db/get-user-by-id userId)]
+;   [subToken userToken]
 ;   (common/with-token (:stripe-private-key env)
 ;     (common/execute (subscriptions/unsubscribe-customer
-;     (common/customer (:stripeToken user))
-;     (subscriptions/immediately))))))
+;     (common/customer (:stripeToken stripeToken))
+;     (subscriptions/immediately)))))
+
+
+(defn unsubscribe-user
+  "Unsubscribes a user from stripe"
+  [subToken]
+  (let [url (str "https://api.stripe.com/v1/subscriptions/" subToken)]
+    (client/delete url {:basic-auth "sk_test_AVbHuiy5t5NO427aI4czG67e:"})))

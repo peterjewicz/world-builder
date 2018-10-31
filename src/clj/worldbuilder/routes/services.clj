@@ -123,9 +123,17 @@
       :body-params [stripeToken :- s/Any]
       :header-params [token :- String]
       :middleware [auth-middleware/check-user-auth]
-      (ok {:body (db/update-user-billing token (:customer
-                    (first (:data (:sources
-                        (billing/create-new-customer stripeToken))))))}))
+      (let [stripeResult (billing/create-new-customer stripeToken)
+            subToken (:id (first (:data (:subscriptions stripeResult))))
+            stripeToken (:customer (first (:data (:sources stripeResult))))]
+            (ok {:body (db/update-user-billing token stripeToken subToken)})))
+
+    (POST "/billing/unsubscribe" request
+      :body-params [subToken :- s/Any stripeToken :- s/Any]
+      :header-params [token :- String]
+      :middleware [auth-middleware/check-user-auth]
+        (billing/unsubscribe-user subToken)
+        (ok {:body (db/update-user-stripe-token token)}))
 
     (GET "/user" request
       :header-params [token :- String]

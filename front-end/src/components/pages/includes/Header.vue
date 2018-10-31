@@ -57,7 +57,6 @@ export default {
     }
   },
   mounted() {
-    // console.log(this.$store.getters.getCurrentWorld)
   },
   methods: {
   }

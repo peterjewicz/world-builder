@@ -25,7 +25,7 @@
     <template v-else>
       <p>You've already subscribed</p>
       <p>You can unsubscribe anytime, but will lose access too all but your first world</p>
-      <button class="primary">Unsubscribe</button>
+      <button v-on:click="unsubscribeUser" class="primary">Unsubscribe</button>
     </template>
   </div>
 </template>
@@ -34,6 +34,7 @@
 import Header from './includes/Header';
 const axios = require('axios');
 const api = process.env.API;
+const STRIPE_PUBLIC_KEY = process.env.STRIPE_PUBLIC_KEY;
 
 export default {
   name: 'Settings',
@@ -42,12 +43,14 @@ export default {
   },
   data () {
     return {
-      activeCustomer: false
+      activeCustomer: false,
+      stripeToken: '',
+      subToken: ''
     }
   },
   mounted() {
     // eslint-disable-next-line
-    const stripe = Stripe('pk_test_LgROF2ukcNIc3P3I3p4Nq31v');
+    const stripe = Stripe(STRIPE_PUBLIC_KEY);
 
     // Create an instance of Elements.
     const elements = stripe.elements();
@@ -118,10 +121,12 @@ export default {
         },
         headers: {'token': localStorage.getItem('token')}
       }).then(response => {
-        console.log(response.data.body.id)
+        alert('Signup Successfull');
+        this.activeCustomer = true;
       }).catch((e) => {
         console.log(e)
         console.log('SIGNUP ERROR')
+        alert('There was a problem charging your card. Please try again.')
       })
     }
 
@@ -133,10 +138,35 @@ export default {
       console.log(response.data.body)
       if (response.data.body.stripeToken) {
         this.activeCustomer = true;
+        this.stripeToken = response.data.body.stripeToken;
+        this.subToken = response.data.body.subToken;
       }
     }).catch(() => {
       console.log('User Doesn\'t Exist')
+      // TODO redirec to login
     })
+  },
+  methods: {
+    unsubscribeUser() {
+      axios({
+        url: api + '/billing/unsubscribe',
+        method: 'post',
+        data: {
+          subToken: this.subToken,
+          stripeToken: this.stripeToken
+        },
+        headers: {'token': localStorage.getItem('token')}
+      }).then(response => {
+        alert('Subscription Cancelled');
+        this.activeCustomer = false;
+        this.subToken = '';
+        this.stripeToken = '';
+      }).catch((e) => {
+        console.log(e)
+        console.log('SIGNUP ERROR')
+        alert('There was a problem cancelling your subscription. Please try again or contact support')
+      })
+    }
   }
 }
 </script>

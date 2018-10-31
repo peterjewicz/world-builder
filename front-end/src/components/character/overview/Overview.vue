@@ -9,7 +9,7 @@
     <FormText @valueChanged="formValueChanged" title="Age" name="age" description="How Old Is This Character" v-bind:value="ageValue" />
   </div>
 </template>
-
+<!-- TODO add Race -->
 <script>
 import FormText from '../../global/FieldText';
 import TextField from '../../global/TextField';

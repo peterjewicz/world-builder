@@ -7,6 +7,7 @@
                  [amazonica "0.3.132"]
                  [abengoa/clj-stripe "1.0.4" :exclusions [org.apache.httpcomponents/httpcore org.apache.httpcomponents/httpclient]]
                  [cheshire "5.8.0"]
+                 [clj-http "3.9.1"]
                  [clj-time "0.14.4"]
                  [com.google.guava/guava "20.0"]
                  [com.novemberain/monger "3.1.0" :exclusions [com.google.guava/guava]]

@@ -189,9 +189,15 @@ export default {
     }
 
     .stat-item {
+      cursor: pointer;
+      transition: .25s;
       &.active {
         background: $lightBlue;
         color: white;
+      }
+
+      &:hover:not(.active){
+        background-color: rgba(105, 200, 233,.25);
       }
     }
   }

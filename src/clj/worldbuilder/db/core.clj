@@ -55,8 +55,12 @@
     [current-user (mc/update db "user" {:username username} {$set {:token (str (java.util.UUID/randomUUID))}} {:upsert true})]
     (:token (get-user-by-username username))))
 
-(defn update-user-billing [token stripeToken]
-  (mc/update db "user" {:token token} {$set {:stripeToken stripeToken}} {:upsert true})
+(defn update-user-billing [token stripeToken subToken]
+  (mc/update db "user" {:token token} {$set {:stripeToken stripeToken :subToken subToken}} {:upsert true})
+  "User Updated")
+
+(defn update-user-stripe-token [token]
+  (mc/update db "user" {:token token} {$set {:stripeToken "" :subToken ""}} {:upsert true})
   "User Updated")
 
 ;TODO move to entities DB file

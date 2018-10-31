@@ -7,7 +7,7 @@
         <h2>Welcome!</h2>
         <p>Here you can add details to your world. To switch worlds check the drop down in the upper-right.</p>
         <div class="dashboard-body">
-          <h3>Characters & Races </h3>
+          <h3>Beings</h3>
           <EntityCard title="Characters" img="Characters" newurl="/new/character" allurl="/all/character"/>
           <EntityCard title="Creatures" img="Creatures" newurl="/new/creature" allurl="/all/creature"/>
         </div>
@@ -132,7 +132,7 @@ export default {
     border: 1px solid #dedede;
     // padding-top: 0;
     width: 95%;
-    margin: 20px auto;
+    margin: 40px auto;
     background-color: white;
     border-radius: 3px;
     position: relative;
@@ -144,8 +144,10 @@ export default {
       padding: 12px;
       margin: 0;
       width: 100%;
+      border-radius: 3px 3px 0 0;
       flex-basis: 100%;
       text-transform: uppercase;
+      background: #444;
       background: $purple;
       color: white;
     }
