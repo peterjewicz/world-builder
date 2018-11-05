@@ -236,7 +236,7 @@ export default {
       // handle axios call to email server here
       axios({
         url: api + '/homeEmail',
-        method: 'get',
+        method: 'post',
         data: {
           name: this.name,
           email: this.email,

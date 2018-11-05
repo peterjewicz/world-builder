@@ -135,6 +135,10 @@
         (billing/unsubscribe-user subToken)
         (ok {:body (db/update-user-stripe-token token)}))
 
+    (POST "/homeEmail" request
+      :body-params [name :- String email :- String message :- String]
+      (ok))
+
     (GET "/user" request
       :header-params [token :- String]
       :middleware [auth-middleware/check-user-auth]

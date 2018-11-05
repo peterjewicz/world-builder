@@ -10,6 +10,7 @@
                  [clj-http "3.9.1"]
                  [clj-time "0.14.4"]
                  [com.google.guava/guava "20.0"]
+                 [com.draines/postal "2.0.2"]
                  [com.novemberain/monger "3.1.0" :exclusions [com.google.guava/guava]]
                  [compojure "1.6.1"]
                  [cprop "0.1.11"]

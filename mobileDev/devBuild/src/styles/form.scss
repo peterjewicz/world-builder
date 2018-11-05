@@ -1,0 +1,74 @@
+input {
+  width: 320px;
+  display: block;
+  border-radius: 6px;
+  padding: 8px;
+  border: none;
+  margin: 0 auto;
+  margin-bottom: 10px;
+  border: 1px solid #e9edf2;
+}
+
+textarea {
+  height: 100px;
+  width: 320px;
+  display: block;
+  border-radius: 6px;
+  padding: 8px;
+  border: none;
+  margin: 0 auto;
+  margin-bottom: 10px;
+  border: 1px solid #e9edf2;
+}
+
+
+// WYSIWYG Editor Style Overrides
+.editr--content:focus {
+   box-shadow: 0 0 3pt 2pt #bfdfff;
+}
+
+.editr--toolbar {
+  display: none;
+}
+
+
+.text-field {
+  .editr {
+    width: 320px;
+    display: block;
+    border-radius: 6px;
+    border: none;
+    margin: 0 auto;
+    margin-bottom: 10px;
+    height: 25px;
+    max-height: 25px;
+    min-height: 25px;
+  }
+
+  .editr--content {
+    width: 320px;
+    display: block;
+    border-radius: 6px;
+    padding: 8px;
+    border: none;
+    margin: 0 auto;
+    margin-bottom: 10px;
+    border: 1px solid #e9edf2;
+    height: 25px;
+    max-height: 25px;
+    min-height: 25px;
+    text-align: left;
+  }
+
+  .large {
+    height: 100px;
+
+    .editr--content {
+      height: 100px;
+      max-height: 100px;
+      min-height: 100px;
+    }
+  }
+}
+
+@import "vue-wysiwyg/dist/vueWysiwyg.css";

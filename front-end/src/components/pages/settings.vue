@@ -9,7 +9,7 @@
       <form action="/charge" method="post" id="payment-form">
         <div class="form-row">
           <label for="card-element">
-            Credit or debit card {{activeCustomer}}
+            Credit or debit card.
           </label>
           <div id="card-element">
             <!-- A Stripe Element will be inserted here. -->
@@ -19,7 +19,7 @@
           <div id="card-errors" role="alert"></div>
         </div>
 
-        <button>Submit Payment</button>
+        <button class="button primary">Submit Payment</button>
       </form>
     </template>
     <template v-else>
@@ -121,6 +121,7 @@ export default {
         },
         headers: {'token': localStorage.getItem('token')}
       }).then(response => {
+        // TODO actually set the shit here tokens and sub
         alert('Signup Successfull');
         this.activeCustomer = true;
       }).catch((e) => {
@@ -174,7 +175,10 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
   .Settings {
-
+    form {
+      width: 320px;
+      margin: 0 auto;
+    }
   }
 
   .StripeElement {
