@@ -1,32 +1,39 @@
 <template>
   <div class="Settings">
     <Header titleText="Settings" homeActive="true"/>
-    <h2>User Settings</h2>
-    <p>Email: test@test.com</p>
 
-    <h2>Billing</h2>
-    <template v-if="!activeCustomer">
-      <form action="/charge" method="post" id="payment-form">
-        <div class="form-row">
-          <label for="card-element">
-            Credit or debit card.
-          </label>
-          <div id="card-element">
-            <!-- A Stripe Element will be inserted here. -->
-          </div>
+    <div class="maxWidthWrap">
+      <div class="settingsRow">
+        <h2>User Settings</h2>
+        <p>Email: test@test.com</p>
+      </div>
 
-          <!-- Used to display form errors. -->
-          <div id="card-errors" role="alert"></div>
-        </div>
+      <div class="settingsRow">
+        <h2>Billing</h2>
+        <template v-if="!activeCustomer">
+          <form action="/charge" method="post" id="payment-form">
+            <div class="form-row">
+              <label for="card-element">
+                Credit or debit card.
+              </label>
+              <div id="card-element">
+                <!-- A Stripe Element will be inserted here. -->
+              </div>
 
-        <button class="button primary">Submit Payment</button>
-      </form>
-    </template>
-    <template v-else>
-      <p>You've already subscribed</p>
-      <p>You can unsubscribe anytime, but will lose access too all but your first world</p>
-      <button v-on:click="unsubscribeUser" class="primary">Unsubscribe</button>
-    </template>
+              <!-- Used to display form errors. -->
+              <div id="card-errors" role="alert"></div>
+            </div>
+
+            <button class="button primary">Submit Payment</button>
+          </form>
+        </template>
+        <template v-else>
+          <p>You've already subscribed</p>
+          <p>You can unsubscribe anytime, but will lose access too all but your first world</p>
+          <button v-on:click="unsubscribeUser" class="primary">Unsubscribe</button>
+        </template>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -175,9 +182,18 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
   .Settings {
+
+    .settingsRow {
+      border-bottom: 2px solid #dedede;
+      padding-bottom: 10px;
+    }
     form {
       width: 320px;
       margin: 0 auto;
+
+      button {
+        margin-top: 25px;
+      }
     }
   }
 

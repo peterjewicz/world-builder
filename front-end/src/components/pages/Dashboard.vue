@@ -116,7 +116,7 @@ export default {
 
     .dashboard-sidebar {
       width: 14%;
-      border-right: 2px solid $purple;
+      border-right: 2px solid #dedede;
     }
   }
 
@@ -126,11 +126,9 @@ export default {
     padding-bottom: 35px;
     margin-left: 10px;
     margin-right: 10px;
-    // border-bottom: 2px solid $purple;
 
     // Styles form SLT
     border: 1px solid #dedede;
-    // padding-top: 0;
     width: 95%;
     margin: 40px auto;
     background-color: white;
