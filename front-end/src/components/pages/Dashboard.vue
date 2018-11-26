@@ -4,8 +4,8 @@
     <div class="dashboard-inner">
       <Sidebar @worldUpdated="worldUpdated"/>
       <div class="dashboard-content">
-        <h2>Welcome!</h2>
-        <p>Here you can add details to your world. To switch worlds check the drop down in the upper-right.</p>
+        <h2>Your Dashboard!</h2>
+        <p style="max-width:576px; margin: 0 auto;">Here you can add details to your world. To switch or add worlds check the drop down in the upper-right or the sidebar.</p>
         <div class="dashboard-body">
           <h3>Beings</h3>
           <EntityCard title="Characters" img="Characters" newurl="/new/character" allurl="/all/character"/>

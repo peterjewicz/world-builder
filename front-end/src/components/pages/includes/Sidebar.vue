@@ -10,6 +10,7 @@
            {{world.name}}
          </span>
        </li>
+       <li><router-link v-bind:to="'create-world'"><span class="addWorld hover-darkblue">Add World +</span></router-link></li>
      </ul>
    </div>
  </template>

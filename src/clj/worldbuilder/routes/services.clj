@@ -119,11 +119,14 @@
       :summary     "creates a user with a given username/password"
       (ok (user/create username email password)))
 
+    ; TODO we need to pass the token to the signup function to pull the email from the user
+    ; or jsut end it up?
     (POST "/billing/signup" request
       :body-params [stripeToken :- s/Any]
       :header-params [token :- String]
       :middleware [auth-middleware/check-user-auth]
-      (let [stripeResult (billing/create-new-customer stripeToken)
+      (let [currentUserEmail (db/get-user-email token)
+            stripeResult (billing/create-new-customer stripeToken currentUserEmail)
             subToken (:id (first (:data (:subscriptions stripeResult))))
             stripeToken (:customer (first (:data (:sources stripeResult))))]
             (ok {:body (db/update-user-billing token stripeToken subToken)})))

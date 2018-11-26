@@ -41,7 +41,7 @@ export default {
         })
         .catch((error) => {
           console.log(error)
-          alert('You Need To Subscrive To Create More Worlds!');
+          alert('You Need To Subscribe To Create More Worlds!');
         })
     }
   }

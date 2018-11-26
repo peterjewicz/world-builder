@@ -19,21 +19,12 @@
     (common/execute (plans/get-all-plans))))
 
 ; TODO get user email here
-(defn create-new-customer [stripeToken]
+(defn create-new-customer [stripeToken email]
   (common/with-token (:stripe-private-key env)
     (common/execute (customers/create-customer
       (common/card (:id stripeToken))
-      (customers/email "worldbuider@stripe.com")
+      (customers/email email)
       (common/plan (:stripe-plan env))))))
-
-; (defn unsubscribe-user
-;   "Unsubscribes a user from stripe"
-;   [subToken userToken]
-;   (common/with-token (:stripe-private-key env)
-;     (common/execute (subscriptions/unsubscribe-customer
-;     (common/customer (:stripeToken stripeToken))
-;     (subscriptions/immediately)))))
-
 
 (defn unsubscribe-user
   "Unsubscribes a user from stripe"

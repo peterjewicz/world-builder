@@ -132,7 +132,6 @@ export default {
         alert('Signup Successfull');
         this.activeCustomer = true;
       }).catch((e) => {
-        console.log(e)
         console.log('SIGNUP ERROR')
         alert('There was a problem charging your card. Please try again.')
       })

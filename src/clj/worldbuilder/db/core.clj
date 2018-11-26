@@ -109,3 +109,6 @@
 (defn get-user-by-id [id]
   (def user (mc/find-one-as-map db "worldbuilder" {:_id (ObjectId. id) }))
   (assoc user :_id (str (test :_id))))
+
+(defn get-user-email [token]
+  (:email (first (mc/find-maps db "user" {:token token }))))
