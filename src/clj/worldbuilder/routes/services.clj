@@ -2,6 +2,7 @@
   (:require [ring.util.http-response :refer :all]
             [compojure.api.sweet :refer :all]
             [schema.core :as s]
+            [clj-http.client :as client]
             [cheshire.core :refer :all]
             [worldbuilder.db.core :as db]
             [worldbuilder.db.entities :as entities]
@@ -140,6 +141,15 @@
 
     (POST "/homeEmail" request
       :body-params [name :- String email :- String message :- String]
+      (ok))
+
+    (POST "/newsletterSignup" request
+      :body-params [email :- String]
+      (client/post (str "https://us13.api.mailchimp.com//3.0/lists/" (:mailchimp-list env) "members/")
+                   {:basic-auth ["user" (:mailchimp-key env)]
+                    :body (generate-string {:email_address email :status "subscribed"})
+                    :content-type :json
+                    :accept :json})
       (ok))
 
     (GET "/user" request

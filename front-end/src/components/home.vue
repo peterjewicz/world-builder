@@ -182,7 +182,7 @@
       </div>
       <div class="col-6">
         <input type="text" v-model="newsletterEmail" placeholder="Get Updates" />
-        <button class="newsletter-submit primary">Get Updates</button>
+        <button @click="newsletterSignup" class="newsletter-submit primary">Get Updates</button>
       </div>
     </div>
     <div class="copyright">
@@ -246,6 +246,17 @@ export default {
         // hide form and show confirmation
       })
       alert(this.name);
+    },
+    newsletterSignup() {
+      axios({
+        url: api + '/newsletterSignup',
+        method: 'post',
+        data: {
+          email: this.newsletterEmail
+        }
+      }).then(response => {
+        // hide form and show confirmation
+      })
     }
   }
 }
