@@ -50,7 +50,7 @@
     <div class="pricing">
       <div class="pricing-background"></div>
       <div class="pricing-content">
-        <h2>We Need Something Here</h2>
+        <h2>All Your Details In One Place.</h2>
       </div>
     </div>
     <div class="flow-walkthrough">
@@ -59,7 +59,7 @@
           <h2>Create Worlds</h2>
           <p>
             Separate your ideas by building worlds. All your characters, locations, and other ideas
-            live in your world, and can be linked a referenced together. This let's you focus on multiple
+            live in your world, and can be linked and referenced together. This let's you easily focus on multiple
             ideas. Free users are limited to a single world, while paid members are allowed an unlimited
             number of worlds. In either case, there is no limit to how many entities you can add to a world. Create
             an unlimited number of characters and other types for all of your worlds.
@@ -78,7 +78,7 @@
           <h2>Add Details</h2>
           <p>
             For each of your worlds add as much or little details as you want. The olny limit is your own
-            imagination. Worldbuilder comes packed with a bunch of pre-made templates with common fields to help
+            imagination. WorldsCrafter comes packed with a bunch of pre-made templates with common fields to help
             get you started qucikly. Don't see what you need? Let us know! We're always looking to improve the software
             to help make it more diverse and powerful for all our users.
           </p>
@@ -90,9 +90,9 @@
           <h2>Build Endlessly</h2>
           <p>
             Build to your hearts content with unlimited of any type of entity. Both free and paid users enjoy
-            unlimited entites per world, and can create as many characters, locations, spells, cities (and more) that
+            unlimited entities per world, and can create as many characters, locations, spells, cities (and more) that
             they want. Paid users also get access to unlimited worlds and 10x as much file storage for all the images,
-            maps, and other visual content to accompony each piece of your world.
+            maps, and other visual content to accompany each piece of your world.
           </p>
         </div>
         <div class="col-6">
@@ -181,15 +181,22 @@
         </ul>
       </div>
       <div class="col-6">
-        <input type="text" v-model="newsletterEmail" placeholder="Get Updates" />
-        <button @click="newsletterSignup" class="newsletter-submit primary">Get Updates</button>
+        <div class="newsletter" v-bind:class="{ confirmed: newsletterConfirmed }">
+          <div class="newsletter-wrapper">
+            <input type="text" v-model="newsletterEmail" placeholder="Get Updates" />
+            <button @click="newsletterSignup" class="newsletter-submit primary">Get Updates</button>
+          </div>
+          <div class="newsletter-confirmation">
+            <p>Thanks For Signing Up!</p>
+          </div>
+        </div>
       </div>
     </div>
     <div class="copyright">
       <router-link v-bind:to="'privacy'">Privacy Policy</router-link> |
       <router-link v-bind:to="'terms'">Terms Of Use</router-link>
       <br>
-      Copyright 2018 - World Builder - Built and Owned By <a href="http://www.totalwebconnections.com" target="_blank">
+      Copyright 2018 - Worlds Crafter - Built and Owned By <a href="http://www.totalwebconnections.com" target="_blank">
         Total Web Connections</a>
     </div>
   </div>
@@ -207,7 +214,8 @@ export default {
       name: '',
       email: '',
       message: '',
-      newsletterEmail: ''
+      newsletterEmail: '',
+      newsletterConfirmed: false
     }
   },
   created () {
@@ -255,7 +263,7 @@ export default {
           email: this.newsletterEmail
         }
       }).then(response => {
-        // hide form and show confirmation
+        this.newsletterConfirmed = true;
       })
     }
   }
@@ -618,6 +626,26 @@ export default {
       }
       button {
         margin-top: 10px;
+      }
+    }
+
+    .newsletter {
+      position: relative;
+
+      .newsletter-confirmation {
+        position: absolute;
+        top: 0;
+        left: 25%;
+        display: none;
+      }
+    }
+
+    .newsletter.confirmed{
+      .newsletter-wrapper {
+        display: none;
+      }
+      .newsletter-confirmation {
+        display: block;
       }
     }
 

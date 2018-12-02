@@ -145,7 +145,7 @@
 
     (POST "/newsletterSignup" request
       :body-params [email :- String]
-      (client/post (str "https://us13.api.mailchimp.com//3.0/lists/" (:mailchimp-list env) "members/")
+      (client/post (str "https://us13.api.mailchimp.com//3.0/lists/" (:mailchimp-list env) "/members/")
                    {:basic-auth ["user" (:mailchimp-key env)]
                     :body (generate-string {:email_address email :status "subscribed"})
                     :content-type :json

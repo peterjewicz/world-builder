@@ -1,6 +1,6 @@
 <template>
   <div class="header-frontEnd">
-    <h4>World Building</h4>
+    <h4>Worlds Crafter</h4>
   </div>
 </template>
 
