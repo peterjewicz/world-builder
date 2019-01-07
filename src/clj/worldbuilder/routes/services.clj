@@ -7,6 +7,7 @@
             [worldbuilder.db.core :as db]
             [worldbuilder.db.entities :as entities]
             [ring.swagger.upload :as upload]
+            [postal.core :as postal]
             [compojure.api.meta :refer [restructure-param]]
             [buddy.auth.accessrules :refer [restrict]]
             [worldbuilder.user.create :as user]
@@ -141,6 +142,10 @@
 
     (POST "/homeEmail" request
       :body-params [name :- String email :- String message :- String]
+      (postal/send-message {:from email
+                            :to ["info@totalwebconnections.com.com"]
+                            :subject "World Builder Message"
+                            :body (str name " - " message)})
       (ok))
 
     (POST "/newsletterSignup" request

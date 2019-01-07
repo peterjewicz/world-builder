@@ -152,15 +152,18 @@
       </div>
     </div>
     <div class="contact row">
-      <h2>Question? Comment? Concern?</h2>
-      <h3>Get In Touch!</h3>
-      <div class="formWrapper">
+      <div class="formWrapper" v-bind:class="{ confirmed: messageSubmitted }">
         <form>
+          <h2>Question? Comment? Concern?</h2>
+          <h3>Get In Touch!</h3>
           <input v-model="name" type="text" name="name" placeholder="Name" />
           <input v-model="email" type="text" name="email" placeholder="email" />
           <textarea v-model="message" name="message" placeholder="message"></textarea>
           <button @click="submitForm" class="primary form-trigger">SEND MESSAGE</button>
         </form>
+        <div class="form-confirmation">
+          <h2>Thank You For Your Message! We Will Respond Shortly!</h2>
+        </div>
       </div>
     </div>
     <div class="pricing">
@@ -215,7 +218,8 @@ export default {
       email: '',
       message: '',
       newsletterEmail: '',
-      newsletterConfirmed: false
+      newsletterConfirmed: false,
+      messageSubmitted: false
     }
   },
   created () {
@@ -242,6 +246,14 @@ export default {
     },
     submitForm(e) {
       // handle axios call to email server here
+      event.preventDefault();
+
+      // Super simple validation for now
+      if (!this.name || !this.email || !this.message) {
+        alert("Please Fill Out All Fields");
+        return;
+      }
+
       axios({
         url: api + '/homeEmail',
         method: 'post',
@@ -252,8 +264,8 @@ export default {
         }
       }).then(response => {
         // hide form and show confirmation
+        this.messageSubmitted = true;
       })
-      alert(this.name);
     },
     newsletterSignup() {
       axios({
@@ -575,6 +587,10 @@ export default {
           flex-flow: wrap;
           flex-direction: row;
           justify-content: space-between;
+
+          h2,h3 {
+            width: 100%;
+          }
         }
         input {
           width: 45%;
@@ -587,7 +603,23 @@ export default {
           width: 100%;
           max-width: 610px;
         }
+
+        .form-confirmation {
+          display: none;
+        }
+
+        &.confirmed {
+          form {
+            display: none;
+          }
+
+          .form-confirmation {
+            display: block;
+          }
+        }
       }
+
+
 
       button {
         margin: 0 auto;
@@ -651,6 +683,7 @@ export default {
 
     .footer {
       display: flex;
+      flex-wrap: wrap;
       padding: $globalPadding/2 15px;
       max-width: $maxWidth;
       margin: 0 auto;
@@ -717,10 +750,24 @@ export default {
         }
       }
 
+      .pricing-content h2 {
+        font-size: 1.75rem;
+      }
+
       .footer {
         .col-6 {
           width: 100%;
         }
+
+        .newsletter {
+          margin-top: 24px;
+        }
+      }
+    }
+
+    @media(max-width: 413px) {
+      .castle {
+        height: 38vh !important;
       }
     }
   }
