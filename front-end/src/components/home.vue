@@ -250,7 +250,7 @@ export default {
 
       // Super simple validation for now
       if (!this.name || !this.email || !this.message) {
-        alert("Please Fill Out All Fields");
+        alert('Please Fill Out All Fields');
         return;
       }
 
@@ -618,8 +618,6 @@ export default {
           }
         }
       }
-
-
 
       button {
         margin: 0 auto;
