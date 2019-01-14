@@ -45,8 +45,11 @@ export default {
      text-align: left;
 
      h5 {
-       padding-left: 10px;
-       padding-bottom: 8px;
+       background: #b169e9;
+       color: white;
+       text-align: center;
+       padding: 15px;
+       margin-top: 0px;
      }
 
      ul {

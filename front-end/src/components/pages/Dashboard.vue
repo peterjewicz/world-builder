@@ -116,7 +116,8 @@ export default {
 
     .dashboard-sidebar {
       width: 14%;
-      border-right: 2px solid #dedede;
+      border-right: 1px solid #dedede;
+      box-shadow: 4px 0 5px -2px #dedede;
     }
   }
 
