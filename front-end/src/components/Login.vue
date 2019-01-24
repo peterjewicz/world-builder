@@ -5,7 +5,7 @@
       <h2>LOGIN</h2>
       <h4 class="error" v-if="loginError">Your Username Or Password Is Incorrect</h4>
       <input v-model="username" type="text" name="username" class="username" placeholder="Username"/>
-      <input v-model="password" type="text" name="password" class="password" placeholder="Password"/>
+      <input v-model="password" type="password" name="password" class="password" placeholder="Password"/>
       <button class="primary large" v-on:click="handleLogin" type="submit">Login</button>
       <p><router-link v-bind:to="'create'">Create a New Account?</router-link></p>
     </div>

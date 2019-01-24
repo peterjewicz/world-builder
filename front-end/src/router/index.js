@@ -142,7 +142,7 @@ export default new Router({
         })
           .then((response) => {
             if (response.data.body === null) {
-              next({ path: 'new-world' })
+              next({ path: 'create-world' })
             } else {
               store.commit('saveWorlds', response.data.body)
               next();

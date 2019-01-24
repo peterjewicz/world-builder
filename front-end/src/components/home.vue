@@ -761,6 +761,14 @@ export default {
           margin-top: 24px;
         }
       }
+
+      .contact {
+        form {
+          padding: 0 10px;
+
+          input { box-sizing: border-box;}
+        }
+      }
     }
 
     @media(max-width: 413px) {

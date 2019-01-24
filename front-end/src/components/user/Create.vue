@@ -10,8 +10,8 @@
       </ul>
       <input v-model="username" type="text" name="username" class="username" placeholder="Username"/>
       <input v-model="email" type="text" name="email" class="email" placeholder="Email"/>
-      <input v-model="password" type="text" name="password" class="password" placeholder="Password"/>
-      <input v-model="passwordConfirm" type="text" name="password-confirm" class="password-confirm" placeholder="Confirm Password"/>
+      <input v-model="password" type="password" name="password" class="password" placeholder="Password"/>
+      <input v-model="passwordConfirm" type="password" name="password-confirm" class="password-confirm" placeholder="Confirm Password"/>
       <button class="primary large" v-on:click="handleSignup" type="submit">Sign Up!</button>
       <p><router-link v-bind:to="'login'">Already Have an Account?</router-link></p>
     </div>
