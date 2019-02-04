@@ -43,6 +43,8 @@
           thee power to create neatly organized worlds that will make keeping everything
           in sycn.
         </p>
+        <a href="#" target="_blank"><img class="hover-image" :src="getImage('ios-download')" width="200px"/></a>
+        <h4 style="margin-top: 8px;">Google Play - Coming Soon</h4>
       </div>
       <div class="col-6 dragonbg">
       </div>
@@ -295,6 +297,14 @@ export default {
 
     h1,h2,h3 {
       text-transform: uppercase;
+    }
+
+    .hover-image {
+      transition: all .25s;
+
+      &:hover {
+        transform: scale(1.1);
+      }
     }
 
     .hero {
