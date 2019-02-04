@@ -8,14 +8,14 @@
             [monger.operators :refer :all]
             [buddy.auth :refer [authenticated?]])
             (:import org.bson.types.ObjectId))
-            
+
 ;TODO we need to change this namespace to user.functions or something as it does more than just create
 (defn create
   "Checks to make sure the password nad Username are unique"
   [username email password]
   (if (and (= 0 (db/get-user-count-username username)) (= 0 (db/get-user-count-email email)))
     (db/create-user username email password)
-    {:body "The Username Or Email Is already taken"}))
+    {:body "The Username Or Email Is already taken" :error "true"}))
 
 (defn login
   "Checks a users login credentials and generates/returns a new token"

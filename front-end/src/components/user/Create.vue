@@ -48,12 +48,17 @@ export default {
           email: this.email,
           password: this.password
         })
-          .then(function (response) {
-            // Holds the token for future logins
-            console.log(response.data.body);
+          .then((response) => {
+            // Holds the token for future login
+            if (!response.data.error) {
+              localStorage.setItem('token', response.data.body);
+              this.$router.push('dashboard');
+            } else {
+              this.errors.push(response.data.body);
+            }
           })
-          .catch(function (error) {
-            console.log(error);
+          .catch((error) => {
+            this.errors.push(error);
           })
           .then(function () {
             // always executed
@@ -110,6 +115,14 @@ export default {
 
     .create-inner {
       max-width: 420px;
+    }
+
+    #errors {
+      color: red;
+      list-style: none;
+      padding: 0;
+      margin-left: 0;
+      text-transform: uppercase;
     }
   }
 </style>
