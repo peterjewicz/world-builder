@@ -153,7 +153,7 @@
         </div>
       </div>
     </div>
-    <div class="contact row">
+    <div id="contact" class="contact row">
       <div class="formWrapper" v-bind:class="{ confirmed: messageSubmitted }">
         <form>
           <h2>Question? Comment? Concern?</h2>
@@ -181,8 +181,8 @@
         <ul>
           <li><router-link v-bind:to="'login'">Login</router-link></li>
           <li><router-link v-bind:to="'create'">Signup</router-link></li>
-          <li><router-link v-bind:to="'create'">Contact</router-link></li>
-          <li><router-link v-bind:to="'create'">Terms</router-link></li>
+          <li><router-link v-bind:to="'#contact'">Contact</router-link></li>
+          <li><router-link v-bind:to="'terms'">Terms</router-link></li>
         </ul>
       </div>
       <div class="col-6">

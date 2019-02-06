@@ -1,8 +1,14 @@
 <template>
-  <div v-if="isactive" class="MediaManager">
+  <div v-if="isactive" class="MediaManager" v-bind:class="{ uploadInProgress: uploadInProgress }">
+    <div class="loading-overlay">
+      <h3>Upload in Progress...</h3>
+    </div>
     <div v-on:click="handleCloseMediaManager" class="closeMediaManager">Close <i class="fas fa-times"></i></div>
     <div class="media-wrapper">
-      <div class="currentMedia">
+      <div class="currentMedia" v-bind:class="{ loadingCurrentMedia: loadingCurrentMedia }">
+        <div class="currentMedia-loading">
+          <h3>Loading Your Media, Please Wait...</h3>
+        </div>
         <h3>Media Manager</h3>
         <p>Select an image to use or upload a new one!</p>
         <div class="image-wrapper" v-for="(image, index) in userImages">
@@ -38,7 +44,9 @@ export default {
     return {
       selectedFile: null,
       userImages: [],
-      selectedImage: null
+      selectedImage: null,
+      uploadInProgress: false,
+      loadingCurrentMedia: true,
     }
   },
   computed: {
@@ -59,6 +67,7 @@ export default {
     }).then(response => {
       response.data.body['object-summaries'].forEach(item => {
         this.userImages.push(item);
+        this.loadingCurrentMedia = false;
       })
     })
   },
@@ -83,16 +92,17 @@ export default {
     uploadImage() {
       const formData = new FormData();
       const worldId = this.$store.getters.getCurrentWorld;
-      formData.append('myFile', this.selectedFile, this.selectedFile.name)
+      formData.append('myFile', this.selectedFile, this.selectedFile.name);
+      this.uploadInProgress = true;
 
-      console.log(localStorage.getItem('token'))
       axios({
         url: `http://localhost:3000/api/worlds/${worldId}/upload`,
         method: 'post',
         data: formData,
         headers: {'token': localStorage.getItem('token')}
       }).then(response => {
-        this.userImages.push(`https://s3.amazonaws.com/worldbuilder-twc/${this.selectedFile.name}`)
+        this.userImages.push(`https://s3.amazonaws.com/worldbuilder-twc/${this.selectedFile.name}`);
+        this.uploadInProgress = false;
       })
     },
     _emitValues() {
@@ -143,6 +153,34 @@ export default {
       width: 100%;
     }
 
+    .loading-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: rgba(255,255,255, .95);
+      z-index: 2;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      display: none;
+    }
+
+    .currentMedia-loading {
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: rgba(255,255,255, .95);
+      z-index: 2;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      display: none;
+    }
+
     .media-wrapper {
       display: flex;
       flex-flow: wrap;
@@ -158,6 +196,10 @@ export default {
         flex-flow: wrap;
         overflow-y: scroll;
         max-height:480px;
+
+        &.loadingCurrentMedia {
+          display: flex;
+        }
       }
 
       .newMedia{
@@ -194,6 +236,12 @@ export default {
     .currentMedia {
       display: flex;
       flex-direction: row;
+    }
+
+    &.uploadInProgress {
+      .loading-overlay {
+        display: flex;
+      }
     }
 
     @media(max-width: 767px) {
