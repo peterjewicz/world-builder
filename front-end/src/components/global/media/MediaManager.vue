@@ -46,7 +46,7 @@ export default {
       userImages: [],
       selectedImage: null,
       uploadInProgress: false,
-      loadingCurrentMedia: true,
+      loadingCurrentMedia: true
     }
   },
   computed: {
@@ -60,6 +60,8 @@ export default {
   },
   beforeCreate() {
     let currentWorld = this.$store.getters.getCurrentWorld;
+
+    // This request pulls back all of the users current images and pushes them to screen
     axios({
       url: api + '/worlds/' + currentWorld + '/images',
       method: 'get',
@@ -67,8 +69,8 @@ export default {
     }).then(response => {
       response.data.body['object-summaries'].forEach(item => {
         this.userImages.push(item);
-        this.loadingCurrentMedia = false;
       })
+      this.loadingCurrentMedia = false;
     })
   },
   methods: {
@@ -94,14 +96,13 @@ export default {
       const worldId = this.$store.getters.getCurrentWorld;
       formData.append('myFile', this.selectedFile, this.selectedFile.name);
       this.uploadInProgress = true;
-
       axios({
         url: `http://localhost:3000/api/worlds/${worldId}/upload`,
         method: 'post',
         data: formData,
         headers: {'token': localStorage.getItem('token')}
       }).then(response => {
-        this.userImages.push(`https://s3.amazonaws.com/worldbuilder-twc/${this.selectedFile.name}`);
+        this.userImages.push({key: `${worldId}/${this.selectedFile.name}`});
         this.uploadInProgress = false;
       })
     },
