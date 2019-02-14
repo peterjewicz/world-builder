@@ -8,6 +8,7 @@ import Login from '@/components/Login';
 import Create from '@/components/user/Create';
 import Dashboard from '@/components/pages/Dashboard';
 import ViewAll from '@/components/pages/ViewAll';
+import View from '@/components/pages/View';
 import NewWorld from '@/components/NewWorld';
 
 // Import all of your entity components here
@@ -63,6 +64,11 @@ export default new Router({
       path: '/create',
       name: 'Create',
       component: Create
+    },
+    {
+      path: '/view/:entity?/:id?',
+      name: 'View',
+      component: View
     },
     {
       path: '/new/character/:id?',
