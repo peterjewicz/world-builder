@@ -8,11 +8,12 @@ import Login from '@/components/Login';
 import Create from '@/components/user/Create';
 import Dashboard from '@/components/pages/Dashboard';
 import ViewAll from '@/components/pages/ViewAll';
-import View from '@/components/pages/View';
+// import View from '@/components/pages/View';
 import NewWorld from '@/components/NewWorld';
 
 // Import all of your entity components here
 import Character from '@/components/character/Character';
+import View from '@/components/pages/View';
 import Location from '@/components/location/Location';
 import Region from '@/components/region/Region';
 import City from '@/components/city/City';
