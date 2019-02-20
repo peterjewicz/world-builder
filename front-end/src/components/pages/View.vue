@@ -13,7 +13,7 @@
           <p>{{modifiedEntity.bio}}</p>
         </div>
         <div class="View-body-preview">
-          <img  v-bind:src="`${this.currentEntity.value.media}`" width="100%" />
+          <img  v-bind:src="modifiedEntity.media" width="100%" />
           <div class="View-body-preview-item" v-for="(properties, property) in modifiedEntity.preview">
             <h3>{{property}} :</h3> <p>{{properties}}</p>
           </div>
@@ -22,10 +22,12 @@
       <div class="View-body-content">
         <div class="View-body-item" v-for="(properties, property) in modifiedEntity.full">
           <h2>{{property}}</h2>
-          <div class="View-body-property" v-for="(atrValue, attribute) in modifiedEntity.full[property]">
-            <h4>{{attribute}}:</h4> <p>{{atrValue}}</p>
+          <div class="View-body-property" v-for="(attrValue, attribute) in modifiedEntity.full[property]">
+            <h4>{{attribute}}:</h4> <p>{{attrValue}}</p>
           </div>
         </div>
+      </div>
+      <div class="View-body-history">
         <History v-bind:values="modifiedEntity.history" v-bind:active="true" v-bind:editModeDeactivate="true"/>
       </div>
     </div>
@@ -66,8 +68,6 @@ export default {
     });
     this.modifiedEntity = this.generateEntityView(currentEntity[0], entitySettings);
     this.currentEntity = currentEntity[0]
-
-    console.log(this.currentEntity)
   },
   computed: {
     // getEntities() {
@@ -106,10 +106,12 @@ export default {
             returnObj.full[property][subProp] = entity.value[property][subProp];
           } else if (property === 'history') {
             returnObj.history = entity.value.history;
+          } else if (property === 'media') {
+            returnObj.media = entity.value.media
           }
         }
       }
-      console.log(returnObj);
+      console.log(returnObj)
       return returnObj;
     }
   }
@@ -164,6 +166,10 @@ export default {
           text-transform: capitalize;
         }
       }
+    }
+
+    .View-body-history {
+      padding: 15px;
     }
 
   }
