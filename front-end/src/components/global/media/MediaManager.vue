@@ -85,7 +85,7 @@ export default {
       this.$emit('closeMediaManager', true);
     },
     handleChooseImage() {
-      if (this.secltedImage) {
+      if (this.selectedImage) {
         this.$emit('imageSelected', this.selectedImage);
       } else {
         alert('Please Select an Image First!');

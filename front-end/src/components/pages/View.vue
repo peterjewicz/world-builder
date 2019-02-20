@@ -13,6 +13,7 @@
           <p>{{modifiedEntity.bio}}</p>
         </div>
         <div class="View-body-preview">
+          <img  v-bind:src="`${this.currentEntity.value.media}`" width="100%" />
           <div class="View-body-preview-item" v-for="(properties, property) in modifiedEntity.preview">
             <h3>{{property}} :</h3> <p>{{properties}}</p>
           </div>
@@ -65,6 +66,8 @@ export default {
     });
     this.modifiedEntity = this.generateEntityView(currentEntity[0], entitySettings);
     this.currentEntity = currentEntity[0]
+
+    console.log(this.currentEntity)
   },
   computed: {
     // getEntities() {
