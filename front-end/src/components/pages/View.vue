@@ -6,19 +6,26 @@
         <router-link to="/dashboard"><i class="fas fa-arrow-left"></i>Back To World</router-link>
       </div>
     </div>
-    <div class="View-body" >
-      <div class="View-body-content">
-        <div  v-for="(properties, property) in currentEntity.value">
-          <h1>{{property}}</h1>
-          <div class="View-body-property" v-for="(atrValue, attribute) in currentEntity.value[property]">
-            <h2>{{attribute}}: {{atrValue}}</h2>
+    <div class="View-body">
+      <div class="View-body-flexWrapper">
+        <div class="View-body-flex-content">
+          <h2>Bio</h2>
+          <p>{{modifiedEntity.bio}}</p>
+        </div>
+        <div class="View-body-preview">
+          <div class="View-body-preview-item" v-for="(properties, property) in modifiedEntity.preview">
+            <h3>{{property}} :</h3> <p>{{properties}}</p>
           </div>
         </div>
       </div>
-      <div class="View-body-preview">
-        <div class="View-body-preview-item" v-for="(properties, property) in modifiedEntity.preview">
-          <h3>{{property}} : {{properties}}</h3>
+      <div class="View-body-content">
+        <div class="View-body-item" v-for="(properties, property) in modifiedEntity.full">
+          <h2>{{property}}</h2>
+          <div class="View-body-property" v-for="(atrValue, attribute) in modifiedEntity.full[property]">
+            <h4>{{attribute}}:</h4> <p>{{atrValue}}</p>
+          </div>
         </div>
+        <History v-bind:values="modifiedEntity.history" v-bind:active="true" v-bind:editModeDeactivate="true"/>
       </div>
     </div>
   </div>
@@ -27,6 +34,7 @@
 <script>
 import Header from './includes/Header';
 import store from '../../store/store.js';
+import History from '../global/history/History';
 import {reload} from '../../scripts/reload';
 import {settings} from '../../scripts/viewSettings';
 
@@ -36,7 +44,8 @@ const api = process.env.API;
 export default {
   name: 'ViewAll',
   components: {
-    Header
+    Header,
+    History
   },
   data () {
     return {
@@ -76,21 +85,29 @@ export default {
     },
     generateEntityView(entity, settings) {
       let returnObj = {full: {}, preview: {}}
-      returnObj.full = {}
-      returnObj.preview = {}
+      returnObj.full = {};
+      returnObj.preview = {};
+      returnObj.bio = '';
+      returnObj.history = {};
 
       for (let property in entity.value) {
-        returnObj.full[property] = {}
+        if (property !== 'media' && property !== 'history') {
+          returnObj.full[property] = {}
+        }
         for (let subProp in entity.value[property]) {
-          if(settings.includes(subProp)) {
-            returnObj.preview[subProp] =  entity.value[property][subProp];
-          } else {
-            returnObj.full[property][subProp] = entity.value[property][subProp]
+          if (settings.includes(subProp)) {
+            returnObj.preview[subProp] = entity.value[property][subProp];
+          } else if (subProp === 'bio') {
+            returnObj.bio = entity.value[property][subProp];
+          } else if (property !== 'media' && property !== 'history') {
+            returnObj.full[property][subProp] = entity.value[property][subProp];
+          } else if (property === 'history') {
+            returnObj.history = entity.value.history;
           }
         }
       }
-
-      return  returnObj;
+      console.log(returnObj);
+      return returnObj;
     }
   }
 }
@@ -100,15 +117,52 @@ export default {
 <style lang="scss" scoped>
 
   .View-body {
-    display: flex;
+    text-align: left;
+
+    &-flexWrapper {
+      display: flex;
+
+      .View-body-flex-content {
+        width: 70%;
+        padding: 15px;
+        margin: 0 15px;
+        box-sizing: border-box;
+        border-bottom: 2px solid #4f5f6f;
+      }
+
+      .View-body-preview {
+        width: 30%;
+        padding: 15px;
+        border-left: 2px solid #4f5f6f;
+        border-bottom: 2px solid #4f5f6f;
+        box-sizing: border-box;
+      }
+    }
 
     &-content {
       width: 75%;
+      box-sizing: border-box;
+      padding: 15px;
+      margin: 0 15px;
+
+      h2 {
+        text-transform: uppercase;
+      }
+
+      .View-body-item {
+        border-bottom: 2px solid #4f5f6f;
+      }
+
+      .View-body-property {
+        display: flex;
+
+        h4 {
+          margin: 5px 10px;
+          text-transform: capitalize;
+        }
+      }
     }
 
-    &-preivew {
-      width: 25%;
-    }
   }
 
 </style>

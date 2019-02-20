@@ -7,7 +7,7 @@
       <textarea v-model="itemDesc"  v-on:change="editHistoryItem" type="text" name="description" />
     </div>
     <!-- TODO put icon here -->
-    <span v-on:click="editActive = true" class="editTrigger">Edit <i class="fas fa-edit"></i></span>
+    <span v-if="!editModeOff" v-on:click="editActive = true" class="editTrigger">Edit <i class="fas fa-edit"></i></span>
     <p class="date">{{time}}</p>
     <h4>{{title}}</h4>
     <p>{{desc}}</p>
@@ -18,13 +18,14 @@
 
 export default {
   name: 'HistoryItem',
-  props: ['title', 'time', 'desc'],
+  props: ['title', 'time', 'desc', 'editModeDeactivate'],
   data () {
     return {
       editActive: false,
       itemTitle: this.title,
       itemDate: this.time,
-      itemDesc: this.desc
+      itemDesc: this.desc,
+      editModeOff: this.editModeDeactivate
     }
   },
   methods: {
