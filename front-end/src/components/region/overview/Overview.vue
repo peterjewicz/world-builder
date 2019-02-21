@@ -2,6 +2,7 @@
   <div v-if="isactive" class="Overview">
     <h2>Overview</h2>
     <FormText @valueChanged="formValueChanged" title="Name" name="name" description="What's The Name Of Your Region?" v-bind:value="nameValue" />
+    <FormText @valueChanged="formValueChanged" title="Description" name="desc" description="Write a Short Description About This City." v-bind:value="descValue" largeField="true" linkable="true" searchEntities="character,city,creature,region,city,pointofinterest,religion,language,spell,item,planet,technology"/>
     <FormText @valueChanged="formValueChanged" title="Capitol" name="capitol" description="Does Region Have a Capitol or Place Looked to For Leadership?" v-bind:value="capitolValue" />
     <FormText @valueChanged="formValueChanged" title="Language" name="language" description="What Language(s) Are Spoken Here?" v-bind:value="languageValue" />
     <FormText @valueChanged="formValueChanged" title="Religion" name="religion" description="What Religion(s) are Practiced Here" v-bind:value="religionValue" />
@@ -28,6 +29,7 @@ export default {
   data () {
     return {
       nameValue: '',
+      descValue: '',
       capitolValue: '',
       languageValue: '',
       religionValue: '',
@@ -50,6 +52,7 @@ export default {
   watch: {
     values: function(newVal, oldVal) {
       this.nameValue = newVal.name;
+      this.descValue = newVal.desc;
       this.capitolValue = newVal.capitol;
       this.languageValue = newVal.language;
       this.religionValue = newVal.religion;
@@ -73,6 +76,7 @@ export default {
     _emitValues() {
       const valuesArray = {
         name: this.nameValue,
+        desc: this.desc,
         capitol: this.capitolValue,
         language: this.languageValue,
         religion: this.religionValue,
