@@ -10,12 +10,12 @@
       <div class="View-body-flexWrapper">
         <div class="View-body-flex-content">
           <h2>Bio</h2>
-          <p>{{modifiedEntity.bio}}</p>
+          <p v-html="modifiedEntity.bio"></p>
         </div>
         <div class="View-body-preview">
           <img  v-bind:src="modifiedEntity.media" width="100%" />
           <div class="View-body-preview-item" v-for="(properties, property) in modifiedEntity.preview">
-            <h3>{{property}} :</h3> <p>{{properties}}</p>
+            <h4>{{property}} :</h4> <p>{{properties}}</p>
           </div>
         </div>
       </div>
@@ -97,11 +97,13 @@ export default {
         if (property !== 'media' && property !== 'history') {
           returnObj.full[property] = {}
         }
+
+        // TODO this is a bit messy
         for (let subProp in entity.value[property]) {
           if (settings.includes(subProp)) {
             returnObj.preview[subProp] = entity.value[property][subProp];
-          } else if (subProp === 'bio') {
-            returnObj.bio = entity.value[property][subProp];
+          } else if (subProp === 'bio' || subProp === 'desc') {
+            returnObj.bio = entity.value[property][subProp].replace('@', ''); // Remove the @ for linking
           } else if (property !== 'media' && property !== 'history') {
             returnObj.full[property][subProp] = entity.value[property][subProp];
           } else if (property === 'history') {
@@ -137,10 +139,21 @@ export default {
 
       .View-body-preview {
         width: 30%;
-        padding: 15px;
+        // padding: 15px;
         border-left: 2px solid #4f5f6f;
         border-bottom: 2px solid #4f5f6f;
         box-sizing: border-box;
+
+        &-item {
+          display: flex;
+          padding: 15px;
+
+          h4 {
+            margin: 5px 10px;
+            padding-top: 6px;
+            text-transform: capitalize;
+          }
+        }
       }
     }
 
@@ -163,6 +176,7 @@ export default {
 
         h4 {
           margin: 5px 10px;
+          padding-top: 6px;
           text-transform: capitalize;
         }
       }

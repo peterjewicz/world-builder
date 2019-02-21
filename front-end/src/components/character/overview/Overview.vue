@@ -2,7 +2,7 @@
   <div v-if="isactive" class="Overview">
     <h2>Overview</h2>
     <FormText @valueChanged="formValueChanged" title="Name" name="name" description="What's The Name Of Your Character?" v-bind:value="nameValue" linkable="true" searchEntities="city,creature" />
-    <FormText @valueChanged="formValueChanged" title="Bio" name="bio" description="Write a Short Bio About This Character?" v-bind:value="bioValue" largeField="true" linkable="true" searchEntities="city,creature"/>
+    <FormText @valueChanged="formValueChanged" title="Bio" name="bio" description="Write a Short Bio About This Character?" v-bind:value="bioValue" largeField="true" linkable="true" searchEntities="city,creature,region,city,pointofinterest,religion,language,spell,item,planet,technology"/>
     <FormText @valueChanged="formValueChanged" title="Role" name="role" description="What's This Characters Role?" v-bind:value="roleValue" />
     <FormText @valueChanged="formValueChanged" title="Nickname" name="nickname" description="Does the character go by any nicknames?" v-bind:value="nicknameValue"/>
     <FormText @valueChanged="formValueChanged" title="Gender" name="gender" description="What gender is this character?" v-bind:value="genderValue" />
