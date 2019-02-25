@@ -113,6 +113,7 @@
                     currentId :- String]
       :header-params [token :- String]
       :middleware [auth-middleware/check-user-auth auth-middleware/check-world-auth]
+      :summary "Creates An Entity Of a Given `type` for a given `worldId`"
       (println "test")
       (ok (entities/create-entity type values worldId (:_id (:user request)) currentId)))
 
@@ -127,6 +128,7 @@
       :body-params [stripeToken :- s/Any]
       :header-params [token :- String]
       :middleware [auth-middleware/check-user-auth]
+      :summary "Signs up the given user to the subscripion plan through stripe"
       (let [currentUserEmail (db/get-user-email token)
             stripeResult (billing/create-new-customer stripeToken currentUserEmail)
             subToken (:id (first (:data (:subscriptions stripeResult))))
@@ -137,19 +139,22 @@
       :body-params [subToken :- s/Any stripeToken :- s/Any]
       :header-params [token :- String]
       :middleware [auth-middleware/check-user-auth]
+      :summary "Unsubscribes a current user through stripe"
         (billing/unsubscribe-user subToken)
         (ok {:body (db/update-user-stripe-token token)}))
 
     (POST "/homeEmail" request
       :body-params [name :- String email :- String message :- String]
+      :summary "Send an email to the business address"
       (postal/send-message {:from email
-                            :to ["info@totalwebconnections.com.com"]
+                            :to ["info@totalwebconnections.com"]
                             :subject "World Builder Message"
                             :body (str name " - " message)})
       (ok))
 
     (POST "/newsletterSignup" request
       :body-params [email :- String]
+      :summary "Signs a user uo for the email list on mailchimp"
       (client/post (str "https://us13.api.mailchimp.com//3.0/lists/" (:mailchimp-list env) "/members/")
                    {:basic-auth ["user" (:mailchimp-key env)]
                     :body (generate-string {:email_address email :status "subscribed"})
@@ -160,6 +165,7 @@
     (GET "/user" request
       :header-params [token :- String]
       :middleware [auth-middleware/check-user-auth]
+      :summary "Returns the user based on the given `token`"
       (ok {:body (assoc (:user request) :_id (str ((:user request) :_id)))}))
 
     (POST "/login" []

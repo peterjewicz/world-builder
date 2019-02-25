@@ -1,10 +1,10 @@
 <template>
   <div v-if="isactive" class="Social">
     <h2>Social</h2>
-    <FormText @valueChanged="formValueChanged" title="Family" name="family" description="Who's Related To This Character?" v-bind:value="familyValue" searchEntities="character"/>
-    <FormText @valueChanged="formValueChanged" title="Friends" name="friends" description="Who's Friends With This Character?" v-bind:value="friendsValue" searchEntities="character"/>
-    <FormText @valueChanged="formValueChanged" title="Enemies" name="enemies" description="Who's Enemies With This Character?" v-bind:value="enemiesValue" searchEntities="character"/>
-    <FormText @valueChanged="formValueChanged" title="Religion" name="religion" description="Does This Character Follow Any Religions?" v-bind:value="religionValue" searchEntities="religion"/>
+    <FormText @valueChanged="formValueChanged" title="Family" name="family" description="Who's Related To This Character?" v-bind:value="familyValue" linkable="true" searchEntities="character"/>
+    <FormText @valueChanged="formValueChanged" title="Friends" name="friends" description="Who's Friends With This Character?" v-bind:value="friendsValue" linkable="true" searchEntities="character"/>
+    <FormText @valueChanged="formValueChanged" title="Enemies" name="enemies" description="Who's Enemies With This Character?" v-bind:value="enemiesValue" linkable="true" searchEntities="character"/>
+    <FormText @valueChanged="formValueChanged" title="Religion" name="religion" description="Does This Character Follow Any Religions?" v-bind:value="religionValue" linkable="true" searchEntities="religion"/>
     <FormText @valueChanged="formValueChanged" title="Politics" name="politics" description="Is This Character Involved or Following any Politics?" v-bind:value="politicsValue" />
     <FormText @valueChanged="formValueChanged" title="Occupation" name="occupation" description="What's This Characters Job?" v-bind:value="occupationValue" />
     <FormText @valueChanged="formValueChanged" title="Likes" name="likes" description="What Does This Character Like?" v-bind:value="likesValue" />

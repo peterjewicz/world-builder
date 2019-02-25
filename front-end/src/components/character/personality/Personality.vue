@@ -1,8 +1,8 @@
 <template>
   <div v-if="isactive" class="Personality">
     <h2>Personality</h2>
-    <FormText @valueChanged="formValueChanged" title="Personality" name="personality" description="Write a General Description About How This Character Acts" v-bind:value="personalityValue" searchEntities="character,creature,region,city,pointofinterest,religion,language,spell,item,planet,technology" />
-    <FormText @valueChanged="formValueChanged" title="Motivation" name="motivation" description="What Drives This Character To Action" v-bind:value="motivationValue" searchEntities="character,creature,region,city,pointofinterest,religion,language,spell,item,planet,technology"/>
+    <FormText @valueChanged="formValueChanged" title="Personality" name="personality" description="Write a General Description About How This Character Acts" v-bind:value="personalityValue" linkable="true" searchEntities="character,creature,region,city,pointofinterest,religion,language,spell,item,planet,technology" />
+    <FormText @valueChanged="formValueChanged" title="Motivation" name="motivation" description="What Drives This Character To Action" v-bind:value="motivationValue" linkable="true" searchEntities="character,creature,region,city,pointofinterest,religion,language,spell,item,planet,technology"/>
     <FormText @valueChanged="formValueChanged" title="Flaws" name="flaws" description="What Flaws Does This Character Have?" v-bind:value="flawsValue" />
     <FormText @valueChanged="formValueChanged" title="Quirks" name="quirks" description="Does This Character Have any Odd Quirks or Habits?" v-bind:value="quirksValue" />
     <FormText @valueChanged="formValueChanged" title="Talents" name="talents" description="Is This Character Unusally Talented In any Way?" v-bind:value="talentsValue" />

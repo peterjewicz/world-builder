@@ -64,6 +64,7 @@
   "User Updated")
 
 ;TODO move to entities DB file
+;TODO we need to actually use the right ID....
 ; Not sure where this is being used right now as the ID is hardcoded? Probably not anywhere
 ; as we pull em all and store em locally. Might have no need to singular select at this point
 (defn find-entity-by-id

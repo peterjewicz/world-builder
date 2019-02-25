@@ -3,7 +3,7 @@
     <h2>Overview</h2>
     <FormText @valueChanged="formValueChanged" title="Name" name="name" description="What's The Name Of the Creature?" v-bind:value="nameValue" />
     <FormText @valueChanged="formValueChanged" title="Description" name="desc" description="Write a Short Description About This Creature." v-bind:value="descValue" largeField="true" linkable="true" searchEntities="character,creature,region,city,pointofinterest,religion,language,spell,item,planet,technology"/>
-    <FormText @valueChanged="formValueChanged" title="Location" name="location" description="Where Does This Creature Live?" v-bind:value="locationValue" searchEntities="region,city,pointofinterest"/>
+    <FormText @valueChanged="formValueChanged" title="Location" name="location" description="Where Does This Creature Live?" v-bind:value="locationValue" linkable="true" searchEntities="region,city,pointofinterest"/>
     <FormText @valueChanged="formValueChanged" title="Population" name="population" description="How Many Are Left In The World?" v-bind:value="populationValue" />
     <FormText @valueChanged="formValueChanged" title="diet" name="diet" description="What Does This Creatue Eat?" v-bind:value="dietValue" />
   </div>

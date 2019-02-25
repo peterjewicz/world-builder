@@ -3,8 +3,8 @@
     <h2>Overview</h2>
     <FormText @valueChanged="formValueChanged" title="Name" name="name" description="What's The Name Of This Language?" v-bind:value="nameValue" />
     <FormText @valueChanged="formValueChanged" title="Description" name="desc" description="Write a Short Description About This City." v-bind:value="descValue" largeField="true" linkable="true" searchEntities="character,creature,region,city,pointofinterest,religion,language,spell,item,planet,technology"/>
-    <FormText @valueChanged="formValueChanged" title="Spoken By" name="by" description="Who Speaks This Language?" v-bind:value="byValue" searchEntities="character,creature"/>
-    <FormText @valueChanged="formValueChanged" title="Location" name="location" description="Where is it Spoken If Only Specific Regions?" v-bind:value="locationValue" searchEntities="region,city,pointofinterest"/>
+    <FormText @valueChanged="formValueChanged" title="Spoken By" name="by" description="Who Speaks This Language?" v-bind:value="byValue" linkable="true" searchEntities="character,creature"/>
+    <FormText @valueChanged="formValueChanged" title="Location" name="location" description="Where is it Spoken If Only Specific Regions?" v-bind:value="locationValue" linkable="true" searchEntities="region,city,pointofinterest"/>
   </div>
 </template>
 
