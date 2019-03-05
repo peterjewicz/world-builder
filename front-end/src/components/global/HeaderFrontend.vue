@@ -1,5 +1,8 @@
 <template>
   <div class="header-frontEnd">
+    <div v-if="showHome" class="homeButton">
+      <router-link v-bind:to="'/dashboard'"><i class="fas fa-home"></i></router-link>
+    </div>
     <h4>Worlds Crafter</h4>
   </div>
 </template>
@@ -8,6 +11,7 @@
 
 export default {
   name: 'Header',
+  props: ['showHome'],
   data () {
     return {
     }
@@ -34,6 +38,19 @@ export default {
     color: white;
     padding: 5px;
     box-sizing: border-box;
+
+    .homeButton {
+      float: left;
+      a {
+        color: white;
+        position: relative;
+        top: 5px;
+
+        &:hover {
+          color: $lightBlue;
+        }
+      }
+    }
 
     h4 {
       margin: 0;
