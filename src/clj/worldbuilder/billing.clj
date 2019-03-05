@@ -30,4 +30,4 @@
   "Unsubscribes a user from stripe"
   [subToken]
   (let [url (str "https://api.stripe.com/v1/subscriptions/" subToken)]
-    (client/delete url {:basic-auth "sk_test_AVbHuiy5t5NO427aI4czG67e:"})))
+    (client/delete url {:basic-auth (:stripe-private-key env)})))
