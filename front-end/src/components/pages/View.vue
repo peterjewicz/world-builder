@@ -11,19 +11,17 @@
         <div class="View-body-flex-content">
           <h2>Bio</h2>
           <p v-html="modifiedEntity.bio"></p>
+          <div class="View-body-item" v-for="(properties, property) in modifiedEntity.full">
+            <h2>{{property}}</h2>
+            <div class="View-body-property" v-for="(attrValue, attribute) in modifiedEntity.full[property]">
+              <h4>{{attribute}}:</h4> <p>{{attrValue}}</p>
+            </div>
+          </div>
         </div>
         <div class="View-body-preview">
           <img  v-bind:src="modifiedEntity.media" width="100%" />
           <div class="View-body-preview-item" v-for="(properties, property) in modifiedEntity.preview">
             <h4>{{property}} :</h4> <p>{{properties}}</p>
-          </div>
-        </div>
-      </div>
-      <div class="View-body-content">
-        <div class="View-body-item" v-for="(properties, property) in modifiedEntity.full">
-          <h2>{{property}}</h2>
-          <div class="View-body-property" v-for="(attrValue, attribute) in modifiedEntity.full[property]">
-            <h4>{{attribute}}:</h4> <p>{{attrValue}}</p>
           </div>
         </div>
       </div>
@@ -135,6 +133,24 @@ export default {
         margin: 0 15px;
         box-sizing: border-box;
         border-bottom: 2px solid #4f5f6f;
+
+        .View-body-item {
+          border-bottom: 2px solid #4f5f6f;
+        }
+
+        h2 {
+          text-transform: uppercase;
+        }
+
+        .View-body-property {
+          display: flex;
+
+          h4 {
+            margin: 5px 10px;
+            padding-top: 6px;
+            text-transform: capitalize;
+          }
+        }
       }
 
       .View-body-preview {
@@ -163,23 +179,6 @@ export default {
       padding: 15px;
       margin: 0 15px;
 
-      h2 {
-        text-transform: uppercase;
-      }
-
-      .View-body-item {
-        border-bottom: 2px solid #4f5f6f;
-      }
-
-      .View-body-property {
-        display: flex;
-
-        h4 {
-          margin: 5px 10px;
-          padding-top: 6px;
-          text-transform: capitalize;
-        }
-      }
     }
 
     .View-body-history {
