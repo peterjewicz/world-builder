@@ -5,11 +5,20 @@
         <ul class="hide-on-mobile">
           <li><router-link v-bind:to="'login'">Login</router-link></li>
           <li><router-link v-bind:to="'create'">Signup</router-link></li>
-          <li>Pricing</li>
-          <li>Contact</li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#contact">Contact</a></li>
         </ul>
         <div class="hamburger mobile-only">
-          <i class="fas fa-bars"></i>
+          <i class="fas fa-bars" @click="toggleMobile"></i>
+        </div>
+        <div class="mobileMenu mobile-only" v-bind:class="{ active: mobileActive }">
+          <i class="fas fa-times" @click="toggleMobile"></i>
+          <ul>
+            <li><router-link v-bind:to="'login'">Login</router-link></li>
+            <li><router-link v-bind:to="'create'">Signup</router-link></li>
+            <li><a href="#pricing">Pricing</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
         </div>
       </div>
       <div class="text-content">
@@ -168,7 +177,7 @@
         </div>
       </div>
     </div>
-    <div class="pricing">
+    <div id="pricing" class="pricing">
       <div class="pricing-background second"></div>
       <div class="pricing-content">
         <h3>Free Forever For Your First World</h3>
@@ -216,6 +225,7 @@ export default {
   data () {
     return {
       scrolled: false,
+      mobileActive: false,
       name: '',
       email: '',
       message: '',
@@ -279,6 +289,9 @@ export default {
       }).then(response => {
         this.newsletterConfirmed = true;
       })
+    },
+    toggleMobile() {
+      this.mobileActive = !this.mobileActive;
     }
   }
 }
@@ -784,6 +797,49 @@ export default {
     @media(max-width: 413px) {
       .castle {
         height: 38vh !important;
+      }
+    }
+
+    // MOBILE MENU STYLES
+    .hamburger {
+      cursor: pointer;
+      transition: all .5s;
+
+      &:hover {
+        color: white;
+      }
+    }
+    .mobileMenu {
+      position: fixed;
+      top: 0;
+      left: -100%;
+      height: 100%;
+      width: 150px;
+      background: #b169e9;
+      border-right: 1px solid #c68bf4;
+      transition: .25s;
+
+      &.active {
+        left: 0;
+      }
+
+      i {
+        padding: 5px;
+        font-size: 1.15rem;
+        color: white;
+        transition: all .5s;
+        cursor: pointer;
+        &:hover {
+          color: black;
+        }
+      }
+
+      ul {
+       text-align: center;
+        padding-top: 24px;
+        li {
+          margin-top: 16px;
+        }
       }
     }
   }

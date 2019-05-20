@@ -18,7 +18,7 @@
         <h4>Physical</h4>
       </div>
       <div class="personaility stat-item" v-bind:class="{ active: personalityActive }" v-on:click="changeActiveScreen('personalityActive')">
-        <h4>Personaility</h4>
+        <h4>Personality</h4>
       </div>
       <div class="social stat-item" v-bind:class="{ active: socialActive }" v-on:click="changeActiveScreen('socialActive')">
         <h4>Social</h4>
