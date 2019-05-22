@@ -40,6 +40,16 @@ export default new Router({
       component: Home
     },
     {
+      path: '/pricing', // still a homepage route
+      name: 'Home',
+      component: Home
+    },
+    {
+      path: '/contact', // still a homepage route
+      name: 'Home',
+      component: Home
+    },
+    {
       path: '/settings',
       name: 'Settings',
       component: Settings

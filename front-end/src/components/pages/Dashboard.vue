@@ -32,6 +32,13 @@
           <EntityCard title="Planet" img="Planet" newurl="/new/planet" allurl="/all/planet"/>
           <EntityCard title="Technology" img="Technology" newurl="/new/technology" allurl="/all/technology"/>
         </div>
+        <div class="dashboard-body">
+          <h3>Story Elements</h3>
+          <p>Coming Soon...</p>
+        </div>
+        <p style="max-width: 75%; margin: 0 auto;">Missing something? Let us know. Email us at <a href="mailto:support@worldscrafter.com">support@worldscrafter.com</a>, we're always looking
+           for ways to improve and make our application better.
+         </p>
       </div>
     </div>
   </div>
@@ -66,7 +73,7 @@ export default {
         headers: {'token': localStorage.getItem('token')}
       }).then(response => {
         store.commit('saveValue', response.data)
-        console.log(response)
+        // console.log(response)
       })
     }
   },

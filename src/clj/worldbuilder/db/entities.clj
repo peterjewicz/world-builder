@@ -12,10 +12,10 @@
 ;TODO We need to make this a bit nicer - break udate into its own function
 (defn create-entity [type, value, worldId, userId, currentId]
   (if (clojure.string/blank? currentId)
-  (let
-    [item (parse-string value true)
-    entity (mc/insert-and-return db type {:user_id userId :value item :worldId worldId})]
-    (assoc entity :_id (str (entity :_id))))
+    (let
+      [item (parse-string value true)
+      entity (mc/insert-and-return db type {:user_id userId :value item :worldId worldId})]
+      (assoc entity :_id (str (entity :_id))))
     (let
       [item (parse-string value true)]
       (mc/update-by-id db type (ObjectId. currentId) {$set {:value item}} {:multi false})
@@ -30,7 +30,7 @@
       entities)))
 
 (defn get-all-entities
-  "Grabs all the entities for a user"
+  "Grabs all the entities for a user for a given world"
   [worldId]
   (let [entities {}]
     (assoc entities :character (get-entity-by-world "character" worldId)
