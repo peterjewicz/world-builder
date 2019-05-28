@@ -1,14 +1,14 @@
 (ns worldbuilder.billing
   (:require [clj-stripe.util :as util]
-  	  [clj-stripe.common :as common]
-  	  [clj-stripe.plans :as plans]
-  	  [clj-stripe.coupons :as coupons]
-  	  [clj-stripe.charges :as charges]
-  	  [clj-stripe.cards :as cards]
-  	  [clj-stripe.subscriptions :as subscriptions]
-  	  [clj-stripe.customers :as customers]
-  	  [clj-stripe.invoices :as invoices]
-  	  [clj-stripe.invoiceitems :as invoiceitems]
+      [clj-stripe.common :as common]
+      [clj-stripe.plans :as plans]
+      [clj-stripe.coupons :as coupons]
+      [clj-stripe.charges :as charges]
+      [clj-stripe.cards :as cards]
+      [clj-stripe.subscriptions :as subscriptions]
+      [clj-stripe.customers :as customers]
+      [clj-stripe.invoices :as invoices]
+      [clj-stripe.invoiceitems :as invoiceitems]
       [clj-http.client :as client]
       [worldbuilder.db.core :as db]
       [worldbuilder.config :refer [env]]))
@@ -21,9 +21,9 @@
 (defn create-new-customer [stripeToken email]
   (common/with-token (:stripe-private-key env)
     (common/execute (customers/create-customer
-      (common/card (:id stripeToken))
-      (customers/email email)
-      (common/plan (:stripe-plan env))))))
+                     (common/card (:id stripeToken))
+                     (customers/email email)
+                     (common/plan (:stripe-plan env))))))
 
 (defn unsubscribe-user
   "Unsubscribes a user from stripe"
