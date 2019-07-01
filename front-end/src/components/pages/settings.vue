@@ -55,7 +55,8 @@ export default {
     return {
       activeCustomer: false,
       stripeToken: '',
-      subToken: ''
+      subToken: '',
+      submitting: false
     }
   },
   mounted() {
@@ -102,15 +103,20 @@ export default {
     form.addEventListener('submit', async (event) => {
       event.preventDefault();
 
-      const {token, error} = await stripe.createToken(card);
+      if (!this.submitting) {
+        this.submitting = true;
+        const {token, error} = await stripe.createToken(card);
 
-      if (error) {
-        // Inform the customer that there was an error.
-        const errorElement = document.getElementById('card-errors');
-        errorElement.textContent = error.message;
+        if (error) {
+          // Inform the customer that there was an error.
+          const errorElement = document.getElementById('card-errors');
+          errorElement.textContent = error.message;
+        } else {
+          // Send the token to your server.
+          stripeTokenHandler(token);
+        }
       } else {
-        // Send the token to your server.
-        stripeTokenHandler(token);
+        alert('Payment Already Processing - Please Wait');
       }
     });
 
@@ -134,9 +140,11 @@ export default {
         // TODO actually set the shit here tokens and sub
         alert('Signup Successfull');
         this.activeCustomer = true;
+        this.submitting = false;
       }).catch((e) => {
         console.log('SIGNUP ERROR')
         alert('There was a problem charging your card. Please try again.')
+        this.submitting = false;
       })
     }
 
@@ -145,7 +153,6 @@ export default {
       method: 'get',
       headers: {'token': localStorage.getItem('token')}
     }).then(response => {
-      console.log(response.data.body)
       if (response.data.body.stripeToken) {
         this.activeCustomer = true;
         this.stripeToken = response.data.body.stripeToken;
