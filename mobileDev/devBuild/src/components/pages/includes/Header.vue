@@ -73,7 +73,6 @@ export default {
 
     h4 {
       margin: 0;
-      font-size: 1.25rem;
     }
 
     .hamburger {

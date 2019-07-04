@@ -34,8 +34,28 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Home',
-      component: Home
+      name: 'Dashboard',
+      component: Dashboard,
+      beforeEnter: (to, from, next) => {
+        const id = localStorage.getItem('token');
+        axios({
+          url: api + '/' + id + '/worlds/',
+          method: 'get',
+          headers: {'token': localStorage.getItem('token')}
+        })
+          .then((response) => {
+            if (response.data.body === null) {
+              next({ path: 'new-world' })
+            } else {
+              store.commit('saveWorlds', response.data.body)
+              next();
+            }
+          })
+          .catch(() => {
+            // redirect to login
+            next({ path: 'login' })
+          })
+      }
     },
     {
       path: '/settings',

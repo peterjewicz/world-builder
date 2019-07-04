@@ -5,11 +5,20 @@
         <ul class="hide-on-mobile">
           <li><router-link v-bind:to="'login'">Login</router-link></li>
           <li><router-link v-bind:to="'create'">Signup</router-link></li>
-          <li>Pricing</li>
-          <li>Contact</li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#contact">Contact</a></li>
         </ul>
         <div class="hamburger mobile-only">
-          <i class="fas fa-bars"></i>
+          <i class="fas fa-bars" @click="toggleMobile"></i>
+        </div>
+        <div class="mobileMenu mobile-only" v-bind:class="{ active: mobileActive }">
+          <i class="fas fa-times" @click="toggleMobile"></i>
+          <ul>
+            <li><router-link v-bind:to="'login'">Login</router-link></li>
+            <li><router-link v-bind:to="'create'">Signup</router-link></li>
+            <li><a href="#pricing">Pricing</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
         </div>
       </div>
       <div class="text-content">
@@ -43,6 +52,8 @@
           thee power to create neatly organized worlds that will make keeping everything
           in sycn.
         </p>
+        <a href="#" target="_blank"><img class="hover-image" :src="getImage('ios-download')" width="200px"/></a>
+        <h4 style="margin-top: 8px;">Google Play - Coming Soon</h4>
       </div>
       <div class="col-6 dragonbg">
       </div>
@@ -50,7 +61,7 @@
     <div class="pricing">
       <div class="pricing-background"></div>
       <div class="pricing-content">
-        <h2>We Need Something Here</h2>
+        <h2>All Your Details In One Place.</h2>
       </div>
     </div>
     <div class="flow-walkthrough">
@@ -59,7 +70,7 @@
           <h2>Create Worlds</h2>
           <p>
             Separate your ideas by building worlds. All your characters, locations, and other ideas
-            live in your world, and can be linked a referenced together. This let's you focus on multiple
+            live in your world, and can be linked and referenced together. This let's you easily focus on multiple
             ideas. Free users are limited to a single world, while paid members are allowed an unlimited
             number of worlds. In either case, there is no limit to how many entities you can add to a world. Create
             an unlimited number of characters and other types for all of your worlds.
@@ -78,7 +89,7 @@
           <h2>Add Details</h2>
           <p>
             For each of your worlds add as much or little details as you want. The olny limit is your own
-            imagination. Worldbuilder comes packed with a bunch of pre-made templates with common fields to help
+            imagination. WorldsCrafter comes packed with a bunch of pre-made templates with common fields to help
             get you started qucikly. Don't see what you need? Let us know! We're always looking to improve the software
             to help make it more diverse and powerful for all our users.
           </p>
@@ -90,9 +101,9 @@
           <h2>Build Endlessly</h2>
           <p>
             Build to your hearts content with unlimited of any type of entity. Both free and paid users enjoy
-            unlimited entites per world, and can create as many characters, locations, spells, cities (and more) that
+            unlimited entities per world, and can create as many characters, locations, spells, cities (and more) that
             they want. Paid users also get access to unlimited worlds and 10x as much file storage for all the images,
-            maps, and other visual content to accompony each piece of your world.
+            maps, and other visual content to accompany each piece of your world.
           </p>
         </div>
         <div class="col-6">
@@ -151,19 +162,22 @@
         </div>
       </div>
     </div>
-    <div class="contact row">
-      <h2>Question? Comment? Concern?</h2>
-      <h3>Get In Touch!</h3>
-      <div class="formWrapper">
+    <div id="contact" class="contact row">
+      <div class="formWrapper" v-bind:class="{ confirmed: messageSubmitted }">
         <form>
+          <h2>Question? Comment? Concern?</h2>
+          <h3>Get In Touch!</h3>
           <input v-model="name" type="text" name="name" placeholder="Name" />
           <input v-model="email" type="text" name="email" placeholder="email" />
           <textarea v-model="message" name="message" placeholder="message"></textarea>
           <button @click="submitForm" class="primary form-trigger">SEND MESSAGE</button>
         </form>
+        <div class="form-confirmation">
+          <h2>Thank You For Your Message! We Will Respond Shortly!</h2>
+        </div>
       </div>
     </div>
-    <div class="pricing">
+    <div id="pricing" class="pricing">
       <div class="pricing-background second"></div>
       <div class="pricing-content">
         <h3>Free Forever For Your First World</h3>
@@ -176,20 +190,27 @@
         <ul>
           <li><router-link v-bind:to="'login'">Login</router-link></li>
           <li><router-link v-bind:to="'create'">Signup</router-link></li>
-          <li><router-link v-bind:to="'create'">Contact</router-link></li>
-          <li><router-link v-bind:to="'create'">Terms</router-link></li>
+          <li><router-link v-bind:to="'#contact'">Contact</router-link></li>
+          <li><router-link v-bind:to="'terms'">Terms</router-link></li>
         </ul>
       </div>
       <div class="col-6">
-        <input type="text" v-model="newsletterEmail" placeholder="Get Updates" />
-        <button class="newsletter-submit primary">Get Updates</button>
+        <div class="newsletter" v-bind:class="{ confirmed: newsletterConfirmed }">
+          <div class="newsletter-wrapper">
+            <input type="text" v-model="newsletterEmail" placeholder="Get Updates" />
+            <button @click="newsletterSignup" class="newsletter-submit primary">Get Updates</button>
+          </div>
+          <div class="newsletter-confirmation">
+            <p>Thanks For Signing Up!</p>
+          </div>
+        </div>
       </div>
     </div>
     <div class="copyright">
       <router-link v-bind:to="'privacy'">Privacy Policy</router-link> |
       <router-link v-bind:to="'terms'">Terms Of Use</router-link>
       <br>
-      Copyright 2018 - World Builder - Built and Owned By <a href="http://www.totalwebconnections.com" target="_blank">
+      Copyright 2018 - Worlds Crafter - Built and Owned By <a href="http://www.totalwebconnections.com" target="_blank">
         Total Web Connections</a>
     </div>
   </div>
@@ -204,10 +225,13 @@ export default {
   data () {
     return {
       scrolled: false,
+      mobileActive: false,
       name: '',
       email: '',
       message: '',
-      newsletterEmail: ''
+      newsletterEmail: '',
+      newsletterConfirmed: false,
+      messageSubmitted: false
     }
   },
   created () {
@@ -234,6 +258,14 @@ export default {
     },
     submitForm(e) {
       // handle axios call to email server here
+      event.preventDefault();
+
+      // Super simple validation for now
+      if (!this.name || !this.email || !this.message) {
+        alert('Please Fill Out All Fields');
+        return;
+      }
+
       axios({
         url: api + '/homeEmail',
         method: 'post',
@@ -244,8 +276,22 @@ export default {
         }
       }).then(response => {
         // hide form and show confirmation
+        this.messageSubmitted = true;
       })
-      alert(this.name);
+    },
+    newsletterSignup() {
+      axios({
+        url: api + '/newsletterSignup',
+        method: 'post',
+        data: {
+          email: this.newsletterEmail
+        }
+      }).then(response => {
+        this.newsletterConfirmed = true;
+      })
+    },
+    toggleMobile() {
+      this.mobileActive = !this.mobileActive;
     }
   }
 }
@@ -264,6 +310,14 @@ export default {
 
     h1,h2,h3 {
       text-transform: uppercase;
+    }
+
+    .hover-image {
+      transition: all .25s;
+
+      &:hover {
+        transform: scale(1.1);
+      }
     }
 
     .hero {
@@ -556,6 +610,10 @@ export default {
           flex-flow: wrap;
           flex-direction: row;
           justify-content: space-between;
+
+          h2,h3 {
+            width: 100%;
+          }
         }
         input {
           width: 45%;
@@ -567,6 +625,20 @@ export default {
         textarea {
           width: 100%;
           max-width: 610px;
+        }
+
+        .form-confirmation {
+          display: none;
+        }
+
+        &.confirmed {
+          form {
+            display: none;
+          }
+
+          .form-confirmation {
+            display: block;
+          }
         }
       }
 
@@ -610,8 +682,29 @@ export default {
       }
     }
 
+    .newsletter {
+      position: relative;
+
+      .newsletter-confirmation {
+        position: absolute;
+        top: 0;
+        left: 25%;
+        display: none;
+      }
+    }
+
+    .newsletter.confirmed{
+      .newsletter-wrapper {
+        display: none;
+      }
+      .newsletter-confirmation {
+        display: block;
+      }
+    }
+
     .footer {
       display: flex;
+      flex-wrap: wrap;
       padding: $globalPadding/2 15px;
       max-width: $maxWidth;
       margin: 0 auto;
@@ -678,9 +771,74 @@ export default {
         }
       }
 
+      .pricing-content h2 {
+        font-size: 1.75rem;
+      }
+
       .footer {
         .col-6 {
           width: 100%;
+        }
+
+        .newsletter {
+          margin-top: 24px;
+        }
+      }
+
+      .contact {
+        form {
+          padding: 0 10px;
+
+          input { box-sizing: border-box;}
+        }
+      }
+    }
+
+    @media(max-width: 413px) {
+      .castle {
+        height: 38vh !important;
+      }
+    }
+
+    // MOBILE MENU STYLES
+    .hamburger {
+      cursor: pointer;
+      transition: all .5s;
+
+      &:hover {
+        color: white;
+      }
+    }
+    .mobileMenu {
+      position: fixed;
+      top: 0;
+      left: -100%;
+      height: 100%;
+      width: 150px;
+      background: #b169e9;
+      border-right: 1px solid #c68bf4;
+      transition: .25s;
+
+      &.active {
+        left: 0;
+      }
+
+      i {
+        padding: 5px;
+        font-size: 1.15rem;
+        color: white;
+        transition: all .5s;
+        cursor: pointer;
+        &:hover {
+          color: black;
+        }
+      }
+
+      ul {
+       text-align: center;
+        padding-top: 24px;
+        li {
+          margin-top: 16px;
         }
       }
     }

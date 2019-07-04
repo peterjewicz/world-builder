@@ -10,6 +10,7 @@
            {{world.name}}
          </span>
        </li>
+       <li><router-link v-bind:to="'create-world'"><span class="addWorld hover-darkblue">Add World +</span></router-link></li>
      </ul>
    </div>
  </template>
@@ -44,8 +45,11 @@ export default {
      text-align: left;
 
      h5 {
-       padding-left: 10px;
-       padding-bottom: 8px;
+       background: #b169e9;
+       color: white;
+       text-align: center;
+       padding: 15px;
+       margin-top: 0px;
      }
 
      ul {

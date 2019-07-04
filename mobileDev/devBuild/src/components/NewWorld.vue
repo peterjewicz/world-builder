@@ -1,6 +1,6 @@
 <template>
   <div class="NewWorld">
-    <Header />
+    <Header showHome="true"/>
       <h2>Start By Creating a New World</h2>
       <p>
         A world is where all of your entites and ideas live. Any characters, locations, or anything
@@ -41,7 +41,7 @@ export default {
         })
         .catch((error) => {
           console.log(error)
-          alert('You Need To Subscrive To Create More Worlds!');
+          alert('You Need To Subscribe To Create More Worlds!');
         })
     }
   }

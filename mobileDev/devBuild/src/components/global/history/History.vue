@@ -2,10 +2,10 @@
   <div v-if="isactive">
     <HistoryAdd @historyItemAdded="historyItemAdded" @closeHistory="closeHistory"  v-bind:active="historyAddActive"/>
     <h2>History</h2>
-    <button class="primary" v-on:click="toggleHistoryAddActive">Add Event</button>
+    <button v-if="!editModeOff" class="primary" v-on:click="toggleHistoryAddActive">Add Event</button>
     <div class="history-wrapper">
       <!-- eslint-disable-next-line -->
-      <HistoryItem v-for="(item, index) in historyPoints" v-bind:key="index" v-bind:title="item.title" v-bind:time="item.time" v-bind:desc="item.desc" @editHistoryItem="editHistoryItem($event, index)"/>
+      <HistoryItem v-for="(item, index) in historyPoints" v-bind:key="index" v-bind:title="item.title" v-bind:time="item.time" v-bind:desc="item.desc" v-bind:editModeDeactivate="editModeOff" @editHistoryItem="editHistoryItem($event, index)"/>
     </div>
   </div>
 </template>
@@ -20,11 +20,12 @@ export default {
     HistoryItem,
     HistoryAdd
   },
-  props: ['active', 'values'],
+  props: ['active', 'values', 'editModeDeactivate'],
   data () {
     return {
       historyAddActive: false,
-      historyPoints: []
+      historyPoints: [],
+      editModeOff: this.editModeDeactivate
     }
   },
   watch: {

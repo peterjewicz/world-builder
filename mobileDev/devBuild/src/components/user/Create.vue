@@ -10,8 +10,8 @@
       </ul>
       <input v-model="username" type="text" name="username" class="username" placeholder="Username"/>
       <input v-model="email" type="text" name="email" class="email" placeholder="Email"/>
-      <input v-model="password" type="text" name="password" class="password" placeholder="Password"/>
-      <input v-model="passwordConfirm" type="text" name="password-confirm" class="password-confirm" placeholder="Confirm Password"/>
+      <input v-model="password" type="password" name="password" class="password" placeholder="Password"/>
+      <input v-model="passwordConfirm" type="password" name="password-confirm" class="password-confirm" placeholder="Confirm Password"/>
       <button class="primary large" v-on:click="handleSignup" type="submit">Sign Up!</button>
       <p><router-link v-bind:to="'login'">Already Have an Account?</router-link></p>
     </div>
@@ -48,12 +48,17 @@ export default {
           email: this.email,
           password: this.password
         })
-          .then(function (response) {
-            // Holds the token for future logins
-            console.log(response.data.body);
+          .then((response) => {
+            // Holds the token for future login
+            if (!response.data.error) {
+              localStorage.setItem('token', response.data.body);
+              this.$router.push('dashboard');
+            } else {
+              this.errors.push(response.data.body);
+            }
           })
-          .catch(function (error) {
-            console.log(error);
+          .catch((error) => {
+            this.errors.push(error);
           })
           .then(function () {
             // always executed
@@ -110,6 +115,14 @@ export default {
 
     .create-inner {
       max-width: 420px;
+    }
+
+    #errors {
+      color: red;
+      list-style: none;
+      padding: 0;
+      margin-left: 0;
+      text-transform: uppercase;
     }
   }
 </style>

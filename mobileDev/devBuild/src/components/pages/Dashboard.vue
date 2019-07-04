@@ -4,8 +4,8 @@
     <div class="dashboard-inner">
       <Sidebar @worldUpdated="worldUpdated"/>
       <div class="dashboard-content">
-        <h2>Welcome!</h2>
-        <p>Here you can add details to your world. To switch worlds check the drop down in the upper-right.</p>
+        <h2>Your Dashboard!</h2>
+        <p style="max-width:576px; margin: 0 auto;">Here you can add details to your world. To switch or add worlds check the drop down in the upper-right or the sidebar.</p>
         <div class="dashboard-body">
           <h3>Beings</h3>
           <EntityCard title="Characters" img="Characters" newurl="/new/character" allurl="/all/character"/>
@@ -32,6 +32,13 @@
           <EntityCard title="Planet" img="Planet" newurl="/new/planet" allurl="/all/planet"/>
           <EntityCard title="Technology" img="Technology" newurl="/new/technology" allurl="/all/technology"/>
         </div>
+        <div class="dashboard-body">
+          <h3>Story Elements</h3>
+          <p>Coming Soon...</p>
+        </div>
+        <p style="max-width: 75%; margin: 0 auto;">Missing something? Let us know. Email us at <a href="mailto:support@worldscrafter.com">support@worldscrafter.com</a>, we're always looking
+           for ways to improve and make our application better.
+         </p>
       </div>
     </div>
   </div>
@@ -66,7 +73,7 @@ export default {
         headers: {'token': localStorage.getItem('token')}
       }).then(response => {
         store.commit('saveValue', response.data)
-        console.log(response)
+        // console.log(response)
       })
     }
   },
@@ -116,7 +123,8 @@ export default {
 
     .dashboard-sidebar {
       width: 14%;
-      border-right: 2px solid $purple;
+      border-right: 1px solid #dedede;
+      box-shadow: 4px 0 5px -2px #dedede;
     }
   }
 
@@ -126,11 +134,9 @@ export default {
     padding-bottom: 35px;
     margin-left: 10px;
     margin-right: 10px;
-    // border-bottom: 2px solid $purple;
 
     // Styles form SLT
     border: 1px solid #dedede;
-    // padding-top: 0;
     width: 95%;
     margin: 40px auto;
     background-color: white;
