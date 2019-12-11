@@ -36,7 +36,7 @@
     <Social v-bind:active="socialActive" />
     <History @valueChanged="valuesChanged" v-bind:values="this.historyValues" v-bind:active="historyActive" />
     <Media @valueChanged="valuesChanged" v-bind:values="this.mediaValue" v-bind:active="mediaActive" />
-    <button class="primary large" v-on:click="addCharacter">Save Character!</button>
+    <button class="primary large saveButton" v-on:click="addCharacter">Save Character!</button>
   </div>
 </template>
 
@@ -200,6 +200,10 @@ export default {
         background-color: rgba(105, 200, 233,.25);
       }
     }
+  }
+
+  .saveButton {
+    margin: 25px 0;
   }
 
   @media(max-width: 768px) {

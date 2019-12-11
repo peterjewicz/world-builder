@@ -16,7 +16,7 @@
       <div class="header-left-content header-section">
         <div class="worlds-wrapper" v-if="!hideWorlds">
           Worlds:
-          <select v-model="currentWorld">
+          <select class="header-select" v-model="currentWorld">
             <option v-for="world in worlds" :value="world._id">{{ world.name }}</option>
           </select>
           <router-link v-bind:to="'create-world'"><span class="addWorld hover-darkblue">Add World +</span></router-link>
@@ -70,6 +70,10 @@ export default {
   .header {
     background: $lightBlue;
     padding: 7px 5px;
+
+    .header-select {
+
+    }
 
     h4 {
       margin: 0;
@@ -134,6 +138,20 @@ export default {
         }
       }
 
+    }
+
+    @media (max-width: 767px) {
+      padding-bottom: 15px;
+
+      .settings-link {
+        padding: 0;
+        position: absolute;
+        left: 10px;
+        top: 10px;
+      }
+      input {
+        margin-top: 10px;
+      }
     }
   }
 

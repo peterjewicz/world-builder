@@ -24,7 +24,7 @@
     <Overview @valueChanged="valuesChanged" v-bind:values="this.overviewValues" v-bind:active="overviewActive"/>
     <History @valueChanged="valuesChanged" v-bind:values="this.historyValues" v-bind:active="historyActive" />
     <Media @valueChanged="valuesChanged" v-bind:values="this.mediaValue" v-bind:active="mediaActive"/>
-    <button class="primary large" v-on:click="addRegion">Save Region!</button>
+    <button class="primary large saveButton" v-on:click="addRegion">Save Region!</button>
   </div>
 </template>
 

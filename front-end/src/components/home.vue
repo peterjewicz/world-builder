@@ -42,17 +42,18 @@
       <div class="col-6 content-text">
         <h2 class="purpleText">A New World At Your Fingertips</h2>
         <p>
-          Worldbuilder is built to make creating worlds as easy as possible.
+          Worlds Crafter is built to make creating worlds as easy as possible.
           Never forget a fact, never contradict yourself again. With all your facts
           contained in one place it makes building your worlds as easy as possible.
         </p>
         <p>
-          Whether you're a writer, dungeon master, or just love building worlds Worldbuilder
+          Whether you're a writer, dungeon master, or just love building worlds, Worlds Crafter
           is the perfect tool to help keep you oragnized. Our preloaded entities give you
           thee power to create neatly organized worlds that will make keeping everything
-          in sycn.
+          in sync.
         </p>
-        <a href="#" target="_blank"><img class="hover-image" :src="getImage('ios-download')" width="200px"/></a>
+        <!-- <a href="#" target="_blank"><img class="hover-image" :src="getImage('ios-download')" width="200px"/></a> -->
+        <h4 style="margin-top: 8px;">IOS App - Coming Soon</h4>
         <h4 style="margin-top: 8px;">Google Play - Coming Soon</h4>
       </div>
       <div class="col-6 dragonbg">
@@ -70,8 +71,8 @@
           <h2>Create Worlds</h2>
           <p>
             Separate your ideas by building worlds. All your characters, locations, and other ideas
-            live in your world, and can be linked and referenced together. This let's you easily focus on multiple
-            ideas. Free users are limited to a single world, while paid members are allowed an unlimited
+            live in your world, and can be linked and referenced together. This lets you easily focus on multiple
+            ideas while still keeping a cohesive structure. Free users are limited to a single world, while paid members are allowed an unlimited
             number of worlds. In either case, there is no limit to how many entities you can add to a world. Create
             an unlimited number of characters and other types for all of your worlds.
           </p>
@@ -89,7 +90,7 @@
           <h2>Add Details</h2>
           <p>
             For each of your worlds add as much or little details as you want. The olny limit is your own
-            imagination. WorldsCrafter comes packed with a bunch of pre-made templates with common fields to help
+            imagination. Worlds Crafter comes packed with a bunch of pre-made templates with common fields to help
             get you started qucikly. Don't see what you need? Let us know! We're always looking to improve the software
             to help make it more diverse and powerful for all our users.
           </p>

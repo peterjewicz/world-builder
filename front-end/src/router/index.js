@@ -26,6 +26,8 @@ import Item from '@/components/item/Item';
 import Planet from '@/components/planet/Planet';
 import Technology from '@/components/technology/Technology';
 
+import StoryBuilder from '@/components/StoryBuilder/StoryBuilder'
+
 // Bring in all the required liraries and extras
 const axios = require('axios');
 const api = process.env.API;
@@ -142,6 +144,11 @@ export default new Router({
       component: Technology
     },
     {
+      path: '/storyBuilder',
+      name: 'Story-Builder',
+      component: StoryBuilder
+    },
+    {
       path: '/all/:entity',
       name: 'View-Entity',
       component: ViewAll
@@ -171,5 +178,8 @@ export default new Router({
           })
       }
     }
-  ]
+  ],
+  scrollBehavior(to, from) {
+    return {x: 0, y: 0}
+  }
 })
