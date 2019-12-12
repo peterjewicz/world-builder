@@ -117,6 +117,22 @@
       (println "test")
       (ok (entities/create-entity type values worldId (:_id (:user request)) currentId)))
 
+    (POST "/create-story" request
+      :body-params [name :- String,
+                    worldId :- String]
+      :header-params [token :- String]
+      :middleware [auth-middleware/check-user-auth auth-middleware/check-world-auth]
+      :summary "Adds a new story to a world - we can create multiple stories"
+      (ok "Story Created")) ; TODO we need to actually handle creating the story
+
+   (POST "/story/:storyId" request
+     :path-params [storyId :- String]
+     :body-params [values :- String] ; JSON.stringify(cards)
+     :header-params [token :- String]
+     :middleware [auth-middleware/check-user-auth] ; TODO we need to add an auth to check story aith
+     :summary "Handles a story edit - takes the state and replaces old state"
+     (ok "story edited")) ; TODO we need to actually edit it here
+
     (POST "/create-user" []
       :body-params [username :- String, email :- String,  password :- String]
       :summary     "creates a user with a given username/password"
