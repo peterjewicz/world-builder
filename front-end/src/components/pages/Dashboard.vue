@@ -35,7 +35,7 @@
         <div class="dashboard-body">
           <div>
             <h1>Story Builder</h1>
-            <router-link v-bind:to="'/storyBuilder'"><button>Build!</button></router-link>
+            <router-link v-bind:to="'/myStories'"><button>Build!</button></router-link>
           </div>
         </div>
         <p style="max-width: 75%; margin: 0 auto;">Missing something? Let us know. Email us at <a href="mailto:support@worldscrafter.com">support@worldscrafter.com</a>, we're always looking

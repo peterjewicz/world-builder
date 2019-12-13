@@ -26,6 +26,7 @@ import Item from '@/components/item/Item';
 import Planet from '@/components/planet/Planet';
 import Technology from '@/components/technology/Technology';
 
+import MyStories from '@/components/StoryBuilder/MyStories'
 import StoryBuilder from '@/components/StoryBuilder/StoryBuilder'
 
 // Bring in all the required liraries and extras
@@ -147,6 +148,11 @@ export default new Router({
       path: '/storyBuilder',
       name: 'Story-Builder',
       component: StoryBuilder
+    },
+    {
+      path: '/myStories',
+      name: 'My-Stories',
+      component: MyStories
     },
     {
       path: '/all/:entity',

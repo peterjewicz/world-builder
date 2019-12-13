@@ -6,6 +6,7 @@
             [cheshire.core :refer :all]
             [worldbuilder.db.core :as db]
             [worldbuilder.db.entities :as entities]
+            [worldbuilder.db.stories :as stories]
             [ring.swagger.upload :as upload]
             [postal.core :as postal]
             [compojure.api.meta :refer [restructure-param]]
@@ -117,13 +118,13 @@
       (println "test")
       (ok (entities/create-entity type values worldId (:_id (:user request)) currentId)))
 
-    (POST "/create-story" request
-      :body-params [name :- String,
-                    worldId :- String]
+    (POST "/create-story/:worldId" request
+      :path-params [worldId :- String]
+      :body-params [name :- String]
       :header-params [token :- String]
       :middleware [auth-middleware/check-user-auth auth-middleware/check-world-auth]
       :summary "Adds a new story to a world - we can create multiple stories"
-      (ok "Story Created")) ; TODO we need to actually handle creating the story
+      (ok (stories/create-story name worldId (:_id (:user request)))))
 
    (POST "/story/:storyId" request
      :path-params [storyId :- String]
