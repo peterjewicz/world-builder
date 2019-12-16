@@ -145,7 +145,7 @@ export default new Router({
       component: Technology
     },
     {
-      path: '/storyBuilder',
+      path: '/storyBuilder/:id?',
       name: 'Story-Builder',
       component: StoryBuilder
     },

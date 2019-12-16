@@ -126,13 +126,13 @@
       :summary "Adds a new story to a world - we can create multiple stories"
       (ok (stories/create-story name worldId (:_id (:user request)))))
 
-   (POST "/story/:storyId" request
+   (POST "/story/editCards/:storyId" request
      :path-params [storyId :- String]
      :body-params [values :- String] ; JSON.stringify(cards)
      :header-params [token :- String]
      :middleware [auth-middleware/check-user-auth] ; TODO we need to add an auth to check story aith
      :summary "Handles a story edit - takes the state and replaces old state"
-     (ok "story edited")) ; TODO we need to actually edit it here
+     (ok (stories/save-story-details storyId values))) ; TODO we need to actually edit it here
 
     (POST "/create-user" []
       :body-params [username :- String, email :- String,  password :- String]

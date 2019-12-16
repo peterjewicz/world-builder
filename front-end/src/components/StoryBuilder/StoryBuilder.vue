@@ -22,6 +22,9 @@
 <script>
 import Header from '../pages/includes/Header';
 
+const axios = require('axios');
+const api = process.env.API;
+
 const cardSkeleton = { // default state for a card
   position: 0,
   title: 'Title',
@@ -39,17 +42,19 @@ export default {
         position: 0,
         title: 'First Card',
         text: 'Some Text'
-      }]
+      }],
+      currentStory: ''
     }
   },
   mounted() {
-
+    this.currentStory = this.$route.params.id
   },
   methods: {
     addCard() {
       let cardToAdd = JSON.parse(JSON.stringify(cardSkeleton)) // I think we can do that shallow copy thing here
       cardToAdd.position = this.cards.length
       this.cards.push(cardToAdd)
+      this.saveCards()
     },
     deleteCard(position) {
       this.cards = this.cards.filter(card => card.position !== position)
@@ -60,6 +65,27 @@ export default {
     saveCards() {
       // called after every card state change
       // needs to be debounced in the edit so we don't get a million updates
+      axios({
+        url: api + `/story/editCards/${this.currentStory}`,
+        method: 'post',
+        data: {
+          values: JSON.stringify(this.cards)},
+        headers: {'token': localStorage.getItem('token')}
+      }).then(response => {
+        // this.dropdownText = 'Your Story Has Been Created!';
+        // this.dropdownColor = 'green';
+        // this.dropdownActive = true;
+        //
+        // store.commit('addStory', response.data)
+      }).catch(error => {
+        if (error.response.status === 401) {
+          this.dropdownText = 'Your login is invalid, please login to continue';
+        } else {
+          this.dropdownText = 'An unknown error has occured. Please try again or contact support.'
+        }
+        this.dropdownColor = 'red';
+        this.dropdownActive = true;
+      })
     },
     showCards() {
       // for testing only

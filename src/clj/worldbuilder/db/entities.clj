@@ -5,7 +5,8 @@
             [mount.core :refer [defstate]]
             [worldbuilder.db.core :refer [db]]
             [worldbuilder.config :refer [env]]
-            [monger.operators :refer :all])
+            [monger.operators :refer :all]
+            [worldbuilder.db.stories :as stories])
             (:import org.bson.types.ObjectId))
 ;TODO we have to coerce vlaue into its own map
 ;TODO pass userID
@@ -43,4 +44,5 @@
                     :spell (get-entity-by-world "spell" worldId)
                     :item (get-entity-by-world "item" worldId)
                     :planet (get-entity-by-world "planet" worldId)
-                    :technology (get-entity-by-world "technology" worldId))))
+                    :technology (get-entity-by-world "technology" worldId)
+                    :stories (stories/get-stories-by-world worldId))))

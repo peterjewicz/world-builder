@@ -40,6 +40,14 @@ const mutations = {
    */
   saveValue: (state, payload) => {
     state.values = payload;
+  },
+  /**
+   * Adds a new story to the store
+   * @param {Object} story - a story object
+   * @param {Object} payload - object of current state
+   */
+  addStory: (state, payload) => {
+    state.values.stories.push(payload)
   }
 };
 

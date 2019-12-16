@@ -15,3 +15,17 @@
       [entity (mc/insert-and-return db "stories" {:user_id userId :name name :worldId worldId :stories []})]
       (assoc entity :_id (str (entity :_id)))))
 
+(defn get-stories-by-world
+  "Gets all entities of 'entityType' for world 'worldId'"
+  [worldId]
+  (let [stories (mc/find-maps db "stories" {:worldId worldId})]
+    (map ; Turn characters into a modified list
+      #(update % :_id str) ; By updating each map :id by casting to a string
+      stories)))
+
+(defn save-story-details [storyId values]
+  "saves the details for a story"
+(mc/update db "stories" {:_id (ObjectId. storyId)}
+  {$push {:stories values}})
+(:body "200")) ; we can just return this string since the UI is our soruce of truth here
+
