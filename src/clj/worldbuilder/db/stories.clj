@@ -12,7 +12,7 @@
 ;TODO We need to make this a bit nicer - break udate into its own function
 (defn create-story [name, worldId, userId]
   (let
-      [entity (mc/insert-and-return db "stories" {:user_id userId :name name :worldId worldId :stories []})]
+      [entity (mc/insert-and-return db "stories" {:user_id userId :name name :worldId worldId :stories ""})]
       (assoc entity :_id (str (entity :_id)))))
 
 (defn get-stories-by-world
@@ -26,6 +26,6 @@
 (defn save-story-details [storyId values]
   "saves the details for a story"
 (mc/update db "stories" {:_id (ObjectId. storyId)}
-  {$push {:stories values}})
+  {$set {:stories values}})
 (:body "200")) ; we can just return this string since the UI is our soruce of truth here
 

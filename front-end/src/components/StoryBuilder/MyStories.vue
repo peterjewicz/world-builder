@@ -5,12 +5,14 @@
     <h1>My Stories</h1>
     <input v-model="storyName" />
     <button v-on:click="addStory" class="button primary">Add Story</button>
-    <template v-if="getStories.length > 0">
-      <div class="entity" v-for="stories in getStories">
-        <h5>Name: <span v-html="stories.name">{{stories.name}}</span></h5>
-        <router-link v-bind:to="`/storyBuilder/${stories._id}`"><button class="primary">View</button></router-link>
-      </div>
-    </template>
+    <div class="entityWrapper">
+      <template v-if="getStories.length > 0">
+        <div class="entity" v-for="stories in getStories">
+          <h5>Name: <span v-html="stories.name">{{stories.name}}</span></h5>
+          <router-link v-bind:to="`/storyBuilder/${stories._id}`"><button class="primary">View</button></router-link>
+        </div>
+      </template>
+    </div>
   </div>
 </template>
 
@@ -81,4 +83,28 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+
+  .MyStories {
+
+    .entityWrapper {
+      display: flex;
+      flex-wrap: wrap;
+    }
+    .entity {
+      flex-basis: 30%;
+      box-sizing: border-box;
+      text-align: left;
+      padding: 10px;
+      margin: 10px auto;
+      border: 1px solid black;
+      border: 1px solid #dedede;
+      padding-top: 0;
+      margin: 40px auto;
+      background-color: white;
+      border-radius: 3px;
+      position: relative;
+      -webkit-box-shadow: 2px 2px 1px #d6dee3;
+      box-shadow: 2px 2px 1px #d6dee3;
+    }
+  }
 </style>

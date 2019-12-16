@@ -33,9 +33,9 @@
           <EntityCard title="Technology" img="Technology" newurl="/new/technology" allurl="/all/technology"/>
         </div>
         <div class="dashboard-body">
-          <div>
+          <div class="storyBuilderWrapper">
             <h1>Story Builder</h1>
-            <router-link v-bind:to="'/myStories'"><button>Build!</button></router-link>
+            <router-link v-bind:to="'/myStories'"><button class="button primary">Build!</button></router-link>
           </div>
         </div>
         <p style="max-width: 75%; margin: 0 auto;">Missing something? Let us know. Email us at <a href="mailto:support@worldscrafter.com">support@worldscrafter.com</a>, we're always looking
@@ -145,9 +145,9 @@ export default {
     border-radius: 3px;
     position: relative;
     box-shadow: 2px 2px 1px #d6dee3;
-
     display: flex;
     flex-flow: wrap;
+
     h3 {
       padding: 12px;
       margin: 0;
@@ -159,6 +159,11 @@ export default {
       background: $purple;
       color: white;
     }
+  }
+
+  .storyBuilderWrapper {
+    text-align: center;
+    width: 100%;
   }
 
   @media(max-width: 767px) {

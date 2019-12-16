@@ -1,6 +1,11 @@
 <template>
   <div class="StoryBuilder">
     <Header titleText="Story Builder" homeActive="true" hideWorlds="true"/>
+    <div class="subHeader">
+      <div class="maxWidthWrap">
+        <router-link v-bind:to="`/myStories`"><a><i class="fas fa-arrow-left"></i>Back To Stories</a></router-link>
+      </div>
+    </div>
     <div class="Controls">
       <button class="button primary" v-on:click="addCard">Add Card</button>
     </div>
@@ -9,15 +14,14 @@
     <div class="StoryBuilder__container">
       <draggable v-model="cards" group="people" @start="drag=true" @end="reOrderCards">
         <div class="card" v-for="card in cards" :key="card.position">
-          <input type="text" v-model="card.title"/>
-          <textarea v-model="card.text"></textarea>
+          <input v-on:change="saveCards" type="text" v-model="card.title"/>
+          <textarea v-on:change="saveCards" v-model="card.text"></textarea>
           <div v-on:click="deleteCard(card.position)" class="card__delete">
             <p>x</p>
           </div>
         </div>
       </draggable>
     </div>
-    <button v-on:click="showCards">Show</button>
   </div>
 </template>
 
@@ -89,10 +93,6 @@ export default {
         this.dropdownColor = 'red';
         this.dropdownActive = true;
       })
-    },
-    showCards() {
-      // for testing only
-      console.log(this.cards)
     }
   }
 }
