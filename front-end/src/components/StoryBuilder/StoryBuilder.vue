@@ -7,13 +7,15 @@
     <div class="Canvas">
     </div>
     <div class="StoryBuilder__container">
-      <div class="card" v-for="card in cards">
-        <input type="text" v-model="card.title"/>
-        <textarea v-model="card.text"></textarea>
-        <div v-on:click="deleteCard(card.position)" class="card__delete">
-          <p>x</p>
+      <draggable v-model="cards" group="people" @start="drag=true" @end="reOrderCards">
+        <div class="card" v-for="card in cards" :key="card.position">
+          <input type="text" v-model="card.title"/>
+          <textarea v-model="card.text"></textarea>
+          <div v-on:click="deleteCard(card.position)" class="card__delete">
+            <p>x</p>
+          </div>
         </div>
-      </div>
+      </draggable>
     </div>
     <button v-on:click="showCards">Show</button>
   </div>
@@ -21,6 +23,7 @@
 
 <script>
 import Header from '../pages/includes/Header';
+import draggable from 'vuedraggable'
 
 const axios = require('axios');
 const api = process.env.API;
@@ -34,7 +37,8 @@ const cardSkeleton = { // default state for a card
 export default {
   name: 'StoryBuilder',
   components: {
-    Header
+    Header,
+    draggable
   },
   data () {
     return {
@@ -48,6 +52,8 @@ export default {
   },
   mounted() {
     this.currentStory = this.$route.params.id
+    const currentStoryVals = this.$store.getters.getValues.stories.filter(story => story._id === this.$route.params.id)[0]
+    this.cards = JSON.parse(currentStoryVals.stories)
   },
   methods: {
     addCard() {
@@ -58,9 +64,10 @@ export default {
     },
     deleteCard(position) {
       this.cards = this.cards.filter(card => card.position !== position)
+      this.saveCards()
     },
     reOrderCards() {
-
+      this.saveCards()
     },
     saveCards() {
       // called after every card state change
@@ -72,11 +79,7 @@ export default {
           values: JSON.stringify(this.cards)},
         headers: {'token': localStorage.getItem('token')}
       }).then(response => {
-        // this.dropdownText = 'Your Story Has Been Created!';
-        // this.dropdownColor = 'green';
-        // this.dropdownActive = true;
-        //
-        // store.commit('addStory', response.data)
+        // TODO may need to handle it here
       }).catch(error => {
         if (error.response.status === 401) {
           this.dropdownText = 'Your login is invalid, please login to continue';
@@ -103,6 +106,12 @@ export default {
       flex-wrap: wrap;
       justify-content: center;
 
+      div:first-child {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
       .card {
         border: 1px solid black;
         width: 200px;
@@ -110,6 +119,7 @@ export default {
         padding: 10px;
         margin: 20px;
         position: relative;
+        display: block !important;
 
         &__delete {
           position: absolute;
