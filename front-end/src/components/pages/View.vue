@@ -184,6 +184,18 @@ export default {
       padding: 15px;
     }
 
+    @media(max-width: 767px) {
+      .View-body {
+        &-flexWrapper {
+          flex-wrap: wrap;
+          .View-body-preview {
+            width: 100%;
+            border-left: none;
+          }
+        }
+      }
+    }
+
   }
 
 </style>

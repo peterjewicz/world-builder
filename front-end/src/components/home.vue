@@ -78,13 +78,15 @@
           </p>
         </div>
         <div class="col-6">
-          <img :src="getImageJPG('flowitem1-2')"/>
+          <img :src="getImageJPG('home_img1')"/>
+          <!-- <img :src="getImageJPG('flowitem1-2')"/> -->
         </div>
       </div>
 
       <div class="flow-item">
         <div class="col-6">
-          <img :src="getImageJPG('flowitem2-2')"/>
+          <img :src="getImageJPG('home_img2')"/>
+          <!-- <img :src="getImageJPG('flowitem2-2')"/> -->
         </div>
         <div class="col-6">
           <h2>Add Details</h2>
@@ -108,7 +110,8 @@
           </p>
         </div>
         <div class="col-6">
-          <img :src="getImageJPG('flowitem3-2')"/>
+          <img :src="getImageJPG('home_img3')"/>
+          <!-- <img :src="getImageJPG('flowitem3-2')"/> -->
         </div>
       </div>
     </div>

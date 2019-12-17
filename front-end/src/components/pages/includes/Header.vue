@@ -143,10 +143,15 @@ export default {
     @media (max-width: 767px) {
       padding-bottom: 15px;
 
+      .header-left-content {
+        text-align: left;
+        margin-top: 25px;
+      }
+
       .settings-link {
         padding: 0;
         position: absolute;
-        left: 10px;
+        right: 10px;
         top: 10px;
       }
       input {

@@ -204,7 +204,12 @@ export default {
 
   .saveButton {
     margin: 25px 0;
+    max-width: 90%;
   }
+
+    .editr--content {
+      max-width: 90% !important;
+    }
 
   @media(max-width: 768px) {
     .statsWrapper {
