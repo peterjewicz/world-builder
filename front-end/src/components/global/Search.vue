@@ -16,7 +16,6 @@
 </template>
 
 <script>
-// import store from '../../store/store.js';
 
 export default {
   name: 'Search',
@@ -43,11 +42,13 @@ export default {
         // TODO we might want to see about limiting which fields it goes through.
         for (let property in currentStoreState) {
           currentStoreState[property].forEach(item => {
-            for (let itemProp in item.value.overview) {
-              if (item.value.overview[itemProp].includes(currentSearchVal)) {
-                let itemCopy = item;
-                itemCopy.type = property;
-                this.searchResults.push(itemCopy);
+            if (item.stories === undefined) { // we don't care aobut stories
+              for (let itemProp in item.value.overview) {
+                if (item.value.overview[itemProp].includes(currentSearchVal)) {
+                  let itemCopy = item;
+                  itemCopy.type = property;
+                  this.searchResults.push(itemCopy);
+                }
               }
             }
           })
