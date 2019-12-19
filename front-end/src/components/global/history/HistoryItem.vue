@@ -55,6 +55,7 @@ export default {
     position: relative;
     right: 320px;
     border: 3px solid $darkBlue;
+    box-sizing: border-box;
 
     .editTrigger {
       font-size: .75rem;

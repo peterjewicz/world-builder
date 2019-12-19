@@ -1,5 +1,6 @@
 <template>
   <div class="header">
+    <Hamburger :hamburgerActive="hamburgerActive" />
     <div class="maxWidthWrap">
       <!-- TODO redo this as the header relies on having this wrapper -->
       <div class="search-wrapper header-section">
@@ -32,17 +33,20 @@
 <script>
 import store from '../../../store/store.js';
 import Search from '../../global/Search';
+import Hamburger from './Hamburger'
 
 export default {
   name: 'Header',
   components: {
-    Search
+    Search,
+    Hamburger
   },
   props: ['hideWorlds', 'titleText', 'searchActive', 'homeActive'],
   data () {
     return {
       worlds: this.$store.getters.getWorlds,
-      selectedWorld: this.currentWorld
+      selectedWorld: this.currentWorld,
+      hamburgerActive: true
     }
   },
   computed: {
@@ -140,7 +144,7 @@ export default {
 
     }
 
-    @media (max-width: 767px) {
+    @media (max-width: 766px) {
       padding-bottom: 15px;
 
       .header-left-content {
@@ -155,7 +159,7 @@ export default {
         top: 10px;
       }
       input {
-        margin-top: 10px;
+        margin-top: 15px;
       }
     }
   }

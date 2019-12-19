@@ -39,7 +39,7 @@
       </div>
     </div>
     <div class="content-row">
-      <div class="col-6 content-text">
+      <div class="col-6 content-text" style="padding-bottom: 75px">
         <h2 class="purpleText">A New World At Your Fingertips</h2>
         <p>
           Worlds Crafter is built to make creating worlds as easy as possible.
@@ -110,8 +110,8 @@
           </p>
         </div>
         <div class="col-6">
-          <img :src="getImageJPG('home_img3')"/>
-          <!-- <img :src="getImageJPG('flowitem3-2')"/> -->
+          <!-- <img :src="getImageJPG('home_img3')"/> -->
+          <img :src="getImageJPG('flowitem3-2')"/>
         </div>
       </div>
     </div>
