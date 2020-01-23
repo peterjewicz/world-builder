@@ -1,6 +1,6 @@
 <template>
   <div class="header">
-    <Hamburger :hamburgerActive="hamburgerActive" />
+    <Hamburger :hamburgerActive="hamburgerActive" @hamburgerClosed="toggleHamburger"/>
     <div class="maxWidthWrap">
       <!-- TODO redo this as the header relies on having this wrapper -->
       <div class="search-wrapper header-section">
@@ -15,7 +15,7 @@
         <h4>{{titleText}}</h4>
       </div>
       <div class="header-left-content header-section">
-        <div class="worlds-wrapper" v-if="!hideWorlds">
+        <div class="worlds-wrapper hide-on-mobile " v-if="!hideWorlds">
           Worlds:
           <select class="header-select" v-model="currentWorld">
             <option v-for="world in worlds" :value="world._id">{{ world.name }}</option>
@@ -24,6 +24,9 @@
         </div>
         <div class="settings-link">
           <router-link v-bind:to="'/settings'"><i class="fas fa-user"></i></router-link>
+        </div>
+        <div class="hamburger-control mobile-only">
+          <i v-on:click="toggleHamburger" class="fas fa-bars"></i>
         </div>
       </div>
     </div>
@@ -46,7 +49,7 @@ export default {
     return {
       worlds: this.$store.getters.getWorlds,
       selectedWorld: this.currentWorld,
-      hamburgerActive: true
+      hamburgerActive: false
     }
   },
   computed: {
@@ -63,6 +66,9 @@ export default {
   mounted() {
   },
   methods: {
+    toggleHamburger() {
+      this.hamburgerActive = !this.hamburgerActive
+    }
   }
 }
 </script>
@@ -144,20 +150,22 @@ export default {
 
     }
 
+
+    .hamburger-control  {
+      color: white;
+      transition: .25s;
+      padding-right: 10px;
+      padding-left: 10px;
+      padding-top: 10px;
+      cursor: pointer;
+      &:hover {
+        color: $darkBlue;
+      }
+    }
+
     @media (max-width: 766px) {
       padding-bottom: 15px;
 
-      .header-left-content {
-        text-align: left;
-        margin-top: 25px;
-      }
-
-      .settings-link {
-        padding: 0;
-        position: absolute;
-        right: 10px;
-        top: 10px;
-      }
       input {
         margin-top: 15px;
       }

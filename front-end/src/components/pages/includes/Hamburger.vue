@@ -1,8 +1,12 @@
 <template>
   <div class="Hamburger" v-bind:class="{ active: hamburgerActive }">
     <h3>{{getSelectedWorldName(currentWorld, worlds)}}</h3>
+    <p class="HamburgerClose" v-on:click="_emitValues">X</p>
     <ul>
-      <li v-for="world in worlds" v-on:click="setWorld(world)">{{world.name}}</li>
+      <li v-for="world in worlds" v-on:click="setWorld(world)">
+        <span class="selectedWorld" v-if="world._id === selectedWorld">{{world.name}}</span>
+        <span v-else>{{world.name}}</span>
+      </li>
     </ul>
     <router-link v-bind:to="'create-world'"><span class="addWorld hover-darkblue">Add World +</span></router-link>
   </div>
@@ -44,6 +48,9 @@ export default {
     },
     setWorld(world) {
       store.commit('saveCurrentWorld', world._id);
+    },
+    _emitValues() {
+      this.$emit('hamburgerClosed', false)
     }
   }
 }
@@ -66,6 +73,29 @@ export default {
 
     &.active {
       right: 0px;
+    }
+
+    .HamburgerClose {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      color: white;
+      transition: .25s;
+      cursor: pointer;
+
+      &:hover {
+        color: $darkBlue;
+      }
+    }
+
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+
+      li {
+        padding: 5px 0;
+      }
     }
   }
 

@@ -120,13 +120,15 @@ export default {
     @media(max-width: 768px) {
       input {
         width: 100%;
-        position: relative;
-        top: 30px;
       }
 
       .searchResults {
         top: 61px;
       }
+    }
+
+    @media(max-width: 600px) {
+      display: none;
     }
   }
 
