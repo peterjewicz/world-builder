@@ -4,21 +4,25 @@
     <p class="HamburgerClose" v-on:click="_emitValues">X</p>
     <ul>
       <li v-for="world in worlds" v-on:click="setWorld(world)">
-        <span class="selectedWorld" v-if="world._id === selectedWorld">{{world.name}}</span>
+        <span class="selectedWorld" v-if="world._id === currentWorld">{{world.name}}</span>
         <span v-else>{{world.name}}</span>
       </li>
     </ul>
     <router-link v-bind:to="'create-world'"><span class="addWorld hover-darkblue">Add World +</span></router-link>
+    <div class="hamburgerSearch">
+      <Search />
+    </div>
   </div>
 </template>
 
 <script>
 import store from '../../../store/store.js';
+import Search from '../../global/Search';
 
 export default {
   name: 'Hamburger',
   components: {
-
+    Search
   },
   props: ['hamburgerActive'],
   data () {
@@ -57,7 +61,7 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss" >
+<style lang="scss" scoped>
   @import '../../../styles/main';
 
   .Hamburger {
@@ -95,6 +99,13 @@ export default {
 
       li {
         padding: 5px 0;
+        color: white;
+        cursor: pointer;
+
+        .selectedWorld {
+          color: #2c3e50;
+          cursor: default;
+        }
       }
     }
   }

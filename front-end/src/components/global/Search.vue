@@ -132,4 +132,22 @@ export default {
     }
   }
 
+  // dirty override for hte hamburger search sorry
+  @media(max-width: 600px) {
+    .hamburgerSearch .Search{
+      display: block;
+      margin:  0 auto;
+      width: 90%;
+
+      .searchResults {
+        top: 31px;
+        width: 90%;
+      }
+
+      input {
+        width: 90%;
+      }
+    }
+  }
+
 </style>

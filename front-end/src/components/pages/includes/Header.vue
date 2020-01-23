@@ -150,7 +150,6 @@ export default {
 
     }
 
-
     .hamburger-control  {
       color: white;
       transition: .25s;
