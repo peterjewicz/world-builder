@@ -11,6 +11,7 @@
             [buddy.auth.accessrules :refer [restrict]]
             [worldbuilder.user.create :as user]
             [worldbuilder.config :refer [env]]
+            [clojure.string :as str]
             [buddy.auth :refer [authenticated?]])
             (:import org.bson.types.ObjectId))
 
@@ -22,7 +23,7 @@
 
 
 (def free-max-size 2000000000) ; 2gb
-(def member-max-size 5000000000) ;5gb - maybe make this more? 
+(def member-max-size 5000000000) ;5gb - maybe make this more?
 
 (defn get-image-size-total [images]
   (loop [size 0
@@ -31,10 +32,13 @@
       size
       (recur (+ size (:size (nth images index))) (inc index)))))
 
-; TODO check what it does on null - probably pulls all right???
 (defn get-bucket-images [world-id]
   (:object-summaries (list-objects-v2 (:s3creds env) :bucket-name "worldbuilder-twc"
                    :prefix world-id)))
+
+(defn is-image? [request]
+  "makes sure the metadata has image in it or rejects"
+  (str/includes? (:content-type (get (:multipart-params request) "myFile")) "image"))
 
 
 (defn check-user-image-limit
@@ -42,9 +46,11 @@
   [handler]
   (fn [request]
     (let [size (get-image-size-total (get-bucket-images (:worldId (:route-params request))))]
-      (if (< size free-max-size) ; have to update for memebers
+      (if (and (is-image? request)(< size free-max-size)) ; have to update for memebers
         (handler request)     ; pass to wrapped handler
         (unauthorized {:error "Max image size exceeded"})))))
+
+
 
 
 
