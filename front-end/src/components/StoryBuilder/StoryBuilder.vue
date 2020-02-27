@@ -101,6 +101,9 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
   .StoryBuilder {
+    .Controls {
+      margin-top: 20px;
+    }
     &__container {
       display: flex;
       flex-wrap: wrap;

@@ -3,7 +3,7 @@
     <Dropdown :text="dropdownText" :color="dropdownColor" :active="dropdownActive" @hideDropdown="hideDropdown"/>
     <Header titleText="Story Builder" homeActive="true" hideWorlds="true"/>
     <h1>My Stories</h1>
-    <input v-model="storyName" />
+    <input placeholder="Story Name" v-model="storyName" />
     <button v-on:click="addStory" class="button primary">Add Story</button>
     <div class="entityWrapper">
       <template v-if="getStories.length > 0">

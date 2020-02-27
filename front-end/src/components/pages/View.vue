@@ -3,7 +3,8 @@
     <Header @worldUpdated="worldUpdated" homeActive="true"/>
     <div class="subHeader">
       <div class="maxWidthWrap">
-        <router-link to="/dashboard"><i class="fas fa-arrow-left"></i>Back To World</router-link>
+        <!-- <router-link to="/dashboard"><i class="fas fa-arrow-left"></i>Back To World</router-link> -->
+        <a class="linkStyle" @click="$router.go(-1)"><i class="fas fa-arrow-left"></i> Back</a>
       </div>
     </div>
     <div class="View-body">
@@ -14,7 +15,7 @@
           <div class="View-body-item" v-for="(properties, property) in modifiedEntity.full">
             <h2>{{property}}</h2>
             <div class="View-body-property" v-for="(attrValue, attribute) in modifiedEntity.full[property]">
-              <h4>{{attribute}}:</h4> <p>{{attrValue}}</p>
+              <h4 v-if="attrValue">{{attribute}}:</h4> <p>{{attrValue}}</p>
             </div>
           </div>
         </div>
@@ -120,8 +121,16 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
 
+  .linkStyle {
+    cursor: pointer;
+  }
+
   .View-body {
     text-align: left;
+
+    img {
+      min-height: 200px;
+    }
 
     &-flexWrapper {
       display: flex;
@@ -135,6 +144,11 @@ export default {
 
         .View-body-item {
           border-bottom: 2px solid #4f5f6f;
+          padding: 10px 0;
+
+          &:last-of-type {
+            border-bottom: none;
+          }
         }
 
         h2 {
@@ -143,6 +157,10 @@ export default {
 
         .View-body-property {
           display: flex;
+
+          p {
+            line-height: 2rem;
+          }
 
           h4 {
             margin: 5px 10px;
@@ -162,6 +180,10 @@ export default {
         &-item {
           display: flex;
           padding: 15px;
+
+          p {
+            line-height: 2rem;
+          }
 
           h4 {
             margin: 5px 10px;
@@ -188,6 +210,8 @@ export default {
       .View-body {
         &-flexWrapper {
           flex-wrap: wrap;
+          flex-direction: column-reverse;
+
           .View-body-preview {
             width: 100%;
             border-left: none;

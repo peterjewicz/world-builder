@@ -13,6 +13,7 @@
             [buddy.auth.accessrules :refer [restrict]]
             [worldbuilder.user.create :as user]
             [worldbuilder.middleware.auth :as auth-middleware]
+            [worldbuilder.middleware.imageUpload :as image-middleware]
             [worldbuilder.config :refer [env]]
             [amazonica.aws.s3transfer :as s3]
             [worldbuilder.billing :as billing]
@@ -70,17 +71,19 @@
                 {:bucket-name "worldbuilder-twc"
                  :prefix worldId})}))
 
-  ; TODO we need to add middleware here to check image uploader
+  ; TODO we need to add middleware here to check image uploader size - we have a size limit for free users
+  ; probsbly want a max file size too
   (POST "/worlds/:worldId/upload" []
     :multipart-params [myFile :- s/Any]
     :path-params [worldId :- String]
     :header-params [token :- String]
     :summary     "Uploads an image file for a specific world"
-    :middleware [auth-middleware/check-user-auth auth-middleware/check-world-auth upload/wrap-multipart-params]
+    :middleware [auth-middleware/check-user-auth auth-middleware/check-world-auth upload/wrap-multipart-params image-middleware/check-user-image-limit]
     (ok {:body (put-object (:s3creds env)
           :bucket-name "worldbuilder-twc"
           :key (str worldId "/" (:filename myFile))
-          :file (myFile :tempfile))}))
+          :file (myFile :tempfile))})
+    )
 
   (POST "/worlds" request
     :body-params [name :- String]

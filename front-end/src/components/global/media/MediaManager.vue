@@ -104,6 +104,9 @@ export default {
       }).then(response => {
         this.userImages.push({key: `${worldId}/${this.selectedFile.name}`});
         this.uploadInProgress = false;
+      }).catch(e => {
+        alert("You've Uploaded Too Many Images Friends!")
+        this.uploadInProgress = false;
       })
     },
     _emitValues() {

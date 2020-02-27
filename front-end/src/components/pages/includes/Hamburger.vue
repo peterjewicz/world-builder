@@ -92,6 +92,12 @@ export default {
       }
     }
 
+    .addWorld {
+      font-size: 14px;
+      margin-top: 20px;
+      display: block;
+    }
+
     ul {
       list-style: none;
       margin: 0;
