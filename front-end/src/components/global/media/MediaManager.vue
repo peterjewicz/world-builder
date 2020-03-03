@@ -13,7 +13,7 @@
         <p>Select an image to use or upload a new one!</p>
         <div class="image-wrapper" v-for="(image, index) in userImages">
           <img v-bind:key="index" v-on:click="selectImage(`https://s3.amazonaws.com/worldbuilder-twc/${image.key}`)" v-bind:src="`https://s3.amazonaws.com/worldbuilder-twc/${image.key}`" width="100px"/>
-          <p  class="tester" v-on:click="deleteImage(image.key)">X</p>
+          <p v-on:click="deleteImage(image.key)">X</p>
         </div>
       </div>
       <div class="newMedia">
@@ -106,12 +106,11 @@ export default {
         this.userImages.push({key: `${worldId}/${this.selectedFile.name}`});
         this.uploadInProgress = false;
       }).catch(e => {
-        alert("You've Uploaded Too Many Images Friends!")
+        alert("You've Reach The Max Image Upload Amount")
         this.uploadInProgress = false;
       })
     },
     deleteImage(key) {
-      console.log(key)
       const worldId = this.$store.getters.getCurrentWorld;
       axios({
         url: `http://localhost:3000/api/worlds/${worldId}/image/delete`,
@@ -150,10 +149,6 @@ export default {
     border: 1px solid $lightBlue;
     min-height: 240px;
     flex-flow: wrap;
-
-    p.tester{
-      position: absolute;
-    }
 
     button {
       width: 70px;
@@ -248,12 +243,32 @@ export default {
       width: 260px;
       height: 200px;
       overflow: hidden;
+      position: relative;
+
       img{
         min-width: 100%;
         max-width: none;
         width: auto;
         min-height: 100%;
         max-height: 100%;
+      }
+
+      p {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        background: red;
+        width: 25px;
+        height: 25px;
+        line-height: 25px;
+        color: white;
+        margin: 0;
+        transition: all .25s;
+        cursor: pointer;
+
+        &:hover {
+          filter: brightness(85%);
+        }
       }
     }
 

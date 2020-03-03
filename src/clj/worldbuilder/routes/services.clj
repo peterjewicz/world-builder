@@ -89,8 +89,9 @@
     :body-params [imageId :- String]
     :header-params [token :- String]
     :middleware [auth-middleware/check-user-auth auth-middleware/check-world-auth]
-    (ok {:body (delete-object (:s3creds env) :bucket-name "worldbuilder-twc"
-                              :key imageId)}))
+    (ok {:body (delete-object (:s3creds env)
+                 :bucket-name "worldbuilder-twc"
+                 :key imageId)}))
 
   (POST "/worlds" request
     :body-params [name :- String]
