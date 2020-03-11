@@ -13,13 +13,14 @@
     </div>
     <div class="StoryBuilder__container">
       <draggable v-model="cards" group="people" @start="drag=true" @end="reOrderCards">
-        <div class="card" v-for="card in cards" :key="card.position">
-          <input v-on:change="saveCards" type="text" v-model="card.title"/>
-          <textarea v-on:change="saveCards" v-model="card.text"></textarea>
-          <div v-on:click="deleteCard(card.position)" class="card__delete">
-            <p>x</p>
+          <div class="card" v-for="card in cards" :key="card.position">
+            <i class="fas fa-grip-vertical dragHandler"></i>
+            <input v-on:change="saveCards" type="text" v-model="card.title"/>
+            <textarea v-on:change="saveCards" v-model="card.text"></textarea>
+            <div v-on:click="deleteCard(card.position)" class="card__delete">
+              <p>x</p>
+            </div>
           </div>
-        </div>
       </draggable>
     </div>
   </div>
@@ -115,14 +116,20 @@ export default {
         justify-content: center;
       }
 
+      .dragHandler {
+        // position: absolute;
+        // top: -5px;
+      }
+
       .card {
         border: 1px solid black;
         width: 200px;
-        height: 150px;
+        height: 160px;
         padding: 10px;
         margin: 20px;
         position: relative;
         display: block !important;
+        text-align: left;
 
         &__delete {
           position: absolute;
@@ -133,6 +140,7 @@ export default {
           background: red;
           border-radius: 50%;
           transition: all .25s;
+          text-align: center;
 
           p {
             margin: 0;
