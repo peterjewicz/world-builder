@@ -98,7 +98,7 @@ export default {
       formData.append('myFile', this.selectedFile, this.selectedFile.name);
       this.uploadInProgress = true;
       axios({
-        url: `http://localhost:3000/api/worlds/${worldId}/upload`,
+        url: api + `/worlds/${worldId}/upload`,
         method: 'post',
         data: formData,
         headers: {'token': localStorage.getItem('token')}
