@@ -41,6 +41,7 @@ export default {
           // Holds the token for future logins
           if (response.data.body === 'success') {
             localStorage.setItem('token', response.data.token);
+            localStorage.setItem('email', response.data.email);
             this.$router.push('dashboard');
           } else {
             this.loginError = true;

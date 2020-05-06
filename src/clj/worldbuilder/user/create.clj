@@ -22,6 +22,6 @@
   [username password]
   (let [current-user (db/get-user-by-username username)]
     (if (and current-user (hashers/check password (:password current-user)))
-      {:body "success" :token (db/generate-new-token username)}
+      {:body "success" :token (db/generate-new-token username) :email (:email current-user)}
       {:body "Your Username Or Password is Incorrect"}
     )))

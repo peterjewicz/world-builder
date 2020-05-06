@@ -5,7 +5,7 @@
     <div class="maxWidthWrap">
       <div class="settingsRow">
         <h2>User Settings</h2>
-        <p>Email: test@test.com</p>
+        <p>Email: {{email}}</p>
       </div>
 
       <div class="settingsRow">
@@ -56,7 +56,8 @@ export default {
       activeCustomer: false,
       stripeToken: '',
       subToken: '',
-      submitting: false
+      submitting: false,
+      email: localStorage.getItem('email')
     }
   },
   mounted() {
