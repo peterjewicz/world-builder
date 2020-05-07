@@ -37,6 +37,10 @@
       <div class="cloud cloud2">
         <img :src="getImage('cloud')" width="100px"/>
       </div>
+
+      <div class="cloud cloud3">
+        <img :src="getImage('cloud')" width="100px"/>
+      </div>
     </div>
     <div class="content-row">
       <div class="col-6 content-text" style="padding-bottom: 75px">
@@ -433,6 +437,12 @@ export default {
         left: -900px
       }
 
+      .cloud3 {
+        animation: cloud3 8s linear infinite;
+        top: 400px;
+        left: -950px
+      }
+
       @keyframes cloud1 {
           0%   {right: 30px;}
           50% {right: 70px;}
@@ -443,6 +453,12 @@ export default {
           0%   {left: -900px;}
           50% {left: -850px;}
           100% {left: -900px;}
+      }
+
+      @keyframes cloud3 {
+          0%   {left: -500px;}
+          50% {left: -600px;}
+          100% {left: -500px;}
       }
     }
 
@@ -482,9 +498,10 @@ export default {
       }
 
       .dragonbg {
-        background-image: url('../assets/dragon.png');
+        background-image: url('../assets/mainScreen.jpg');
         background-size: cover;
         margin-left: 30px;
+        background-position: center center;
 
         @media(max-width: 1024px) {
           & {
