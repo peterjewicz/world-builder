@@ -7,10 +7,13 @@
       </div>
     </div>
     <div class="Controls">
-      <button class="button primary">Add Card</button>
+      <button v-on:click="onAddCard" class="button primary">Add Card</button>
     </div>
     <div class="canvasParent">
       <div id="canvas">
+        <div v-for="card in cards" class="card">
+          {{card.name}}
+        </div>
       </div>
     </div>
   </div>
@@ -18,23 +21,39 @@
 
 <script>
 import Header from '../pages/includes/Header';
-import panzoom from 'panzoom'
+import panzoom from 'panzoom';
+import displace from 'displacejs';
 // const axios = require('axios');
 // const api = process.env.API;
+
+const cardDefault = {name: 'test'}
 
 export default {
   name: 'StoryBuilder',
   components: {
     Header
   },
-  // data () {
-  // },
+  data () {
+    return {
+      cards: []
+    }
+  },
   mounted() {
     const element = document.querySelector('#canvas')
     panzoom(element, {boundsPadding: 1, bounds: true})
   },
   methods: {
+    onAddCard() {
+      this.cards.push(cardDefault)
+      const elements = document.getElementsByClassName('card')
 
+      // should probably do something better here
+      setTimeout(function() {
+        for (let element of elements) {
+          displace(element)
+        }
+      }, 300);
+    }
   }
 }
 </script>
@@ -52,6 +71,7 @@ export default {
       width: 3000px;
       height: 3000px;
       background: #1e2121;
+      position: relative;
 
       &:after {
         content: "";
@@ -68,6 +88,13 @@ export default {
         background-size: 200px 200px;
         background-repeat: repeat;
       }
+    }
+
+    .card {
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      background: white;
     }
   }
 </style>
