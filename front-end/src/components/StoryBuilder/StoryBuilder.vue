@@ -11,8 +11,8 @@
     </div>
     <div class="canvasParent">
       <div id="canvas">
-        <div v-for="card in cards" class="card">
-          {{card.name}}
+        <div v-for="card in cards" class="card" :id="card.id" :style="{top: card.top, left: card.left}">
+          <p>{{card.name}}</p>
         </div>
       </div>
     </div>
@@ -23,17 +23,20 @@
 import Header from '../pages/includes/Header';
 import panzoom from 'panzoom';
 import displace from 'displacejs';
-// const axios = require('axios');
-// const api = process.env.API;
+import { v1 as uuid } from 'uuid';
 
-const cardDefault = {name: 'test'}
+const axios = require('axios');
+const api = process.env.API;
+
+const cardDefault = {
+  name: 'name',
+  left: '0px',
+  top: '0px',
+  content: ''
+}
 
 const onMoveEventStart = (handler) => {
   handler.pause()
-}
-
-const onMoveEventEnd = (handler) => {
-  handler.resume()
 }
 
 export default {
@@ -44,28 +47,75 @@ export default {
   data () {
     return {
       panHandler: null,
-      cards: []
+      cards: [],
+      currentStory: ''
     }
   },
   mounted() {
+    this.currentStory = this.$route.params.id
     const element = document.querySelector('#canvas')
     this.panHandler = panzoom(element, {boundsPadding: 1, bounds: true})
+
+    const currentStoryVals = this.$store.getters.getValues.stories.filter(story => story._id === this.$route.params.id)[0]
+    this.cards = JSON.parse(currentStoryVals.stories)
+
+    const elements = document.getElementsByClassName('card')
+    setTimeout(() => {
+      for (let element of elements) {
+        displace(element, {
+          constrain: true,
+          onMouseDown: () => onMoveEventStart(this.panHandler),
+          onMouseUp: (elem) => this.onMoveEventEnd(elem)
+        })
+      }
+    }, 300);
   },
   methods: {
+    onMoveEventEnd (elem) {
+      // console.log(elem.id)
+      this.panHandler.resume()
+      this.cards = this.cards.map(card => {
+        return card.id === elem.id ? {...card, top: elem.style.top, left: elem.style.left} : card
+      })
+      this.saveCards()
+    },
     onAddCard() {
-      this.cards.push(cardDefault)
+      this.cards.push({...cardDefault, id: uuid()})
       const elements = document.getElementsByClassName('card')
 
       // should probably do something better here
       setTimeout(() => {
+        this.saveCards()
         for (let element of elements) {
           displace(element, {
             constrain: true,
             onMouseDown: () => onMoveEventStart(this.panHandler),
-            onMouseUp: () => onMoveEventEnd(this.panHandler)
+            onMouseUp: (elem) => this.onMoveEventEnd(elem)
           })
         }
       }, 300);
+    },
+
+    saveCards() {
+      // called after every card state change
+      // needs to be debounced in the edit so we don't get a million updates
+      axios({
+        url: api + `/story/editCards/${this.currentStory}`,
+        method: 'post',
+        data: {
+          values: JSON.stringify(this.cards)},
+        headers: {'token': localStorage.getItem('token')}
+      }).then(response => {
+        // TODO may need to handle it here
+      }).catch(error => {
+        if (error.response.status === 401) {
+          this.dropdownText = 'Your login is invalid, please login to continue';
+        } else {
+          this.dropdownText = 'An unknown error has occured. Please try again or contact support.'
+        }
+        this.dropdownColor = 'red';
+        this.dropdownActive = true;
+      })
     }
   }
 }
