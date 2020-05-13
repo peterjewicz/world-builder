@@ -28,6 +28,14 @@ import displace from 'displacejs';
 
 const cardDefault = {name: 'test'}
 
+const onMoveEventStart = (handler) => {
+  handler.pause()
+}
+
+const onMoveEventEnd = (handler) => {
+  handler.resume()
+}
+
 export default {
   name: 'StoryBuilder',
   components: {
@@ -35,12 +43,13 @@ export default {
   },
   data () {
     return {
+      panHandler: null,
       cards: []
     }
   },
   mounted() {
     const element = document.querySelector('#canvas')
-    panzoom(element, {boundsPadding: 1, bounds: true})
+    this.panHandler = panzoom(element, {boundsPadding: 1, bounds: true})
   },
   methods: {
     onAddCard() {
@@ -48,9 +57,13 @@ export default {
       const elements = document.getElementsByClassName('card')
 
       // should probably do something better here
-      setTimeout(function() {
+      setTimeout(() => {
         for (let element of elements) {
-          displace(element)
+          displace(element, {
+            constrain: true,
+            onMouseDown: () => onMoveEventStart(this.panHandler),
+            onMouseUp: () => onMoveEventEnd(this.panHandler)
+          })
         }
       }, 300);
     }
