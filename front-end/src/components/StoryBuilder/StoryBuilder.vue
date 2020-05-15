@@ -6,13 +6,18 @@
         <router-link v-bind:to="`/myStories`"><a><i class="fas fa-arrow-left"></i>Back To Stories</a></router-link>
       </div>
     </div>
-    <div class="Controls">
-      <button v-on:click="onAddCard" class="button primary">Add Card</button>
-    </div>
     <div class="canvasParent">
+      <div class="Controls">
+        <button v-on:click="onAddCard" class="button">+ Card</button>
+      </div>
       <div id="canvas">
         <div v-for="card in cards" class="card" :id="card.id" :style="{top: card.top, left: card.left}">
-          <p>{{card.name}}</p>
+          <div class="cardHeader">
+            <p>{{card.name}}</p>
+          </div>
+          <div class="cardBody">
+            <input type="text" v-model="card.content"/>
+          </div>
         </div>
       </div>
     </div>
@@ -29,10 +34,10 @@ const axios = require('axios');
 const api = process.env.API;
 
 const cardDefault = {
-  name: 'name',
+  name: 'Click To Edit',
   left: '0px',
   top: '0px',
-  content: ''
+  content: 'contents'
 }
 
 const onMoveEventStart = (handler) => {
@@ -65,14 +70,15 @@ export default {
         displace(element, {
           constrain: true,
           onMouseDown: () => onMoveEventStart(this.panHandler),
-          onMouseUp: (elem) => this.onMoveEventEnd(elem)
+          onMouseUp: (elem) => this.onMoveEventEnd(elem),
+          ignoreFn: (evt) => event.target.closest('input') != null
+
         })
       }
     }, 300);
   },
   methods: {
     onMoveEventEnd (elem) {
-      // console.log(elem.id)
       this.panHandler.resume()
       this.cards = this.cards.map(card => {
         return card.id === elem.id ? {...card, top: elem.style.top, left: elem.style.left} : card
@@ -127,8 +133,31 @@ export default {
 
     .canvasParent {
       width: 100%;
-      height: 400px;
+      height: calc(100vh - 79px);
       overflow: hidden;
+      position: relative;
+
+      .Controls {
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: 200;
+
+        button {
+          border: 1px solid white;
+          text-align: center;
+          background: transparent;
+          color: white;
+          transition: all .5s;
+          font-size: 1.25rem;
+
+          &:hover {
+            background: white;
+            color: black;
+            cursor: pointer;
+          }
+        }
+      }
     }
     #canvas {
       width: 3000px;
@@ -158,6 +187,11 @@ export default {
       width: 200px;
       height: 200px;
       background: white;
+
+      input {
+        width: 90%;
+        margin: 0 auto;
+      }
     }
   }
 </style>
