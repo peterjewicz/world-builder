@@ -29,6 +29,7 @@ import Header from '../pages/includes/Header';
 import panzoom from 'panzoom';
 import displace from 'displacejs';
 import { v1 as uuid } from 'uuid';
+import store from '../../store/store.js';
 
 const axios = require('axios');
 const api = process.env.API;
@@ -61,6 +62,7 @@ export default {
     const element = document.querySelector('#canvas')
     this.panHandler = panzoom(element, {boundsPadding: 1, bounds: true})
 
+    console.log(JSON.parse(JSON.parse(JSON.stringify(this.$store.getters.getValues.stories))[1].stories))
     const currentStoryVals = this.$store.getters.getValues.stories.filter(story => story._id === this.$route.params.id)[0]
     this.cards = JSON.parse(currentStoryVals.stories)
 
@@ -112,7 +114,8 @@ export default {
           values: JSON.stringify(this.cards)},
         headers: {'token': localStorage.getItem('token')}
       }).then(response => {
-        // TODO may need to handle it here
+        // we don't need the response as on success we have the current value
+        store.commit('updateCurrentStory', {storyId: this.currentStory, cards: JSON.stringify(this.cards)})
       }).catch(error => {
         if (error.response.status === 401) {
           this.dropdownText = 'Your login is invalid, please login to continue';
