@@ -6,7 +6,7 @@
     <input v-model="itemTitle" type="text" name="title" />
 
     <label for="date">Date</label>
-    <input v-model="itemDate"  type="text" name="date" />
+    <input v-model="itemDate" placeholder="Enter Numbers Only" type="text" name="date" />
 
     <label for="title">Description</label>
     <textarea v-model="itemDesc"  type="text" name="description" />

@@ -152,7 +152,7 @@ export default {
           currentId: this.currentId},
         headers: {'token': localStorage.getItem('token')}
       }).then(response => {
-        this.dropdownText = 'Your Character Has Been Added!';
+        this.dropdownText = 'Your Character Has Been Saved!';
         this.dropdownColor = 'green';
         this.dropdownActive = true;
 

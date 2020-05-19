@@ -13,6 +13,7 @@
       <div id="canvas">
         <div v-for="card in cards" class="card" :id="card.id" :style="{top: card.top, left: card.left}">
           <div class="cardHeader">
+            <div v-on:click="onDeleteCard(card.id)" class="cardDelete">X</div>
             <input class="cardHeaderInput" v-model="card.name"/>
           </div>
           <div class="cardBody">
@@ -110,7 +111,10 @@ export default {
         }
       }, 300);
     },
-
+    onDeleteCard(id) {
+      this.cards = this.cards.filter(card => card.id !== id)
+      this.saveCards()
+    },
     saveCards() {
       // called after every card state change
       // needs to be debounced in the edit so we don't get a million updates
@@ -198,6 +202,16 @@ export default {
       height: 200px;
       background: white;
 
+      .cardHeader {
+        position: relative;
+
+        .cardDelete {
+          position: absolute;
+          top: 0;
+          right: 0;
+        }
+      }
+
       .cardHeaderInput {
         border: none;
         text-align: center;
@@ -214,6 +228,8 @@ export default {
         box-sizing: border-box !important;
         width: 100% !important;
         border-radius: 0px !important;
+        height: 150px !important;
+        max-height: 150px !important;
       }
     }
 

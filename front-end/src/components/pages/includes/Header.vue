@@ -20,7 +20,7 @@
           <select class="header-select" v-model="currentWorld">
             <option v-for="world in worlds" :value="world._id">{{ world.name }}</option>
           </select>
-          <router-link v-bind:to="'create-world'"><span class="addWorld hover-darkblue">Add World +</span></router-link>
+          <!-- <router-link v-bind:to="'create-world'"><span class="addWorld hover-darkblue">Add World +</span></router-link> -->
         </div>
         <div class="settings-link">
           <router-link v-bind:to="'/settings'"><i class="fas fa-user"></i></router-link>
@@ -166,7 +166,7 @@ export default {
       padding-bottom: 15px;
 
       input {
-        margin-top: 15px;
+        margin: 0px;
       }
     }
   }
