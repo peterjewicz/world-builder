@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "displacejs": "^1.4.1",
+    "displacejs": "1.3.2",
     "panzoom": "^9.2.4",
     "uuid": "^8.0.0",
     "vue": "^2.5.2",

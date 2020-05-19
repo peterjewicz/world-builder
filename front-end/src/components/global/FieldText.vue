@@ -110,7 +110,7 @@ export default {
       let currentId = e.srcElement.attributes[2].nodeValue
       let currentType = e.srcElement.attributes[3].nodeValue
 
-      let currentValue = `<a target="_blank" href="new/${currentType}/${currentId}">${currentName}</a>`;
+      let currentValue = `<a contentEditable="false" target="_blank" href="new/${currentType}/${currentId}">${currentName}</a>`;
       let preSelectValue = this.fieldValue.substring(this.fieldValue, this.currentAtPosition);
       this.fieldValue = preSelectValue + '@' + currentValue;
       this.atActive = false;

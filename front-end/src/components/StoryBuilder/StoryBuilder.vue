@@ -13,10 +13,10 @@
       <div id="canvas">
         <div v-for="card in cards" class="card" :id="card.id" :style="{top: card.top, left: card.left}">
           <div class="cardHeader">
-            <p>{{card.name}}</p>
+            <input class="cardHeaderInput" v-model="card.name"/>
           </div>
           <div class="cardBody">
-            <input type="text" v-model="card.content"/>
+            <FormText @valueChanged="formValueChanged($event, card.id)" v-bind:value="card.content" largeField="false" linkable="true" searchEntities="character,creature,region,city,pointofinterest,religion,language,spell,item,planet,technology"/>
           </div>
         </div>
       </div>
@@ -30,6 +30,7 @@ import panzoom from 'panzoom';
 import displace from 'displacejs';
 import { v1 as uuid } from 'uuid';
 import store from '../../store/store.js';
+import FormText from '../global/FieldText';
 
 const axios = require('axios');
 const api = process.env.API;
@@ -48,7 +49,8 @@ const onMoveEventStart = (handler) => {
 export default {
   name: 'StoryBuilder',
   components: {
-    Header
+    Header,
+    FormText
   },
   data () {
     return {
@@ -62,7 +64,6 @@ export default {
     const element = document.querySelector('#canvas')
     this.panHandler = panzoom(element, {boundsPadding: 1, bounds: true})
 
-    console.log(JSON.parse(JSON.parse(JSON.stringify(this.$store.getters.getValues.stories))[1].stories))
     const currentStoryVals = this.$store.getters.getValues.stories.filter(story => story._id === this.$route.params.id)[0]
     this.cards = JSON.parse(currentStoryVals.stories)
 
@@ -73,7 +74,7 @@ export default {
           constrain: true,
           onMouseDown: () => onMoveEventStart(this.panHandler),
           onMouseUp: (elem) => this.onMoveEventEnd(elem),
-          ignoreFn: (evt) => event.target.closest('input') != null
+          ignoreFn: (evt) => event.target.closest('.field-content') != null
 
         })
       }
@@ -84,6 +85,12 @@ export default {
       this.panHandler.resume()
       this.cards = this.cards.map(card => {
         return card.id === elem.id ? {...card, top: elem.style.top, left: elem.style.left} : card
+      })
+      this.saveCards()
+    },
+    formValueChanged(e, id) {
+      this.cards = this.cards.map(card => {
+        return card.id === id ? {...card, content: e.value} : card
       })
       this.saveCards()
     },
@@ -131,7 +138,7 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
+<style lang="scss">
   .StoryBuilder {
 
     .canvasParent {
@@ -191,10 +198,31 @@ export default {
       height: 200px;
       background: white;
 
+      .cardHeaderInput {
+        border: none;
+        text-align: center;
+      }
+
       input {
         width: 90%;
         margin: 0 auto;
       }
+    }
+    .editr {
+      width: 100% !important;
+      &--content {
+        box-sizing: border-box !important;
+        width: 100% !important;
+        border-radius: 0px !important;
+      }
+    }
+
+    .row .field-content[data-v-bd22776a] {
+      width: 100% !important;
+    }
+
+    .field-details {
+      display: none !important;
     }
   }
 </style>
