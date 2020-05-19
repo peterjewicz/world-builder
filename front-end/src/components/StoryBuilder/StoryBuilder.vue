@@ -207,8 +207,19 @@ export default {
 
         .cardDelete {
           position: absolute;
-          top: 0;
-          right: 0;
+          top: -5px;
+          right: -5px;
+          background: red;
+          width: 20px;
+          height: 20px;
+          border-radius: 50%;
+          color: white;
+          transition: all .5s;
+
+          &:hover {
+            filter: brightness(85%);
+            cursor: pointer;
+          }
         }
       }
 

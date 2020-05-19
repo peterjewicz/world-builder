@@ -3,6 +3,7 @@
     <div class="field-details">
       <h4>{{this.title}}</h4>
       <p>{{this.description}}</p>
+      <p class="linkableText" v-if="this.linkable">Type '@' To Link To Other Entities!</p>
     </div>
     <div class="field-content">
       <!-- <input type="text" v-model="fieldValue" v-on:change="handleValueChange" v-on:input="handleInput"/> -->
@@ -129,6 +130,14 @@ export default {
     max-width: 620px;
     margin: 0 auto;
     justify-content: center;
+
+    .linkableText {
+      font-size: .6rem;
+      margin: 0;
+      padding: 0;
+      position: relative; // bit of a hack to get this close to main text and maintain bottom margin on mobile
+      bottom: 10px;
+    }
 
     .field-details {
       text-align: left;
