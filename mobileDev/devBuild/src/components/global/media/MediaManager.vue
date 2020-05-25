@@ -13,6 +13,7 @@
         <p>Select an image to use or upload a new one!</p>
         <div class="image-wrapper" v-for="(image, index) in userImages">
           <img v-bind:key="index" v-on:click="selectImage(`https://s3.amazonaws.com/worldbuilder-twc/${image.key}`)" v-bind:src="`https://s3.amazonaws.com/worldbuilder-twc/${image.key}`" width="100px"/>
+          <p v-on:click="deleteImage(image.key)">X</p>
         </div>
       </div>
       <div class="newMedia">
@@ -97,13 +98,30 @@ export default {
       formData.append('myFile', this.selectedFile, this.selectedFile.name);
       this.uploadInProgress = true;
       axios({
-        url: `http://localhost:3000/api/worlds/${worldId}/upload`,
+        url: api + `/worlds/${worldId}/upload`,
         method: 'post',
         data: formData,
         headers: {'token': localStorage.getItem('token')}
       }).then(response => {
         this.userImages.push({key: `${worldId}/${this.selectedFile.name}`});
         this.uploadInProgress = false;
+      }).catch(e => {
+        alert("You've Reach The Max Image Upload Amount")
+        this.uploadInProgress = false;
+      })
+    },
+    deleteImage(key) {
+      const worldId = this.$store.getters.getCurrentWorld;
+      axios({
+        url: `http://localhost:3000/api/worlds/${worldId}/image/delete`,
+        method: 'post',
+        data: {imageId: key}, // sent as data as the id is bucket/id which ends up hitting the wrong route
+        headers: {'token': localStorage.getItem('token')}
+      }).then(response => {
+        let newArray = this.userImages.filter((image) => {
+          return image.key !== key
+        })
+        this.userImages = newArray
       })
     },
     _emitValues() {
@@ -225,12 +243,32 @@ export default {
       width: 260px;
       height: 200px;
       overflow: hidden;
+      position: relative;
+
       img{
         min-width: 100%;
         max-width: none;
         width: auto;
         min-height: 100%;
         max-height: 100%;
+      }
+
+      p {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        background: red;
+        width: 25px;
+        height: 25px;
+        line-height: 25px;
+        color: white;
+        margin: 0;
+        transition: all .25s;
+        cursor: pointer;
+
+        &:hover {
+          filter: brightness(85%);
+        }
       }
     }
 

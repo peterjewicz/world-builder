@@ -14,7 +14,7 @@
       </div>
     </div>
 
-    <button class="primary large" v-on:click="addLocation">Save Location!</button>
+    <button class="primary large saveButton" v-on:click="addLocation">Save Location!</button>
   </div>
 </template>
 

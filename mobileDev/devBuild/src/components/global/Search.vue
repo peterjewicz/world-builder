@@ -16,7 +16,6 @@
 </template>
 
 <script>
-// import store from '../../store/store.js';
 
 export default {
   name: 'Search',
@@ -43,11 +42,13 @@ export default {
         // TODO we might want to see about limiting which fields it goes through.
         for (let property in currentStoreState) {
           currentStoreState[property].forEach(item => {
-            for (let itemProp in item.value.overview) {
-              if (item.value.overview[itemProp].includes(currentSearchVal)) {
-                let itemCopy = item;
-                itemCopy.type = property;
-                this.searchResults.push(itemCopy);
+            if (item.stories === undefined) { // we don't care aobut stories
+              for (let itemProp in item.value.overview) {
+                if (item.value.overview[itemProp].includes(currentSearchVal)) {
+                  let itemCopy = item;
+                  itemCopy.type = property;
+                  this.searchResults.push(itemCopy);
+                }
               }
             }
           })
@@ -119,12 +120,32 @@ export default {
     @media(max-width: 768px) {
       input {
         width: 100%;
-        position: relative;
-        top: 30px;
       }
 
       .searchResults {
         top: 61px;
+      }
+    }
+
+    @media(max-width: 600px) {
+      display: none;
+    }
+  }
+
+  // dirty override for hte hamburger search sorry
+  @media(max-width: 600px) {
+    .hamburgerSearch .Search{
+      display: block;
+      margin:  0 auto;
+      width: 90%;
+
+      .searchResults {
+        top: 31px;
+        width: 90%;
+      }
+
+      input {
+        width: 90%;
       }
     }
   }

@@ -37,22 +37,27 @@
       <div class="cloud cloud2">
         <img :src="getImage('cloud')" width="100px"/>
       </div>
+
+      <div class="cloud cloud3">
+        <img :src="getImage('cloud')" width="100px"/>
+      </div>
     </div>
     <div class="content-row">
-      <div class="col-6 content-text">
+      <div class="col-6 content-text" style="padding-bottom: 75px">
         <h2 class="purpleText">A New World At Your Fingertips</h2>
         <p>
-          Worldbuilder is built to make creating worlds as easy as possible.
+          Worlds Crafter is built to make creating worlds as easy as possible.
           Never forget a fact, never contradict yourself again. With all your facts
           contained in one place it makes building your worlds as easy as possible.
         </p>
         <p>
-          Whether you're a writer, dungeon master, or just love building worlds Worldbuilder
+          Whether you're a writer, dungeon master, or just love building worlds, Worlds Crafter
           is the perfect tool to help keep you oragnized. Our preloaded entities give you
           thee power to create neatly organized worlds that will make keeping everything
-          in sycn.
+          in sync.
         </p>
-        <a href="#" target="_blank"><img class="hover-image" :src="getImage('ios-download')" width="200px"/></a>
+        <!-- <a href="#" target="_blank"><img class="hover-image" :src="getImage('ios-download')" width="200px"/></a> -->
+        <h4 style="margin-top: 8px;">IOS App - Coming Soon</h4>
         <h4 style="margin-top: 8px;">Google Play - Coming Soon</h4>
       </div>
       <div class="col-6 dragonbg">
@@ -70,26 +75,28 @@
           <h2>Create Worlds</h2>
           <p>
             Separate your ideas by building worlds. All your characters, locations, and other ideas
-            live in your world, and can be linked and referenced together. This let's you easily focus on multiple
-            ideas. Free users are limited to a single world, while paid members are allowed an unlimited
+            live in your world, and can be linked and referenced together. This lets you easily focus on multiple
+            ideas while still keeping a cohesive structure. Free users are limited to a single world, while paid members are allowed an unlimited
             number of worlds. In either case, there is no limit to how many entities you can add to a world. Create
             an unlimited number of characters and other types for all of your worlds.
           </p>
         </div>
         <div class="col-6">
-          <img :src="getImageJPG('flowitem1-2')"/>
+          <img :src="getImageJPG('home_img1')"/>
+          <!-- <img :src="getImageJPG('flowitem1-2')"/> -->
         </div>
       </div>
 
       <div class="flow-item">
         <div class="col-6">
-          <img :src="getImageJPG('flowitem2-2')"/>
+          <img :src="getImageJPG('home_img2')"/>
+          <!-- <img :src="getImageJPG('flowitem2-2')"/> -->
         </div>
         <div class="col-6">
           <h2>Add Details</h2>
           <p>
             For each of your worlds add as much or little details as you want. The olny limit is your own
-            imagination. WorldsCrafter comes packed with a bunch of pre-made templates with common fields to help
+            imagination. Worlds Crafter comes packed with a bunch of pre-made templates with common fields to help
             get you started qucikly. Don't see what you need? Let us know! We're always looking to improve the software
             to help make it more diverse and powerful for all our users.
           </p>
@@ -107,6 +114,7 @@
           </p>
         </div>
         <div class="col-6">
+          <!-- <img :src="getImageJPG('home_img3')"/> -->
           <img :src="getImageJPG('flowitem3-2')"/>
         </div>
       </div>
@@ -210,7 +218,7 @@
       <router-link v-bind:to="'privacy'">Privacy Policy</router-link> |
       <router-link v-bind:to="'terms'">Terms Of Use</router-link>
       <br>
-      Copyright 2018 - Worlds Crafter - Built and Owned By <a href="http://www.totalwebconnections.com" target="_blank">
+      Copyright 2019 - Worlds Crafter - Built and Owned By <a href="http://www.totalwebconnections.com" target="_blank">
         Total Web Connections</a>
     </div>
   </div>
@@ -429,6 +437,12 @@ export default {
         left: -900px
       }
 
+      .cloud3 {
+        animation: cloud3 8s linear infinite;
+        top: 400px;
+        left: -950px
+      }
+
       @keyframes cloud1 {
           0%   {right: 30px;}
           50% {right: 70px;}
@@ -439,6 +453,12 @@ export default {
           0%   {left: -900px;}
           50% {left: -850px;}
           100% {left: -900px;}
+      }
+
+      @keyframes cloud3 {
+          0%   {left: -500px;}
+          50% {left: -600px;}
+          100% {left: -500px;}
       }
     }
 
@@ -478,9 +498,10 @@ export default {
       }
 
       .dragonbg {
-        background-image: url('../assets/dragon.png');
+        background-image: url('../assets/mainScreen.jpg');
         background-size: cover;
         margin-left: 30px;
+        background-position: center center;
 
         @media(max-width: 1024px) {
           & {

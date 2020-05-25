@@ -36,7 +36,7 @@
     <Social v-bind:active="socialActive" />
     <History @valueChanged="valuesChanged" v-bind:values="this.historyValues" v-bind:active="historyActive" />
     <Media @valueChanged="valuesChanged" v-bind:values="this.mediaValue" v-bind:active="mediaActive" />
-    <button class="primary large" v-on:click="addCharacter">Save Character!</button>
+    <button class="primary large saveButton" v-on:click="addCharacter">Save Character!</button>
   </div>
 </template>
 
@@ -152,7 +152,7 @@ export default {
           currentId: this.currentId},
         headers: {'token': localStorage.getItem('token')}
       }).then(response => {
-        this.dropdownText = 'Your Character Has Been Added!';
+        this.dropdownText = 'Your Character Has Been Saved!';
         this.dropdownColor = 'green';
         this.dropdownActive = true;
 
@@ -201,6 +201,15 @@ export default {
       }
     }
   }
+
+  .saveButton {
+    margin: 25px 0;
+    max-width: 90%;
+  }
+
+    .editr--content {
+      max-width: 90% !important;
+    }
 
   @media(max-width: 768px) {
     .statsWrapper {

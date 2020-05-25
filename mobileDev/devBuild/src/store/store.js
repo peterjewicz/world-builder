@@ -40,6 +40,28 @@ const mutations = {
    */
   saveValue: (state, payload) => {
     state.values = payload;
+  },
+  /**
+   * Adds a new story to the store
+   * @param {Object} story - a story object
+   * @param {Object} payload - object of current state
+   */
+  addStory: (state, payload) => {
+    state.values.stories.push(payload)
+  },
+  /**
+   * Updates a specific story with a new set of cards
+   * @param {Object} state - the current state
+   * @param {Object} payload - id of the story to update and cards to save
+   */
+  updateCurrentStory: (state, payload) => {
+    let {storyId, cards} = payload
+
+    const updatedStories = state.values.stories.map(story => {
+      return story._id === storyId ? {...story, stories: cards} : story
+    })
+
+    state.values.stories = updatedStories
   }
 };
 

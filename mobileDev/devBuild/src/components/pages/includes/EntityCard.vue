@@ -38,11 +38,13 @@ export default {
     min-width: 215px;
     height: 125px;
     margin: 20px;
-    border: 2px solid #444;
+    border: 2px solid #555;
     display: flex;
     flex-direction: column;
     color: white;
-    background: #555;
+    // background: #555; old
+    background: #4f5f6f;
+    box-shadow: 0px 3px 15px rgba(0,0,0,0.4);
 
     img {
       margin: 0 auto;
