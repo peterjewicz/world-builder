@@ -29,6 +29,9 @@ import Technology from '@/components/technology/Technology';
 import MyStories from '@/components/StoryBuilder/MyStories'
 import StoryBuilder from '@/components/StoryBuilder/StoryBuilder'
 
+import Privacy from '@/components/pages/frontend/Privacy'
+import Terms from '@/components/pages/frontend/Terms'
+
 // Bring in all the required liraries and extras
 const axios = require('axios');
 const api = process.env.API;
@@ -41,6 +44,16 @@ export default new Router({
       path: '/',
       name: 'Home',
       component: Home
+    },
+    {
+      path: '/privacy',
+      name: 'Privacy',
+      component: Privacy
+    },
+    {
+      path: '/terms',
+      name: 'Terms',
+      component: Terms
     },
     {
       path: '/pricing', // still a homepage route
