@@ -38,6 +38,19 @@ const api = process.env.API;
 
 Vue.use(Router)
 
+const handleSubpageLogAndData = (to, from, next) => {
+  if (localStorage.getItem('token')) {
+    console.log(store.getters.getCurrentWorld)
+    if (store.getters.getCurrentWorld) {
+      next();
+    } else {
+      next({ path: '/dashboard' })
+    }
+  } else {
+    next({ path: 'login' })
+  }
+}
+
 export default new Router({
   routes: [
     {
@@ -95,82 +108,98 @@ export default new Router({
     {
       path: '/view/:entity?/:id?',
       name: 'View',
-      component: View
+      component: View,
+      beforeEnter: handleSubpageLogAndData
     },
     {
       path: '/new/character/:id?',
       name: 'Create-Character',
-      component: Character
+      component: Character,
+      beforeEnter: handleSubpageLogAndData
     },
     {
       path: '/new/location/:id?',
       name: 'Create-Location',
-      component: Location
+      component: Location,
+      beforeEnter: handleSubpageLogAndData
     },
     {
       path: '/new/region/:id?',
       name: 'Create-Region',
-      component: Region
+      component: Region,
+      beforeEnter: handleSubpageLogAndData
     },
     {
       path: '/new/city/:id?',
       name: 'Create-City',
-      component: City
+      component: City,
+      beforeEnter: handleSubpageLogAndData
     },
     {
       path: '/new/pointOfInterest/:id?',
       name: 'Create-PointOfInterst',
-      component: PointOfInterest
+      component: PointOfInterest,
+      beforeEnter: handleSubpageLogAndData
     },
     {
       path: '/new/creature/:id?',
       name: 'Create-Creature',
-      component: Creature
+      component: Creature,
+      beforeEnter: handleSubpageLogAndData
     },
     {
       path: '/new/religion/:id?',
       name: 'Create-Religion',
-      component: Religion
+      component: Religion,
+      beforeEnter: handleSubpageLogAndData
     },
     {
       path: '/new/language/:id?',
       name: 'Create-Language',
-      component: Language
+      component: Language,
+      beforeEnter: handleSubpageLogAndData
     },
     {
       path: '/new/spell/:id?',
       name: 'Create-Spell',
-      component: Spell
+      component: Spell,
+      beforeEnter: handleSubpageLogAndData
     },
     {
       path: '/new/item/:id?',
       name: 'Create-Item',
-      component: Item
+      component: Item,
+      beforeEnter: handleSubpageLogAndData
     },
     {
       path: '/new/planet/:id?',
       name: 'Create-Planet',
-      component: Planet
+      component: Planet,
+      beforeEnter: handleSubpageLogAndData
     },
     {
       path: '/new/technology/:id?',
       name: 'Create-Technology',
-      component: Technology
+      component: Technology,
+      beforeEnter: handleSubpageLogAndData
     },
     {
       path: '/storyBuilder/:id?',
       name: 'Story-Builder',
-      component: StoryBuilder
+      component: StoryBuilder,
+      beforeEnter: handleSubpageLogAndData
     },
     {
       path: '/myStories',
       name: 'My-Stories',
-      component: MyStories
+      component: MyStories,
+      beforeEnter: handleSubpageLogAndData
     },
     {
       path: '/all/:entity',
       name: 'View-Entity',
-      component: ViewAll
+      component: ViewAll,
+      beforeEnter: handleSubpageLogAndData
     },
     {
       path: '/dashboard',
