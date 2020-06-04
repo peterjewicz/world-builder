@@ -3,6 +3,9 @@
     <div v-if="showHome" class="homeButton">
       <router-link v-bind:to="'/dashboard'"><i class="fas fa-home"></i></router-link>
     </div>
+    <div v-if="showHomeFront" class="homeButton">
+      <router-link v-bind:to="'/'"><i class="fas fa-home"></i></router-link>
+    </div>
     <h4>Worlds Crafter</h4>
   </div>
 </template>
@@ -11,7 +14,7 @@
 
 export default {
   name: 'Header',
-  props: ['showHome'],
+  props: ['showHome', 'showHomeFront'],
   data () {
     return {
     }
