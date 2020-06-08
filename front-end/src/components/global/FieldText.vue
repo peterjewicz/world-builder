@@ -117,6 +117,7 @@ export default {
       this.atActive = false;
       this.showEntityPicker = false;
       this.currentAtPosition = null;
+      this.handleValueChange()
     }
   }
 }
