@@ -1,5 +1,8 @@
 <template>
   <div class="Settings">
+    <div class="paymentOverlay" v-bind:class="{ active: processingPayment }">
+      <h2>Processing Payment... Please Wait</h2>
+    </div>
     <Header titleText="Settings" homeActive="true" hideWorlds="true"/>
 
     <div class="maxWidthWrap">
@@ -57,7 +60,8 @@ export default {
       stripeToken: '',
       subToken: '',
       submitting: false,
-      email: localStorage.getItem('email')
+      email: localStorage.getItem('email'),
+      processingPayment: false
     }
   },
   mounted() {
@@ -112,6 +116,7 @@ export default {
           // Inform the customer that there was an error.
           const errorElement = document.getElementById('card-errors');
           errorElement.textContent = error.message;
+          this.submitting = false
         } else {
           // Send the token to your server.
           stripeTokenHandler(token);
@@ -122,6 +127,7 @@ export default {
     });
 
     const stripeTokenHandler = (token) => {
+      this.processingPayment = true
       // Insert the token ID into the form so it gets submitted to the server
       const form = document.getElementById('payment-form');
       const hiddenInput = document.createElement('input');
@@ -142,10 +148,12 @@ export default {
         alert('Signup Successfull');
         this.activeCustomer = true;
         this.submitting = false;
+        this.processingPayment = false
       }).catch((e) => {
         console.log('SIGNUP ERROR')
         alert('There was a problem charging your card. Please try again.')
         this.submitting = false;
+        this.processingPayment = false
       })
     }
 
@@ -192,6 +200,23 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
   .Settings {
+
+    .paymentOverlay {
+      position: absolute;
+      z-index: 50;
+      left: 0;
+      top: 0;
+      height: 100vh;
+      width: 100%;
+      background: rgba(230,230,230,0.85);
+      flex-direction: column;
+      justify-content: center;
+      display: none;
+
+      &.active {
+        display: flex;
+      }
+    }
 
     .settingsRow {
       border-bottom: 2px solid #dedede;
