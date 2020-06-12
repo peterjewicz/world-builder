@@ -40,7 +40,6 @@ Vue.use(Router)
 
 const handleSubpageLogAndData = (to, from, next) => {
   if (localStorage.getItem('token')) {
-    console.log(store.getters.getCurrentWorld)
     if (store.getters.getCurrentWorld) {
       next();
     } else {

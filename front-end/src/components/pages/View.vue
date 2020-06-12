@@ -11,7 +11,7 @@
       <div class="View-body-flexWrapper">
         <div class="View-body-flex-content">
           <h2>Bio</h2>
-          <p v-html="modifiedEntity.bio"></p>
+          <p @click="handleLinkClick" v-html="modifiedEntity.bio"></p>
           <div class="View-body-item" v-for="(properties, property) in modifiedEntity.full">
             <h3>{{property}}</h3>
             <div class="View-body-property" v-for="(attrValue, attribute) in modifiedEntity.full[property]" v-if="attrValue">
@@ -23,7 +23,7 @@
           <img v-if="modifiedEntity.media"  v-bind:src="modifiedEntity.media" width="100%" />
           <img v-else :src="getPic('generic')" width="100%" />
           <div class="View-body-preview-item" v-if="properties" v-for="(properties, property) in modifiedEntity.preview">
-            <h5>{{property}} :</h5> <p>{{properties}}</p>
+            <h5>{{property}} :</h5> <p @click="handleLinkClick">{{properties}}</p>
           </div>
         </div>
       </div>
@@ -58,16 +58,7 @@ export default {
   },
   mounted() {
     reload(this);
-    const values = this.$store.getters.getValues;
-    const group = values[this.$route.params.entity]
-    const entitySettings = settings[this.$route.params.entity]
-    const currentEntity = group.filter(char => {
-      if (char._id === this.$route.params.id) {
-        return true;
-      }
-    });
-    this.modifiedEntity = this.generateEntityView(currentEntity[0], entitySettings);
-    this.currentEntity = currentEntity[0]
+    this.onMount()
   },
   computed: {
     // getEntities() {
@@ -76,7 +67,26 @@ export default {
     //   return storeSegment;
     // }
   },
+  watch: {
+    '$route' (to, from) {
+      if (to.params.id !== from.params.id) {
+        this.onMount()
+      }
+    }
+  },
   methods: {
+    onMount() {
+      const values = this.$store.getters.getValues;
+      const group = values[this.$route.params.entity]
+      const entitySettings = settings[this.$route.params.entity]
+      const currentEntity = group.filter(char => {
+        if (char._id === this.$route.params.id) {
+          return true;
+        }
+      });
+      this.modifiedEntity = this.generateEntityView(currentEntity[0], entitySettings);
+      this.currentEntity = currentEntity[0]
+    },
     worldUpdated(currentWorld) {
       axios({
         url: api + '/worlds/' + currentWorld + '/entities',
@@ -117,6 +127,16 @@ export default {
     },
     getPic(image) {
       return require('../../assets/' + image + '.png');
+    },
+    handleLinkClick(event) {
+      event.preventDefault();
+      let { target } = event;
+      if (target && target.tagName === 'A') {
+        const url = new URL(target.href);
+        const to = url.hash;
+
+        this.$router.push(to.replace('#', ''));
+      }
     }
   }
 }
