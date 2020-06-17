@@ -13,7 +13,7 @@
 
       <div class="settingsRow">
         <h2>Billing</h2>
-        <h3>All Features: 7$/Month</h3>
+        <h3>All Features: $7/Month</h3>
         <p>Signup today to receive unlimited worlds and storage, along with all future features.
           Your card will be billed immediately and continue at $7 per month. You can cancel at anytime from this page.</p>
         <template v-if="!activeCustomer">
