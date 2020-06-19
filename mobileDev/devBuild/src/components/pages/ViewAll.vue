@@ -11,6 +11,7 @@
       <template v-if="getEntities.length > 0">
         <div class="entity" v-for="entity in getEntities">
           <img v-if="entity.value.media" v-bind:src="`${entity.value.media}`" width="100%" />
+          <img v-else :src="getPic('generic')" width="100%" />
           <h5>Name: <span v-html="entity.value.overview.name">{{entity.value.overview.name}}</span></h5>
           <router-link v-bind:to="`/view/${entityType}/${entity._id}`"><button class="primary">View</button></router-link>
           <router-link v-bind:to="`/new/${entityType}/${entity._id}`"><button class="primary">Edit</button></router-link>
@@ -59,6 +60,9 @@ export default {
       }).then(response => {
         store.commit('saveValue', response.data)
       })
+    },
+    getPic(image) {
+      return require('../../assets/' + image + '.png');
     }
   }
 }

@@ -47,6 +47,7 @@ export default {
     background: red;
     transition: all .5s;
     color:white;
+    z-index: 50;
 
     &.active {
       top: 0px;

@@ -41,6 +41,7 @@ export default {
     values: function(newVal, oldVal) {
       this.ageValue = newVal.age;
       this.nameValue = newVal.name;
+      this.bioValue = newVal.bio;
       this.genderValue = newVal.gender;
       this.nicknameValue = newVal.nickname;
       this.roleValue = newVal.role
@@ -50,7 +51,6 @@ export default {
     formValueChanged(e) {
       const title = e.field.toLowerCase();
       this[title + 'Value'] = e.value;
-
       this._emitValues();
     },
     _emitValues() {

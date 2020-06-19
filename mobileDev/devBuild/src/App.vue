@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <transition name="slide-fade">
+    <!-- <transition name="slide-fade"> -->
       <router-view></router-view>
-    </transition>
+    <!-- </transition> -->
   </div>
 </template>
 

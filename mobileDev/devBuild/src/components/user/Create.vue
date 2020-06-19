@@ -44,7 +44,7 @@ export default {
 
       if (validated.results) {
         axios.post(api + '/create-user', {
-          username: this.username,
+          username: this.username.toLowerCase(),
           email: this.email,
           password: this.password
         })

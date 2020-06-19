@@ -34,7 +34,7 @@ export default {
     handleLogin() {
       this.loginError = false; // hide it so there's feedback each time
       axios.post(api + '/login', {
-        username: this.username,
+        username: this.username.toLowerCase(),
         password: this.password
       })
         .then((response) => {

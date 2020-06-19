@@ -11,18 +11,19 @@
       <div class="View-body-flexWrapper">
         <div class="View-body-flex-content">
           <h2>Bio</h2>
-          <p v-html="modifiedEntity.bio"></p>
+          <p @click="handleLinkClick" v-html="modifiedEntity.bio"></p>
           <div class="View-body-item" v-for="(properties, property) in modifiedEntity.full">
-            <h2>{{property}}</h2>
-            <div class="View-body-property" v-for="(attrValue, attribute) in modifiedEntity.full[property]">
-              <h4 v-if="attrValue">{{attribute}}:</h4> <p>{{attrValue}}</p>
+            <h3>{{property}}</h3>
+            <div class="View-body-property" v-for="(attrValue, attribute) in modifiedEntity.full[property]" v-if="attrValue">
+              <h4>{{attribute}}:</h4> <p>{{attrValue}}</p>
             </div>
           </div>
         </div>
         <div class="View-body-preview">
-          <img  v-bind:src="modifiedEntity.media" width="100%" />
-          <div class="View-body-preview-item" v-for="(properties, property) in modifiedEntity.preview">
-            <h4>{{property}} :</h4> <p>{{properties}}</p>
+          <img v-if="modifiedEntity.media"  v-bind:src="modifiedEntity.media" width="100%" />
+          <img v-else :src="getPic('generic')" width="100%" />
+          <div class="View-body-preview-item" v-if="properties" v-for="(properties, property) in modifiedEntity.preview">
+            <h5>{{property}} :</h5> <p @click="handleLinkClick">{{properties}}</p>
           </div>
         </div>
       </div>
@@ -57,16 +58,7 @@ export default {
   },
   mounted() {
     reload(this);
-    const values = this.$store.getters.getValues;
-    const group = values[this.$route.params.entity]
-    const entitySettings = settings[this.$route.params.entity]
-    const currentEntity = group.filter(char => {
-      if (char._id === this.$route.params.id) {
-        return true;
-      }
-    });
-    this.modifiedEntity = this.generateEntityView(currentEntity[0], entitySettings);
-    this.currentEntity = currentEntity[0]
+    this.onMount()
   },
   computed: {
     // getEntities() {
@@ -75,7 +67,26 @@ export default {
     //   return storeSegment;
     // }
   },
+  watch: {
+    '$route' (to, from) {
+      if (to.params.id !== from.params.id) {
+        this.onMount()
+      }
+    }
+  },
   methods: {
+    onMount() {
+      const values = this.$store.getters.getValues;
+      const group = values[this.$route.params.entity]
+      const entitySettings = settings[this.$route.params.entity]
+      const currentEntity = group.filter(char => {
+        if (char._id === this.$route.params.id) {
+          return true;
+        }
+      });
+      this.modifiedEntity = this.generateEntityView(currentEntity[0], entitySettings);
+      this.currentEntity = currentEntity[0]
+    },
     worldUpdated(currentWorld) {
       axios({
         url: api + '/worlds/' + currentWorld + '/entities',
@@ -113,6 +124,19 @@ export default {
         }
       }
       return returnObj;
+    },
+    getPic(image) {
+      return require('../../assets/' + image + '.png');
+    },
+    handleLinkClick(event) {
+      event.preventDefault();
+      let { target } = event;
+      if (target && target.tagName === 'A') {
+        const url = new URL(target.href);
+        const to = url.hash;
+
+        this.$router.push(to.replace('#', ''));
+      }
     }
   }
 }
@@ -130,6 +154,10 @@ export default {
 
     img {
       min-height: 200px;
+    }
+
+    h5, h3 {
+      text-transform: capitalize;
     }
 
     &-flexWrapper {
@@ -167,6 +195,9 @@ export default {
             padding-top: 6px;
             text-transform: capitalize;
           }
+          h5, h3 {
+            text-transform: capitalize;
+          }
         }
       }
 
@@ -183,12 +214,13 @@ export default {
 
           p {
             line-height: 2rem;
+            margin: 0;
           }
 
-          h4 {
-            margin: 5px 10px;
-            padding-top: 6px;
+          h5 {
+            margin: 0;
             text-transform: capitalize;
+            padding-right: 10px;
           }
         }
       }
